@@ -13,6 +13,8 @@
 		C9E4B3A514B8C440006D7B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C9E4B3A314B8C440006D7B1F /* Credits.rtf */; };
 		C9E4B3A814B8C440006D7B1F /* CurrentsongAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3A714B8C440006D7B1F /* CurrentsongAppDelegate.m */; };
 		C9E4B3AB14B8C440006D7B1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E4B3A914B8C440006D7B1F /* MainMenu.xib */; };
+		C9E4B3B914B8D469006D7B1F /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E4B3B814B8D469006D7B1F /* ScriptingBridge.framework */; };
+		C9E4B3BC14B8DAE3006D7B1F /* CurrentsongStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,14 +23,18 @@
 		C9E4B39714B8C440006D7B1F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C9E4B39814B8C440006D7B1F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C9E4B39914B8C440006D7B1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C9E4B39C14B8C440006D7B1F /* Currentsong-Info.plist */ = {isa = PBXFileReference; path = "Currentsong-Info.plist"; sourceTree = "<group>"; };
+		C9E4B39C14B8C440006D7B1F /* Currentsong-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Currentsong-Info.plist"; sourceTree = "<group>"; };
 		C9E4B39E14B8C440006D7B1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9E4B3A014B8C440006D7B1F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C9E4B3A214B8C440006D7B1F /* Currentsong-Prefix.pch */ = {isa = PBXFileReference; path = "Currentsong-Prefix.pch"; sourceTree = "<group>"; };
+		C9E4B3A214B8C440006D7B1F /* Currentsong-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Currentsong-Prefix.pch"; sourceTree = "<group>"; };
 		C9E4B3A414B8C440006D7B1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		C9E4B3A614B8C440006D7B1F /* CurrentsongAppDelegate.h */ = {isa = PBXFileReference; path = CurrentsongAppDelegate.h; sourceTree = "<group>"; };
+		C9E4B3A614B8C440006D7B1F /* CurrentsongAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentsongAppDelegate.h; sourceTree = "<group>"; };
 		C9E4B3A714B8C440006D7B1F /* CurrentsongAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentsongAppDelegate.m; sourceTree = "<group>"; };
 		C9E4B3AA14B8C440006D7B1F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C9E4B3B714B8D42E006D7B1F /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
+		C9E4B3B814B8D469006D7B1F /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		C9E4B3BA14B8DAE3006D7B1F /* CurrentsongStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentsongStatusView.h; sourceTree = "<group>"; };
+		C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentsongStatusView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E4B3B914B8D469006D7B1F /* ScriptingBridge.framework in Frameworks */,
 				C9E4B39514B8C440006D7B1F /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				C9E4B39414B8C440006D7B1F /* Cocoa.framework */,
+				C9E4B3B814B8D469006D7B1F /* ScriptingBridge.framework */,
 				C9E4B39614B8C440006D7B1F /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -82,8 +90,11 @@
 		C9E4B39A14B8C440006D7B1F /* Currentsong */ = {
 			isa = PBXGroup;
 			children = (
+				C9E4B3B714B8D42E006D7B1F /* iTunes.h */,
 				C9E4B3A614B8C440006D7B1F /* CurrentsongAppDelegate.h */,
 				C9E4B3A714B8C440006D7B1F /* CurrentsongAppDelegate.m */,
+				C9E4B3BA14B8DAE3006D7B1F /* CurrentsongStatusView.h */,
+				C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */,
 				C9E4B3A914B8C440006D7B1F /* MainMenu.xib */,
 				C9E4B39B14B8C440006D7B1F /* Supporting Files */,
 			);
@@ -167,6 +178,7 @@
 			files = (
 				C9E4B3A114B8C440006D7B1F /* main.m in Sources */,
 				C9E4B3A814B8C440006D7B1F /* CurrentsongAppDelegate.m in Sources */,
+				C9E4B3BC14B8DAE3006D7B1F /* CurrentsongStatusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

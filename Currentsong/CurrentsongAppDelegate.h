@@ -8,10 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CurrentsongAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow *window;
+@interface CurrentsongAppDelegate : NSObject <NSApplicationDelegate>
+{
+    NSStatusItem *mStatusItem;
+    IBOutlet NSMenu *mMenu;    
 }
-
-@property (assign) IBOutlet NSWindow *window;
 
 @end
