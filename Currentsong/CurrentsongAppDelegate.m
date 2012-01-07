@@ -6,12 +6,13 @@
 //  Copyright 2012 Matt Sarnoff. All rights reserved.
 //
 
-#import "CurrentsongAppDelegate.h"
 #import "iTunes.h"
+#import "CurrentsongStatusView.h"
+#import "CurrentsongPreferenceKeys.h"
+#import "CurrentsongAppDelegate.h"
 
 @interface CurrentsongAppDelegate ()
 - (NSDictionary *)fetchTrackInfo;
-- (void)updateTrackInfo:(NSDictionary *)trackInfo;
 @end
 
 
@@ -19,7 +20,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
 }
 
 // Artist - Name - Album
@@ -27,13 +27,30 @@
 
 - (void)awakeFromNib
 {
+    // Initialize preferences
+    [[NSUserDefaults standardUserDefaults] registerDefaults:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [NSNumber numberWithInteger:kCSStyleFormatted], kCSPrefViewStyle,
+      [NSNumber numberWithBool:YES], kCSPrefShowArtist,
+      [NSNumber numberWithBool:NO], kCSPrefShowAlbum,
+      nil]];
+
     // Install status item
     mStatusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
     [mStatusItem setHighlightMode:YES];
+    mStatusView = [[CurrentsongStatusView alloc] init];
+    mStatusView.statusItem = mStatusItem;
+    
+    // Set up view preferences
+    mStatusView.viewStyle   = (CurrentsongViewStyle)[[NSUserDefaults standardUserDefaults] integerForKey:kCSPrefViewStyle];
+    mStatusView.showArtist  = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowArtist];
+    mStatusView.showAlbum   = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowAlbum];
+    
+    [mStatusItem setView:mStatusView];
     
     // Get initial track info
     NSDictionary *initialTrackInfo = [self fetchTrackInfo];
-    [self updateTrackInfo:initialTrackInfo];
+    [mStatusView updateTrackInfo:initialTrackInfo];
     
     // Start listening to iTunes notifications
     NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
@@ -44,56 +61,14 @@
 {
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
     [mStatusItem release];
+    [mStatusView release];
     [super dealloc];
 }
 
 // Handle play state and track changes
 - (void)trackInfoDidChange:(NSNotification *)notification
 {
-    [self updateTrackInfo:[notification userInfo]];
-}
-
-// Update track info
-- (void)updateTrackInfo:(NSDictionary *)trackInfo
-{
-    // If trackInfo is nil, interpret this as iTunes not running or the player stopped
-    NSString *playerState = [trackInfo objectForKey:@"Player State"];
-    
-    if (!trackInfo || !playerState || [playerState isEqualToString:@"Stopped"]) {
-        [mStatusItem setTitle:@"\u266B"]; // musical note icon
-        return;
-    }
-    
-    NSString *artist = [trackInfo objectForKey:@"Artist"];
-    NSString *name = [trackInfo objectForKey:@"Name"];
-    NSString *album = [trackInfo objectForKey:@"Album"];
-    NSString *streamTitle = [trackInfo objectForKey:@"Stream Title"];
-    
-    // Streaming?
-    if (streamTitle) {
-        album = name;
-        name = streamTitle;
-    }
-    
-    NSLog(@"Artist: %@", artist);
-    NSLog(@"Name:   %@", name);
-    NSLog(@"Album:  %@", album);
-    
-    BOOL haveArtist = ([artist length] > 0);
-    BOOL haveName = ([name length] > 0);
-    BOOL haveAlbum = ([album length] > 0);
-    
-    NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
-    if (haveArtist) [fields addObject:artist];
-    if (haveName)   [fields addObject:name];
-    if (haveAlbum)  [fields addObject:album];
-    
-    NSString *pausedIcon = ([playerState isEqualToString:@"Paused"] ? @"\u275A\u275A " : @"");
-    
-    NSString *fullStatus = [NSString stringWithFormat:@"%@%@",
-                            pausedIcon,
-                            [fields componentsJoinedByString:@" - "]];
-    [mStatusItem setTitle:fullStatus];
+    [mStatusView updateTrackInfo:[notification userInfo]];
 }
 
 // Fetch track info directly using Scripting Bridge
@@ -104,7 +79,6 @@
 
     // Application not found or not running
     if (!iTunes || ![iTunes isRunning]) {
-        NSLog(@"itunes not running");
         return nil;
     }
     

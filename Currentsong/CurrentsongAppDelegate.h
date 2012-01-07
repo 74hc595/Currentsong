@@ -8,9 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class CurrentsongStatusView;
+
 @interface CurrentsongAppDelegate : NSObject <NSApplicationDelegate>
 {
     NSStatusItem *mStatusItem;
+    CurrentsongStatusView *mStatusView;
     IBOutlet NSMenu *mMenu;    
 }
 

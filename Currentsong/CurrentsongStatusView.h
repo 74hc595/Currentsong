@@ -10,10 +10,8 @@
 
 typedef enum
 {
-    kCSStylePlain,
-    kCSStylePlainSmall,
     kCSStyleFormatted,
-    kCSStyleFormattedSmall,
+    kCSStylePlain,
     kCSStyleTwoLevel
 } CurrentsongViewStyle;
 
@@ -23,22 +21,27 @@ typedef enum
 
     // Properties
     CurrentsongViewStyle mViewStyle;
+    BOOL mShowArtist;
+    BOOL mShowAlbum;
     BOOL mScroll;
     
     // Track data
-    BOOL isRunningAndNotStopped;
     BOOL isPaused;
+    BOOL mIsStream;
     NSString *mArtist;
     NSString *mName;
     NSString *mAlbum;
     
-    NSAttributedString *topRow;
-    NSAttributedString *bottomRow;
+    NSAttributedString *mTopRow;
+    NSAttributedString *mBottomRow;
 }
 
 @property (nonatomic,retain) NSStatusItem *statusItem;
 @property (nonatomic,assign) CurrentsongViewStyle viewStyle;
+@property (nonatomic,assign) BOOL showArtist;
+@property (nonatomic,assign) BOOL showAlbum;
 @property (nonatomic,assign) BOOL scroll;
+
 
 // Update track info from dictionary provided by iTunes distributed notification
 - (void)updateTrackInfo:(NSDictionary *)trackInfo;

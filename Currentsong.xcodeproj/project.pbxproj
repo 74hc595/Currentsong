@@ -15,6 +15,9 @@
 		C9E4B3AB14B8C440006D7B1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E4B3A914B8C440006D7B1F /* MainMenu.xib */; };
 		C9E4B3B914B8D469006D7B1F /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E4B3B814B8D469006D7B1F /* ScriptingBridge.framework */; };
 		C9E4B3BC14B8DAE3006D7B1F /* CurrentsongStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */; };
+		C9E4B3C214B8FBF9006D7B1F /* NSAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */; };
+		C9E4B3C514B8FE20006D7B1F /* NSFontAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3C414B8FE20006D7B1F /* NSFontAdditions.m */; };
+		C9E4B3C814B90138006D7B1F /* CurrentsongPreferenceKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3C714B90138006D7B1F /* CurrentsongPreferenceKeys.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,12 @@
 		C9E4B3B814B8D469006D7B1F /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		C9E4B3BA14B8DAE3006D7B1F /* CurrentsongStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentsongStatusView.h; sourceTree = "<group>"; };
 		C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentsongStatusView.m; sourceTree = "<group>"; };
+		C9E4B3C014B8FBF9006D7B1F /* NSAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAttributedStringAdditions.h; sourceTree = "<group>"; };
+		C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAttributedStringAdditions.m; sourceTree = "<group>"; };
+		C9E4B3C314B8FE20006D7B1F /* NSFontAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFontAdditions.h; sourceTree = "<group>"; };
+		C9E4B3C414B8FE20006D7B1F /* NSFontAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFontAdditions.m; sourceTree = "<group>"; };
+		C9E4B3C614B90138006D7B1F /* CurrentsongPreferenceKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentsongPreferenceKeys.h; sourceTree = "<group>"; };
+		C9E4B3C714B90138006D7B1F /* CurrentsongPreferenceKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentsongPreferenceKeys.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +104,12 @@
 				C9E4B3A714B8C440006D7B1F /* CurrentsongAppDelegate.m */,
 				C9E4B3BA14B8DAE3006D7B1F /* CurrentsongStatusView.h */,
 				C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */,
+				C9E4B3C614B90138006D7B1F /* CurrentsongPreferenceKeys.h */,
+				C9E4B3C714B90138006D7B1F /* CurrentsongPreferenceKeys.m */,
+				C9E4B3C314B8FE20006D7B1F /* NSFontAdditions.h */,
+				C9E4B3C414B8FE20006D7B1F /* NSFontAdditions.m */,
+				C9E4B3C014B8FBF9006D7B1F /* NSAttributedStringAdditions.h */,
+				C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */,
 				C9E4B3A914B8C440006D7B1F /* MainMenu.xib */,
 				C9E4B39B14B8C440006D7B1F /* Supporting Files */,
 			);
@@ -179,6 +194,9 @@
 				C9E4B3A114B8C440006D7B1F /* main.m in Sources */,
 				C9E4B3A814B8C440006D7B1F /* CurrentsongAppDelegate.m in Sources */,
 				C9E4B3BC14B8DAE3006D7B1F /* CurrentsongStatusView.m in Sources */,
+				C9E4B3C214B8FBF9006D7B1F /* NSAttributedStringAdditions.m in Sources */,
+				C9E4B3C514B8FE20006D7B1F /* NSFontAdditions.m in Sources */,
+				C9E4B3C814B90138006D7B1F /* CurrentsongPreferenceKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
