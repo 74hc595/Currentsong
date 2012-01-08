@@ -7,5 +7,6 @@
 //
 
 NSString * const kCSPrefViewStyle = @"viewStyle";
+NSString * const kCSPrefMaxWidth = @"maxWidth";
 NSString * const kCSPrefShowArtist = @"showArtist";
 NSString * const kCSPrefShowAlbum = @"showAlbum";

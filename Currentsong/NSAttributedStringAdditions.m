@@ -15,14 +15,6 @@
 {
     NSFont *font = [NSFont menuFontOfSize:12];
 
-    static NSShadow *shadow = nil;
-    if (!shadow)
-    {
-        shadow = [[NSShadow alloc] init];
-        [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.25]];
-        [shadow setShadowOffset:NSMakeSize(0, -1)];
-        [shadow setShadowBlurRadius:0];
-    }
     
     /*
     static NSFont *italicFont = nil;
@@ -43,7 +35,6 @@
     
     return [NSDictionary dictionaryWithObjectsAndKeys:
             font, NSFontAttributeName,
-            shadow, NSShadowAttributeName,
             color, NSForegroundColorAttributeName,
             nil];
 }

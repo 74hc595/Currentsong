@@ -10,7 +10,8 @@
 #import "CurrentsongPreferenceKeys.h"
 #import "NSAttributedStringAdditions.h"
 
-#define kCSViewSideMargin  5
+#define kCSViewSideMargin       5
+#define kCSViewPauseIconOffset  13
 
 @interface CurrentsongStatusView ()
 @property (nonatomic,retain) NSString *artist;
@@ -25,6 +26,7 @@
 
 @synthesize statusItem = mStatusItem;
 @synthesize viewStyle = mViewStyle;
+@synthesize maxWidth = mMaxWidth;
 @synthesize showArtist = mShowArtist;
 @synthesize showAlbum = mShowAlbum;
 @synthesize scroll = mScroll;
@@ -46,6 +48,31 @@
     [super dealloc];
 }
 
+// Mimic the white shadow under menu item text in the menu bar
++ (NSShadow *)menuBarShadow
+{
+    static NSShadow *shadow = nil;
+    if (!shadow)
+    {
+        shadow = [[NSShadow alloc] init];
+        [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.25]];
+        [shadow setShadowOffset:NSMakeSize(0, -1)];
+        [shadow setShadowBlurRadius:0];
+    }
+    
+    return shadow;
+}
+
+- (void)drawPauseIcon
+{
+    NSPoint iconOrigin = NSMakePoint(5,7);
+    [[NSColor blackColor] set];
+    NSRect rect = NSMakeRect(iconOrigin.x,iconOrigin.y,3,9);
+    [NSBezierPath fillRect:rect];
+    rect.origin.x += 5;
+    [NSBezierPath fillRect:rect];
+}
+
 - (void)drawSingleRowInRect:(NSRect)rect
 {
     if (!mTopRow) {
@@ -54,20 +81,29 @@
         
     NSSize viewSize = [self frame].size;
     NSSize textSize = [mTopRow size];
-    NSPoint textOrigin = NSMakePoint(ceil((viewSize.width - textSize.width)/2),
-                                     ceil((viewSize.height - textSize.height)/2)+1);
-    
+
+    NSPoint textOrigin = NSMakePoint(kCSViewSideMargin, ceil((viewSize.height - textSize.height)/2)+1);
+    if (mShowPauseIcon) {
+        textOrigin.x += kCSViewPauseIconOffset;
+        [self drawPauseIcon];
+    }
+
     [mTopRow drawAtPoint:textOrigin];
 }
 
 - (void)drawRect:(NSRect)rect
 {
+//    [[NSColor redColor] set];
+//    NSRectFill([self bounds]);
+    
     [NSGraphicsContext saveGraphicsState];
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     
     // disabling font smoothing draws text makes it look just like other menu items and the clock
     CGContextSetShouldSmoothFonts(context, NO);
     
+    // add subtle white shadow to match other menu bar text
+    [[CurrentsongStatusView menuBarShadow] set];
     
     if (mTopRow && !mBottomRow) {
         [self drawSingleRowInRect:rect];
@@ -79,17 +115,28 @@
 - (void)updateBounds
 {
     CGFloat height = mStatusItem.statusBar.thickness;
-    CGFloat topRowWidth = (mTopRow) ? [mTopRow size].width+10 : 0;
+    CGFloat topRowWidth = (mTopRow) ? [mTopRow size].width : 0;
     CGFloat bottomRowWidth = (mBottomRow) ? [mBottomRow size].width : 0;
     CGFloat width = MAX(topRowWidth, bottomRowWidth);
-    width = MAX(width, 22);
-    width += kCSViewSideMargin;
+    //width = MAX(width, 22);
+    width += kCSViewSideMargin*2;
+
+    if (mShowPauseIcon) {
+        width += kCSViewPauseIconOffset;
+    }
+    
+    // If mMaxWidth is greater than 0, enforce maximum width
+    if (mMaxWidth > 0) {
+        width = MIN(mMaxWidth, width);
+    }
     
     [self setFrame:NSMakeRect(0, 0, width, height)];
+    [self setNeedsDisplay:YES];
 }
 
 - (void)setNotPlaying
 {
+    mShowPauseIcon = NO;
     self.bottomRow = nil;
     self.topRow = [NSAttributedString plainAttributedStringForMenuBar:@"\u266B"];
     
@@ -150,6 +197,9 @@
         return;
     }
     
+    NSString *playerState = [trackInfo objectForKey:@"Player State"];
+    mShowPauseIcon = ([playerState isEqualToString:@"Stopped"] || [playerState isEqualToString:@"Paused"]);
+    
     // Streaming?
     if (streamTitle) {
         mIsStream = YES;
@@ -160,6 +210,28 @@
     }
     
     [self setTrackInfo];
+}
+
+#pragma mark -
+
+- (void)setViewStyle:(CurrentsongViewStyle)viewStyle
+{
+    mViewStyle = viewStyle; [self updateBounds];
+}
+
+- (void)setMaxWidth:(CGFloat)maxWidth
+{
+    mMaxWidth = maxWidth; [self updateBounds];
+}
+
+- (void)setShowArtist:(BOOL)showArtist
+{
+    mShowArtist = showArtist; [self updateBounds];
+}
+
+- (void)setShowAlbum:(BOOL)showAlbum
+{
+    mShowAlbum = showAlbum; [self updateBounds];
 }
 
 @end

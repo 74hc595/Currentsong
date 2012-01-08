@@ -18,6 +18,10 @@
 
 @implementation CurrentsongAppDelegate
 
+static CGFloat largeViewSize()  { return 500; }
+static CGFloat mediumViewSize() { return 350; }
+static CGFloat smalliewSize()   { return 200; }
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 }
@@ -31,6 +35,7 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:
      [NSDictionary dictionaryWithObjectsAndKeys:
       [NSNumber numberWithInteger:kCSStyleFormatted], kCSPrefViewStyle,
+      [NSNumber numberWithDouble:500], kCSPrefMaxWidth,
       [NSNumber numberWithBool:YES], kCSPrefShowArtist,
       [NSNumber numberWithBool:NO], kCSPrefShowAlbum,
       nil]];
@@ -43,6 +48,7 @@
     
     // Set up view preferences
     mStatusView.viewStyle   = (CurrentsongViewStyle)[[NSUserDefaults standardUserDefaults] integerForKey:kCSPrefViewStyle];
+    mStatusView.maxWidth    = [[NSUserDefaults standardUserDefaults] doubleForKey:kCSPrefMaxWidth];
     mStatusView.showArtist  = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowArtist];
     mStatusView.showAlbum   = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowAlbum];
     

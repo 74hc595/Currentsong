@@ -15,18 +15,20 @@ typedef enum
     kCSStyleTwoLevel
 } CurrentsongViewStyle;
 
+
 @interface CurrentsongStatusView : NSView
 {
     NSStatusItem *mStatusItem;
 
     // Properties
     CurrentsongViewStyle mViewStyle;
+    CGFloat mMaxWidth;
     BOOL mShowArtist;
     BOOL mShowAlbum;
     BOOL mScroll;
     
     // Track data
-    BOOL isPaused;
+    BOOL mShowPauseIcon;
     BOOL mIsStream;
     NSString *mArtist;
     NSString *mName;
@@ -38,6 +40,7 @@ typedef enum
 
 @property (nonatomic,retain) NSStatusItem *statusItem;
 @property (nonatomic,assign) CurrentsongViewStyle viewStyle;
+@property (nonatomic,assign) CGFloat maxWidth;
 @property (nonatomic,assign) BOOL showArtist;
 @property (nonatomic,assign) BOOL showAlbum;
 @property (nonatomic,assign) BOOL scroll;
