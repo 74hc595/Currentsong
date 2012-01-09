@@ -171,6 +171,16 @@
         [menuItem setState:(mStatusView.maxWidth == kCSViewWidthMedium)];
     } else if ([menuItem action] == @selector(setSmallViewWidth:)) {
         [menuItem setState:(mStatusView.maxWidth == kCSViewWidthSmall)];
+    } else if ([menuItem action] == @selector(setTitleOnly:)) {
+        [menuItem setState:(!mStatusView.showArtist && !mStatusView.showAlbum && !(mStatusView.viewStyle == kCSStyleTwoLevel))];
+    } else if ([menuItem action] == @selector(setTitleAndArtist:)) {
+        [menuItem setState:(mStatusView.showArtist && !mStatusView.showAlbum && !(mStatusView.viewStyle == kCSStyleTwoLevel))];
+    } else if ([menuItem action] == @selector(setTitleArtistAlbum:)) {
+        [menuItem setState:(mStatusView.showArtist && mStatusView.showAlbum && !(mStatusView.viewStyle == kCSStyleTwoLevel))];
+    } else if ([menuItem action] == @selector(setTitleAndArtistStacked:)) {
+        [menuItem setState:(mStatusView.showArtist && !mStatusView.showAlbum && (mStatusView.viewStyle == kCSStyleTwoLevel))];
+    } else if ([menuItem action] == @selector(setTitleArtistAlbumStacked:)) {
+        [menuItem setState:(mStatusView.showArtist && mStatusView.showAlbum && (mStatusView.viewStyle == kCSStyleTwoLevel))];
     }
     return YES;
 }
@@ -285,6 +295,44 @@
         [self toggleShowArtist:self];
     }
 }
+
+- (void)writeDisplayPreference
+{
+    [[NSUserDefaults standardUserDefaults] setBool:mStatusView.showArtist forKey:kCSPrefShowArtist];
+    [[NSUserDefaults standardUserDefaults] setBool:mStatusView.showAlbum forKey:kCSPrefShowAlbum];
+    [[NSUserDefaults standardUserDefaults] setInteger:mStatusView.viewStyle forKey:kCSPrefViewStyle];
+}
+
+- (IBAction)setTitleOnly:(id)sender
+{
+    [mStatusView setShowArtist:NO showAlbum:NO viewStyle:kCSStyleFormatted];
+    [self writeDisplayPreference];
+}
+
+- (IBAction)setTitleAndArtist:(id)sender
+{
+    [mStatusView setShowArtist:YES showAlbum:NO viewStyle:kCSStyleFormatted];
+    [self writeDisplayPreference];
+}
+
+- (IBAction)setTitleArtistAlbum:(id)sender
+{
+    [mStatusView setShowArtist:YES showAlbum:YES viewStyle:kCSStyleFormatted];
+    [self writeDisplayPreference];
+}
+
+- (IBAction)setTitleAndArtistStacked:(id)sender
+{
+    [mStatusView setShowArtist:YES showAlbum:NO viewStyle:kCSStyleTwoLevel];
+    [self writeDisplayPreference];
+}
+
+- (IBAction)setTitleArtistAlbumStacked:(id)sender;
+{
+    [mStatusView setShowArtist:YES showAlbum:YES viewStyle:kCSStyleTwoLevel];
+    [self writeDisplayPreference];
+}
+
 
 - (IBAction)toggleScrollLongText:(id)sender
 {

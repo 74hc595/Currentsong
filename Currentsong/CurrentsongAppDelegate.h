@@ -30,6 +30,12 @@
 - (IBAction)toggleTwoLineDisplay:(id)sender;
 - (IBAction)toggleScrollLongText:(id)sender;
 
+- (IBAction)setTitleOnly:(id)sender;
+- (IBAction)setTitleAndArtist:(id)sender;
+- (IBAction)setTitleArtistAlbum:(id)sender;
+- (IBAction)setTitleAndArtistStacked:(id)sender;
+- (IBAction)setTitleArtistAlbumStacked:(id)sender;
+
 - (IBAction)setLargeViewWidth:(id)sender;
 - (IBAction)setMediumViewWidth:(id)sender;
 - (IBAction)setSmallViewWidth:(id)sender;

@@ -16,6 +16,7 @@
 #define kCSViewScrollDelayInSeconds 2
 #define kCSViewScrollTimerFrequency (1.0/30.0)
 
+#define kCSViewFadeEdges            0
 #define kCSViewScrollStartOffset    (-kCSViewScrollDelayInSeconds/kCSViewScrollTimerFrequency)
 
 @interface CurrentsongStatusView ()
@@ -85,10 +86,10 @@
     [NSBezierPath fillRect:rect];
 }
 
-- (void)generateFadedEdgeMask
+- (void)generateEdgeMask
 {    
     NSSize viewSize = [self frame].size;
-    CGFloat leftEdge = (mShowPauseIcon) ? kCSViewPauseIconOffset+2 : 0;
+    CGFloat leftEdge = (mShowPauseIcon) ? kCSViewPauseIconOffset : 0;
    
     CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
     CGContextRef maskContext = CGBitmapContextCreate(NULL, viewSize.width, viewSize.height, 8, viewSize.width, cs, 0);
@@ -97,6 +98,7 @@
     CGContextSetGrayFillColor(maskContext, 1, 1);
     CGContextFillRect(maskContext, [self bounds]);
     
+#if kCSViewFadeEdges
     if (mShowPauseIcon) {
         CGContextSetGrayFillColor(maskContext, 0, 1);
         CGContextFillRect(maskContext, NSMakeRect(0, 0, leftEdge, viewSize.height));
@@ -104,21 +106,22 @@
     
     CGFloat components[] = {1, 1, 0, 1};
     CGGradientRef gradient = CGGradientCreateWithColorComponents(cs, components, NULL, 2);
+    CGContextDrawLinearGradient(maskContext, gradient, CGPointMake(viewSize.width-kCSViewSideMargin, 0), CGPointMake(viewSize.width,0), 0); // right edge
+    CGContextDrawLinearGradient(maskContext, gradient, CGPointMake(leftEdge+kCSViewSideMargin,0), CGPointMake(leftEdge,0), 0); // left edge
+    CGGradientRelease(gradient);
+#else
+    CGContextSetGrayFillColor(maskContext, 0, 1);    
+    CGContextFillRect(maskContext, NSMakeRect(viewSize.width-kCSViewSideMargin, 0, kCSViewSideMargin, viewSize.height)); // right edge
+    CGContextFillRect(maskContext, NSMakeRect(0, 0, leftEdge+kCSViewSideMargin, viewSize.height)); // left edges
+#endif
     
-    // Right edge
-    CGContextDrawLinearGradient(maskContext, gradient, CGPointMake(viewSize.width-kCSViewSideMargin, 0), CGPointMake(viewSize.width,0), 0);
-
-    // Left edge
-    CGContextDrawLinearGradient(maskContext, gradient, CGPointMake(leftEdge+kCSViewSideMargin,0), CGPointMake(leftEdge,0), 0);
-
     CGImageRelease(mAlphaMask);
     mAlphaMask = CGBitmapContextCreateImage(maskContext);
     mAlphaMaskAccountsForPauseIcon = mShowPauseIcon;
     CGContextRelease(maskContext);
-    CGGradientRelease(gradient);
 }
 
-- (void)setFadedEdgeMask
+- (void)setEdgeMask
 {    
     NSSize viewSize = [self frame].size;
     
@@ -129,7 +132,7 @@
                                  mAlphaMaskAccountsForPauseIcon != mShowPauseIcon);
     
     if (needToRegenerateMask) {
-        [self generateFadedEdgeMask];
+        [self generateEdgeMask];
     }
     
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
@@ -154,7 +157,7 @@
     textOrigin.x -= MAX(0,mTopRowScrollOffset);
     textOrigin.x = floor(textOrigin.x);
     
-    [self setFadedEdgeMask];
+    [self setEdgeMask];
     [mTopRow drawAtPoint:textOrigin];
     
     // If scrolling, draw a second copy of the text
@@ -186,7 +189,7 @@
     topTextOrigin.x = floor(MAX(leftEdge, topTextOrigin.x) - MAX(0,mTopRowScrollOffset));
     bottomTextOrigin.x = floor(MAX(leftEdge, bottomTextOrigin.x) - MAX(0,mBottomRowScrollOffset));
     
-    [self setFadedEdgeMask];
+    [self setEdgeMask];
     [mTopRow drawAtPoint:topTextOrigin];
     [mBottomRow drawAtPoint:bottomTextOrigin];
     
@@ -437,6 +440,16 @@
     mTopRowScrollOffset = kCSViewScrollStartOffset;
     mBottomRowScrollOffset = kCSViewScrollStartOffset;
     [self updateAppearance];
+}
+
+- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum viewStyle:(CurrentsongViewStyle)viewStyle
+{
+    mShowArtist = showArtist;
+    mShowAlbum = showAlbum;
+    mViewStyle = viewStyle;
+    mTopRowScrollOffset = kCSViewScrollStartOffset;
+    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    [self updateAppearance];    
 }
 
 - (void)setShouldScroll:(BOOL)shouldScroll

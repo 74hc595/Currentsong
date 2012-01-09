@@ -55,6 +55,8 @@ typedef enum
 @property (nonatomic,assign) BOOL showAlbum;
 @property (nonatomic,assign) BOOL shouldScroll;
 
+- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum viewStyle:(CurrentsongViewStyle)viewStyle;
+
 // Update track info from dictionary provided by iTunes distributed notification
 - (void)updateTrackInfo:(NSDictionary *)trackInfo;
 
