@@ -96,7 +96,7 @@
     CGColorSpaceRelease(cs);
     
     CGContextSetGrayFillColor(maskContext, 1, 1);
-    CGContextFillRect(maskContext, [self bounds]);
+    CGContextFillRect(maskContext, NSRectToCGRect([self bounds]));
     
 #if kCSViewFadeEdges
     if (mShowPauseIcon) {
@@ -111,8 +111,8 @@
     CGGradientRelease(gradient);
 #else
     CGContextSetGrayFillColor(maskContext, 0, 1);    
-    CGContextFillRect(maskContext, NSMakeRect(viewSize.width-kCSViewSideMargin, 0, kCSViewSideMargin, viewSize.height)); // right edge
-    CGContextFillRect(maskContext, NSMakeRect(0, 0, leftEdge+kCSViewSideMargin, viewSize.height)); // left edges
+    CGContextFillRect(maskContext, CGRectMake(viewSize.width-kCSViewSideMargin, 0, kCSViewSideMargin, viewSize.height)); // right edge
+    CGContextFillRect(maskContext, CGRectMake(0, 0, leftEdge+kCSViewSideMargin, viewSize.height)); // left edges
 #endif
     
     CGImageRelease(mAlphaMask);
@@ -137,7 +137,7 @@
     }
     
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
-    CGContextClipToMask(context, [self bounds], mAlphaMask);
+    CGContextClipToMask(context, NSRectToCGRect([self bounds]), mAlphaMask);
 }
 
 // If yPosition is less than 0, draw the text centered in the view.
