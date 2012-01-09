@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class CurrentsongStatusView;
+@class LaunchAtLoginController;
 
 @interface CurrentsongAppDelegate : NSObject <NSApplicationDelegate,NSMenuDelegate>
 {
@@ -23,6 +24,8 @@
     IBOutlet NSMenuItem *mAlbumMenuItem;
     IBOutlet NSMenuItem *mStreamTitleMenuItem;
     IBOutlet NSMenuItem *mTimeMenuItem;
+
+    IBOutlet LaunchAtLoginController *mLaunchAtLoginController;
 }
 
 - (IBAction)toggleShowArtist:(id)sender;
@@ -39,5 +42,9 @@
 - (IBAction)setLargeViewWidth:(id)sender;
 - (IBAction)setMediumViewWidth:(id)sender;
 - (IBAction)setSmallViewWidth:(id)sender;
+
+- (IBAction)toggleLaunchAtLogin:(id)sender;
+
+- (IBAction)launchITunes:(id)sender;
 
 @end

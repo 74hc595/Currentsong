@@ -121,6 +121,7 @@
     CGContextRelease(maskContext);
 }
 
+// Set the clipping mask to clip the left and right edges of text
 - (void)setEdgeMask
 {    
     NSSize viewSize = [self frame].size;
@@ -167,21 +168,6 @@
     }
 }
 
-- (void)drawTextInRect:(NSRect)rect
-{
-    BOOL twoRows = ([mTopRow length] > 0 && [mBottomRow length] > 0);
-
-    CGFloat leftEdge = kCSViewSideMargin;
-    if (mShowPauseIcon) {
-        leftEdge += kCSViewPauseIconOffset;
-        [self drawPauseIcon];
-    }
-    
-    [self setEdgeMask];
-    [self drawTextRow:mTopRow leftEdge:leftEdge yPosition:((twoRows) ? 11 : kCSDrawTextCentered) scrollOffset:mTopRowScrollOffset];
-    [self drawTextRow:mBottomRow leftEdge:leftEdge yPosition:((twoRows) ? 1 : kCSDrawTextCentered) scrollOffset:mBottomRowScrollOffset];
-}
-
 - (void)drawRect:(NSRect)rect
 {
     [mStatusItem drawStatusBarBackgroundInRect:[self bounds] withHighlight:mHighlighted];
@@ -189,7 +175,7 @@
     [NSGraphicsContext saveGraphicsState];
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
     
-    // disabling font smoothing draws text makes it look just like other menu items and the clock
+    // disable font smoothing; makes text look like it does in other menu items and the clock
     CGContextSetShouldSmoothFonts(context, NO);
 
     // add subtle white shadow to match other menu bar text
@@ -197,7 +183,18 @@
         [[CurrentsongStatusView menuBarShadow] set];
     }
     
-    [self drawTextInRect:rect];
+    // draw pause icon
+    CGFloat leftEdge = kCSViewSideMargin;
+    if (mShowPauseIcon) {
+        leftEdge += kCSViewPauseIconOffset;
+        [self drawPauseIcon];
+    }
+    
+    // set clipping mask and draw text
+    BOOL twoRows = ([mTopRow length] > 0 && [mBottomRow length] > 0);
+    [self setEdgeMask];
+    [self drawTextRow:mTopRow leftEdge:leftEdge yPosition:((twoRows) ? 11 : kCSDrawTextCentered) scrollOffset:mTopRowScrollOffset];
+    [self drawTextRow:mBottomRow leftEdge:leftEdge yPosition:((twoRows) ? 1 : kCSDrawTextCentered) scrollOffset:mBottomRowScrollOffset];
 
     [NSGraphicsContext restoreGraphicsState];
 }

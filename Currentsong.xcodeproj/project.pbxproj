@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C91F1B7114BA3E0C00C40108 /* MSDurationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B7014BA3E0C00C40108 /* MSDurationFormatter.m */; };
+		C91F1B7514BAA7DA00C40108 /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B7414BAA7DA00C40108 /* LaunchAtLoginController.m */; };
 		C9E4B39514B8C440006D7B1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E4B39414B8C440006D7B1F /* Cocoa.framework */; };
 		C9E4B39F14B8C440006D7B1F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9E4B39D14B8C440006D7B1F /* InfoPlist.strings */; };
 		C9E4B3A114B8C440006D7B1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3A014B8C440006D7B1F /* main.m */; };
@@ -23,6 +24,8 @@
 /* Begin PBXFileReference section */
 		C91F1B6F14BA3E0B00C40108 /* MSDurationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDurationFormatter.h; sourceTree = "<group>"; };
 		C91F1B7014BA3E0C00C40108 /* MSDurationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDurationFormatter.m; sourceTree = "<group>"; };
+		C91F1B7314BAA7DA00C40108 /* LaunchAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchAtLoginController.h; sourceTree = "<group>"; };
+		C91F1B7414BAA7DA00C40108 /* LaunchAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchAtLoginController.m; sourceTree = "<group>"; };
 		C9E4B39014B8C440006D7B1F /* Currentsong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Currentsong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E4B39414B8C440006D7B1F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C9E4B39714B8C440006D7B1F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -110,6 +113,8 @@
 				C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */,
 				C91F1B6F14BA3E0B00C40108 /* MSDurationFormatter.h */,
 				C91F1B7014BA3E0C00C40108 /* MSDurationFormatter.m */,
+				C91F1B7314BAA7DA00C40108 /* LaunchAtLoginController.h */,
+				C91F1B7414BAA7DA00C40108 /* LaunchAtLoginController.m */,
 				C9E4B3A914B8C440006D7B1F /* MainMenu.xib */,
 				C9E4B39B14B8C440006D7B1F /* Supporting Files */,
 			);
@@ -197,6 +202,7 @@
 				C9E4B3C214B8FBF9006D7B1F /* NSAttributedStringAdditions.m in Sources */,
 				C9E4B3C814B90138006D7B1F /* CurrentsongPreferenceKeys.m in Sources */,
 				C91F1B7114BA3E0C00C40108 /* MSDurationFormatter.m in Sources */,
+				C91F1B7514BAA7DA00C40108 /* LaunchAtLoginController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

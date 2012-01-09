@@ -8,6 +8,7 @@
 
 #import "iTunes.h"
 #import "MSDurationFormatter.h"
+#import "LaunchAtLoginController.h"
 #import "CurrentsongStatusView.h"
 #import "CurrentsongPreferenceKeys.h"
 #import "CurrentsongAppDelegate.h"
@@ -28,6 +29,21 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    // If this is the first run, prompt the user to select launch at login
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShownLaunchAtLoginPrompt])
+    {
+        NSAlert *alert = [NSAlert alertWithMessageText:NSLocalizedString(@"Start Currentsong when you log in?", @"Launch at login prompt title")
+                                         defaultButton:NSLocalizedString(@"Yes", @"Yes")
+                                       alternateButton:NSLocalizedString(@"No", @"No")
+                                           otherButton:nil
+                             informativeTextWithFormat:NSLocalizedString(
+                          @"Would you like Currentsong to start automatically when you log in? "
+                          @"This setting can also be changed from the Options sub-menu.", @"Launch at login prompt text")];
+        NSInteger result = [alert runModal];
+
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCSPrefShownLaunchAtLoginPrompt];
+        [mLaunchAtLoginController setLaunchAtLogin:(result == NSAlertDefaultReturn)];
+    }
 }
 
 - (void)awakeFromNib
@@ -181,6 +197,13 @@
         [menuItem setState:(mStatusView.showArtist && !mStatusView.showAlbum && (mStatusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(setTitleArtistAlbumStacked:)) {
         [menuItem setState:(mStatusView.showArtist && mStatusView.showAlbum && (mStatusView.viewStyle == kCSStyleTwoLevel))];
+    } else if ([menuItem action] == @selector(toggleLaunchAtLogin:)) {
+        [menuItem setState:[mLaunchAtLoginController launchAtLogin]];
+    } else if ([menuItem action] == @selector(launchITunes:)) {
+        iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+        //[menuItem setHidden:[iTunes isRunning]];
+        [menuItem setTitle:([iTunes isRunning]) ? NSLocalizedString(@"iTunes", @"iTunes")
+                                                : NSLocalizedString(@"Launch iTunes", @"Launch iTunes")];
     }
     return YES;
 }
@@ -333,7 +356,6 @@
     [self writeDisplayPreference];
 }
 
-
 - (IBAction)toggleScrollLongText:(id)sender
 {
     mStatusView.shouldScroll = !mStatusView.shouldScroll;
@@ -359,6 +381,19 @@
 - (IBAction)setSmallViewWidth:(id)sender
 {
     [self setMaxWidth:kCSViewWidthSmall];
+}
+
+- (IBAction)toggleLaunchAtLogin:(id)sender
+{
+    [mLaunchAtLoginController setLaunchAtLogin:![mLaunchAtLoginController launchAtLogin]];
+}
+
+- (IBAction)launchITunes:(id)sender
+{
+    [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:@"com.apple.iTunes"
+                                                         options:0
+                                  additionalEventParamDescriptor:NULL
+                                                launchIdentifier:NULL];
 }
 
 @end
