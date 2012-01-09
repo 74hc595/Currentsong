@@ -7,48 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C91F1B7114BA3E0C00C40108 /* MSDurationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B7014BA3E0C00C40108 /* MSDurationFormatter.m */; };
-		C91F1B7514BAA7DA00C40108 /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B7414BAA7DA00C40108 /* LaunchAtLoginController.m */; };
 		C91F1B7814BABCAA00C40108 /* Currentsong.icns in Resources */ = {isa = PBXBuildFile; fileRef = C91F1B7714BABCAA00C40108 /* Currentsong.icns */; };
+		C91F1B8614BABE7C00C40108 /* CurrentsongAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B7A14BABE7C00C40108 /* CurrentsongAppDelegate.m */; };
+		C91F1B8714BABE7C00C40108 /* CurrentsongPreferenceKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B7C14BABE7C00C40108 /* CurrentsongPreferenceKeys.m */; };
+		C91F1B8814BABE7C00C40108 /* CurrentsongStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B7E14BABE7C00C40108 /* CurrentsongStatusView.m */; };
+		C91F1B8914BABE7C00C40108 /* LaunchAtLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B8114BABE7C00C40108 /* LaunchAtLoginController.m */; };
+		C91F1B8A14BABE7C00C40108 /* MSDurationFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B8314BABE7C00C40108 /* MSDurationFormatter.m */; };
+		C91F1B8B14BABE7C00C40108 /* NSAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B8514BABE7C00C40108 /* NSAttributedStringAdditions.m */; };
+		C91F1B9014BABE9400C40108 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C91F1B8E14BABE9400C40108 /* main.m */; };
+		C91F1B9414BABEBC00C40108 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C91F1B9214BABEBC00C40108 /* InfoPlist.strings */; };
+		C91F1B9714BABEC800C40108 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91F1B9514BABEC800C40108 /* MainMenu.xib */; };
 		C9E4B39514B8C440006D7B1F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E4B39414B8C440006D7B1F /* Cocoa.framework */; };
-		C9E4B39F14B8C440006D7B1F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9E4B39D14B8C440006D7B1F /* InfoPlist.strings */; };
-		C9E4B3A114B8C440006D7B1F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3A014B8C440006D7B1F /* main.m */; };
-		C9E4B3A514B8C440006D7B1F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C9E4B3A314B8C440006D7B1F /* Credits.rtf */; };
-		C9E4B3A814B8C440006D7B1F /* CurrentsongAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3A714B8C440006D7B1F /* CurrentsongAppDelegate.m */; };
-		C9E4B3AB14B8C440006D7B1F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9E4B3A914B8C440006D7B1F /* MainMenu.xib */; };
 		C9E4B3B914B8D469006D7B1F /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E4B3B814B8D469006D7B1F /* ScriptingBridge.framework */; };
-		C9E4B3BC14B8DAE3006D7B1F /* CurrentsongStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */; };
-		C9E4B3C214B8FBF9006D7B1F /* NSAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */; };
-		C9E4B3C814B90138006D7B1F /* CurrentsongPreferenceKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3C714B90138006D7B1F /* CurrentsongPreferenceKeys.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C91F1B6F14BA3E0B00C40108 /* MSDurationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDurationFormatter.h; sourceTree = "<group>"; };
-		C91F1B7014BA3E0C00C40108 /* MSDurationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDurationFormatter.m; sourceTree = "<group>"; };
-		C91F1B7314BAA7DA00C40108 /* LaunchAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchAtLoginController.h; sourceTree = "<group>"; };
-		C91F1B7414BAA7DA00C40108 /* LaunchAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchAtLoginController.m; sourceTree = "<group>"; };
 		C91F1B7714BABCAA00C40108 /* Currentsong.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Currentsong.icns; sourceTree = "<group>"; };
+		C91F1B7914BABE7C00C40108 /* CurrentsongAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrentsongAppDelegate.h; path = Source/CurrentsongAppDelegate.h; sourceTree = SOURCE_ROOT; };
+		C91F1B7A14BABE7C00C40108 /* CurrentsongAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrentsongAppDelegate.m; path = Source/CurrentsongAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		C91F1B7B14BABE7C00C40108 /* CurrentsongPreferenceKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrentsongPreferenceKeys.h; path = Source/CurrentsongPreferenceKeys.h; sourceTree = SOURCE_ROOT; };
+		C91F1B7C14BABE7C00C40108 /* CurrentsongPreferenceKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrentsongPreferenceKeys.m; path = Source/CurrentsongPreferenceKeys.m; sourceTree = SOURCE_ROOT; };
+		C91F1B7D14BABE7C00C40108 /* CurrentsongStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrentsongStatusView.h; path = Source/CurrentsongStatusView.h; sourceTree = SOURCE_ROOT; };
+		C91F1B7E14BABE7C00C40108 /* CurrentsongStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrentsongStatusView.m; path = Source/CurrentsongStatusView.m; sourceTree = SOURCE_ROOT; };
+		C91F1B7F14BABE7C00C40108 /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iTunes.h; path = Source/iTunes.h; sourceTree = SOURCE_ROOT; };
+		C91F1B8014BABE7C00C40108 /* LaunchAtLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LaunchAtLoginController.h; path = Source/LaunchAtLoginController.h; sourceTree = SOURCE_ROOT; };
+		C91F1B8114BABE7C00C40108 /* LaunchAtLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LaunchAtLoginController.m; path = Source/LaunchAtLoginController.m; sourceTree = SOURCE_ROOT; };
+		C91F1B8214BABE7C00C40108 /* MSDurationFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSDurationFormatter.h; path = Source/MSDurationFormatter.h; sourceTree = SOURCE_ROOT; };
+		C91F1B8314BABE7C00C40108 /* MSDurationFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MSDurationFormatter.m; path = Source/MSDurationFormatter.m; sourceTree = SOURCE_ROOT; };
+		C91F1B8414BABE7C00C40108 /* NSAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSAttributedStringAdditions.h; path = Source/NSAttributedStringAdditions.h; sourceTree = SOURCE_ROOT; };
+		C91F1B8514BABE7C00C40108 /* NSAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSAttributedStringAdditions.m; path = Source/NSAttributedStringAdditions.m; sourceTree = SOURCE_ROOT; };
+		C91F1B8D14BABE9400C40108 /* Currentsong-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Currentsong-Prefix.pch"; path = "Source/Currentsong-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		C91F1B8E14BABE9400C40108 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Source/main.m; sourceTree = SOURCE_ROOT; };
+		C91F1B9314BABEBC00C40108 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Source/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		C91F1B9614BABEC800C40108 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Source/en.lproj/MainMenu.xib; sourceTree = SOURCE_ROOT; };
+		C91F1B9814BABF2700C40108 /* Currentsong-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Currentsong-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C9E4B39014B8C440006D7B1F /* Currentsong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Currentsong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E4B39414B8C440006D7B1F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C9E4B39714B8C440006D7B1F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C9E4B39814B8C440006D7B1F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C9E4B39914B8C440006D7B1F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C9E4B39C14B8C440006D7B1F /* Currentsong-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Currentsong-Info.plist"; sourceTree = "<group>"; };
-		C9E4B39E14B8C440006D7B1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C9E4B3A014B8C440006D7B1F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C9E4B3A214B8C440006D7B1F /* Currentsong-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Currentsong-Prefix.pch"; sourceTree = "<group>"; };
-		C9E4B3A414B8C440006D7B1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		C9E4B3A614B8C440006D7B1F /* CurrentsongAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CurrentsongAppDelegate.h; sourceTree = "<group>"; };
-		C9E4B3A714B8C440006D7B1F /* CurrentsongAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentsongAppDelegate.m; sourceTree = "<group>"; };
-		C9E4B3AA14B8C440006D7B1F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		C9E4B3B714B8D42E006D7B1F /* iTunes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iTunes.h; sourceTree = "<group>"; };
 		C9E4B3B814B8D469006D7B1F /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
-		C9E4B3BA14B8DAE3006D7B1F /* CurrentsongStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentsongStatusView.h; sourceTree = "<group>"; };
-		C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentsongStatusView.m; sourceTree = "<group>"; };
-		C9E4B3C014B8FBF9006D7B1F /* NSAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAttributedStringAdditions.h; sourceTree = "<group>"; };
-		C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAttributedStringAdditions.m; sourceTree = "<group>"; };
-		C9E4B3C614B90138006D7B1F /* CurrentsongPreferenceKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentsongPreferenceKeys.h; sourceTree = "<group>"; };
-		C9E4B3C714B90138006D7B1F /* CurrentsongPreferenceKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentsongPreferenceKeys.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +65,7 @@
 		C91F1B7614BABCAA00C40108 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C91F1B9514BABEC800C40108 /* MainMenu.xib */,
 				C91F1B7714BABCAA00C40108 /* Currentsong.icns */,
 			);
 			path = Resources;
@@ -113,20 +112,19 @@
 		C9E4B39A14B8C440006D7B1F /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C9E4B3B714B8D42E006D7B1F /* iTunes.h */,
-				C9E4B3A614B8C440006D7B1F /* CurrentsongAppDelegate.h */,
-				C9E4B3A714B8C440006D7B1F /* CurrentsongAppDelegate.m */,
-				C9E4B3BA14B8DAE3006D7B1F /* CurrentsongStatusView.h */,
-				C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */,
-				C9E4B3C614B90138006D7B1F /* CurrentsongPreferenceKeys.h */,
-				C9E4B3C714B90138006D7B1F /* CurrentsongPreferenceKeys.m */,
-				C9E4B3C014B8FBF9006D7B1F /* NSAttributedStringAdditions.h */,
-				C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */,
-				C91F1B6F14BA3E0B00C40108 /* MSDurationFormatter.h */,
-				C91F1B7014BA3E0C00C40108 /* MSDurationFormatter.m */,
-				C91F1B7314BAA7DA00C40108 /* LaunchAtLoginController.h */,
-				C91F1B7414BAA7DA00C40108 /* LaunchAtLoginController.m */,
-				C9E4B3A914B8C440006D7B1F /* MainMenu.xib */,
+				C91F1B7F14BABE7C00C40108 /* iTunes.h */,
+				C91F1B7914BABE7C00C40108 /* CurrentsongAppDelegate.h */,
+				C91F1B7A14BABE7C00C40108 /* CurrentsongAppDelegate.m */,
+				C91F1B7B14BABE7C00C40108 /* CurrentsongPreferenceKeys.h */,
+				C91F1B7C14BABE7C00C40108 /* CurrentsongPreferenceKeys.m */,
+				C91F1B7D14BABE7C00C40108 /* CurrentsongStatusView.h */,
+				C91F1B7E14BABE7C00C40108 /* CurrentsongStatusView.m */,
+				C91F1B8014BABE7C00C40108 /* LaunchAtLoginController.h */,
+				C91F1B8114BABE7C00C40108 /* LaunchAtLoginController.m */,
+				C91F1B8214BABE7C00C40108 /* MSDurationFormatter.h */,
+				C91F1B8314BABE7C00C40108 /* MSDurationFormatter.m */,
+				C91F1B8414BABE7C00C40108 /* NSAttributedStringAdditions.h */,
+				C91F1B8514BABE7C00C40108 /* NSAttributedStringAdditions.m */,
 				C9E4B39B14B8C440006D7B1F /* Supporting Files */,
 			);
 			name = Source;
@@ -136,11 +134,10 @@
 		C9E4B39B14B8C440006D7B1F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C9E4B39C14B8C440006D7B1F /* Currentsong-Info.plist */,
-				C9E4B39D14B8C440006D7B1F /* InfoPlist.strings */,
-				C9E4B3A014B8C440006D7B1F /* main.m */,
-				C9E4B3A214B8C440006D7B1F /* Currentsong-Prefix.pch */,
-				C9E4B3A314B8C440006D7B1F /* Credits.rtf */,
+				C91F1B9814BABF2700C40108 /* Currentsong-Info.plist */,
+				C91F1B8D14BABE9400C40108 /* Currentsong-Prefix.pch */,
+				C91F1B8E14BABE9400C40108 /* main.m */,
+				C91F1B9214BABEBC00C40108 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -195,10 +192,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9E4B39F14B8C440006D7B1F /* InfoPlist.strings in Resources */,
-				C9E4B3A514B8C440006D7B1F /* Credits.rtf in Resources */,
-				C9E4B3AB14B8C440006D7B1F /* MainMenu.xib in Resources */,
 				C91F1B7814BABCAA00C40108 /* Currentsong.icns in Resources */,
+				C91F1B9414BABEBC00C40108 /* InfoPlist.strings in Resources */,
+				C91F1B9714BABEC800C40108 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,39 +205,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9E4B3A114B8C440006D7B1F /* main.m in Sources */,
-				C9E4B3A814B8C440006D7B1F /* CurrentsongAppDelegate.m in Sources */,
-				C9E4B3BC14B8DAE3006D7B1F /* CurrentsongStatusView.m in Sources */,
-				C9E4B3C214B8FBF9006D7B1F /* NSAttributedStringAdditions.m in Sources */,
-				C9E4B3C814B90138006D7B1F /* CurrentsongPreferenceKeys.m in Sources */,
-				C91F1B7114BA3E0C00C40108 /* MSDurationFormatter.m in Sources */,
-				C91F1B7514BAA7DA00C40108 /* LaunchAtLoginController.m in Sources */,
+				C91F1B8614BABE7C00C40108 /* CurrentsongAppDelegate.m in Sources */,
+				C91F1B8714BABE7C00C40108 /* CurrentsongPreferenceKeys.m in Sources */,
+				C91F1B8814BABE7C00C40108 /* CurrentsongStatusView.m in Sources */,
+				C91F1B8914BABE7C00C40108 /* LaunchAtLoginController.m in Sources */,
+				C91F1B8A14BABE7C00C40108 /* MSDurationFormatter.m in Sources */,
+				C91F1B8B14BABE7C00C40108 /* NSAttributedStringAdditions.m in Sources */,
+				C91F1B9014BABE9400C40108 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C9E4B39D14B8C440006D7B1F /* InfoPlist.strings */ = {
+		C91F1B9214BABEBC00C40108 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C9E4B39E14B8C440006D7B1F /* en */,
+				C91F1B9314BABEBC00C40108 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		C9E4B3A314B8C440006D7B1F /* Credits.rtf */ = {
+		C91F1B9514BABEC800C40108 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C9E4B3A414B8C440006D7B1F /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		C9E4B3A914B8C440006D7B1F /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C9E4B3AA14B8C440006D7B1F /* en */,
+				C91F1B9614BABEC800C40108 /* en */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -299,8 +287,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Currentsong/Currentsong-Prefix.pch";
-				INFOPLIST_FILE = "Currentsong/Currentsong-Info.plist";
+				GCC_PREFIX_HEADER = "Source/Currentsong-Prefix.pch";
+				INFOPLIST_FILE = "Currentsong-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -311,8 +299,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Currentsong/Currentsong-Prefix.pch";
-				INFOPLIST_FILE = "Currentsong/Currentsong-Info.plist";
+				GCC_PREFIX_HEADER = "Source/Currentsong-Prefix.pch";
+				INFOPLIST_FILE = "Currentsong-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
