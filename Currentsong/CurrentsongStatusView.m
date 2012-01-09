@@ -46,6 +46,7 @@
     [mAlbum release];
     [mTopRow release];
     [mBottomRow release];
+    CGImageRelease(mAlphaMask);
     [super dealloc];
 }
 
@@ -74,6 +75,49 @@
     [NSBezierPath fillRect:rect];
 }
 
+- (void)generateFadedEdgeMask
+{    
+    NSSize viewSize = [self frame].size;
+   
+    CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
+    CGContextRef maskContext = CGBitmapContextCreate(NULL, viewSize.width, viewSize.height, 8, viewSize.width, cs, 0);
+    CGColorSpaceRelease(cs);
+    
+    CGContextSetGrayFillColor(maskContext, 1, 1);
+    CGContextFillRect(maskContext, [self bounds]);
+    
+    CGFloat components[] = {1, 1, 0, 1};
+    CGGradientRef gradient = CGGradientCreateWithColorComponents(cs, components, NULL, 2);
+    
+    // Right edge
+    CGContextDrawLinearGradient(maskContext, gradient, CGPointMake(viewSize.width-kCSViewSideMargin, 0), CGPointMake(viewSize.width,0), 0);
+
+    // Left edge
+    CGContextDrawLinearGradient(maskContext, gradient, CGPointMake(kCSViewSideMargin,0), CGPointMake(0,0), 0);
+
+    CGImageRelease(mAlphaMask);
+    mAlphaMask = CGBitmapContextCreateImage(maskContext);
+    CGContextRelease(maskContext);
+    CGGradientRelease(gradient);
+}
+
+- (void)setFadedEdgeMask
+{    
+    NSSize viewSize = [self frame].size;
+    
+    // generate the mask if necessary
+    BOOL needToRegenerateMask = (!mAlphaMask ||
+                                 CGImageGetWidth(mAlphaMask) != viewSize.width ||
+                                 CGImageGetHeight(mAlphaMask) != viewSize.height);
+    
+    if (needToRegenerateMask) {
+        [self generateFadedEdgeMask];
+    }
+    
+    CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
+    CGContextClipToMask(context, [self bounds], mAlphaMask);
+}
+
 - (void)drawSingleRowInRect:(NSRect)rect
 {
     if (!mTopRow) {
@@ -89,6 +133,7 @@
         [self drawPauseIcon];
     }
 
+    [self setFadedEdgeMask];
     [mTopRow drawAtPoint:textOrigin];
 }
 
@@ -114,6 +159,7 @@
     topTextOrigin.x = MAX(leftEdge, topTextOrigin.x);
     bottomTextOrigin.x = MAX(leftEdge, bottomTextOrigin.x);
     
+    [self setFadedEdgeMask];
     [mTopRow drawAtPoint:topTextOrigin];
     [mBottomRow drawAtPoint:bottomTextOrigin];
 }

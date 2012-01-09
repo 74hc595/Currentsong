@@ -37,6 +37,7 @@ typedef enum
     
     NSAttributedString *mTopRow;
     NSAttributedString *mBottomRow;
+    CGImageRef mAlphaMask;
 }
 
 @property (nonatomic,retain) NSStatusItem *statusItem;

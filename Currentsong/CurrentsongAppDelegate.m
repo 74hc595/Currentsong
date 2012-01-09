@@ -275,11 +275,17 @@
 {
     mStatusView.viewStyle = (mStatusView.viewStyle == kCSStyleTwoLevel) ? kCSStyleFormatted : kCSStyleTwoLevel;
     [[NSUserDefaults standardUserDefaults] setInteger:mStatusView.viewStyle forKey:kCSPrefViewStyle];
+    
+    // make sure the second line is showing
+    if (!mStatusView.showArtist) {
+        [self toggleShowArtist:self];
+    }
 }
 
 - (void)setMaxWidth:(CGFloat)maxWidth
 {
     mStatusView.maxWidth = maxWidth;
+    [[NSUserDefaults standardUserDefaults] setDouble:mStatusView.maxWidth forKey:kCSPrefMaxWidth];
 }
 
 - (IBAction)setLargeViewWidth:(id)sender
