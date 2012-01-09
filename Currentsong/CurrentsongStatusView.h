@@ -21,6 +21,7 @@ typedef enum
     NSStatusItem *mStatusItem;
 
     // Properties
+    BOOL mHighlighted;
     CurrentsongViewStyle mViewStyle;
     CGFloat mMaxWidth;
     BOOL mShowArtist;
@@ -39,12 +40,12 @@ typedef enum
 }
 
 @property (nonatomic,retain) NSStatusItem *statusItem;
+@property (nonatomic,assign) BOOL highlighted;
 @property (nonatomic,assign) CurrentsongViewStyle viewStyle;
 @property (nonatomic,assign) CGFloat maxWidth;
 @property (nonatomic,assign) BOOL showArtist;
 @property (nonatomic,assign) BOOL showAlbum;
 @property (nonatomic,assign) BOOL scroll;
-
 
 // Update track info from dictionary provided by iTunes distributed notification
 - (void)updateTrackInfo:(NSDictionary *)trackInfo;

@@ -11,27 +11,15 @@
 
 @implementation NSAttributedString (NSAttributedStringAdditions)
 
-+ (NSDictionary *)menuBarAttributesWithBold:(BOOL)useBold light:(BOOL)useLightColor
++ (NSDictionary *)menuBarAttributesWithBold:(BOOL)useBold alpha:(CGFloat)alpha highlight:(BOOL)highlight
 {
     NSFont *font = [NSFont menuFontOfSize:12];
 
-    
-    /*
-    static NSFont *italicFont = nil;
-    if (!italicFont) {
-        italicFont = [NSFont italicFontFromFont:font];
-    }
-    
-    if (useItalic) {
-        font = italicFont;
-    }
-    */
-    
     if (useBold) {
         font = [[NSFontManager sharedFontManager] convertFont:font toHaveTrait:NSBoldFontMask];
     }
     
-    NSColor *color = (useLightColor) ? [NSColor colorWithCalibratedWhite:0 alpha:0.6] : [NSColor blackColor];
+    NSColor *color = [NSColor colorWithDeviceWhite:(highlight) ? 1.0 : 0.0 alpha:alpha];
     
     return [NSDictionary dictionaryWithObjectsAndKeys:
             font, NSFontAttributeName,
@@ -44,30 +32,28 @@
     return [[[NSAttributedString alloc] initWithString:str attributes:attrs] autorelease];
 }
 
-+ (NSAttributedString *)plainAttributedStringForMenuBar:(NSString *)str
++ (NSAttributedString *)plainAttributedStringForMenuBar:(NSString *)str withHighlight:(BOOL)highlight
 {
     return [NSAttributedString attributedStringWithString:str
-                                               attributes:[self menuBarAttributesWithBold:NO light:NO]];
+                                               attributes:[self menuBarAttributesWithBold:NO
+                                                                                    alpha:1.0
+                                                                                highlight:highlight]];
 }
 
-+ (NSAttributedString *)boldAttributedStringForMenuBar:(NSString *)str
++ (NSAttributedString *)boldAttributedStringForMenuBar:(NSString *)str withHighlight:(BOOL)highlight
 {
     return [NSAttributedString attributedStringWithString:str
-                                               attributes:[self menuBarAttributesWithBold:YES light:NO]];
+                                               attributes:[self menuBarAttributesWithBold:YES
+                                                                                    alpha:1.0
+                                                                                highlight:highlight]];
 }
 
-/*
-+ (NSAttributedString *)italicAttributedStringForMenuBar:(NSString *)str
++ (NSAttributedString *)lightAttributedStringForMenuBar:(NSString *)str withHighlight:(BOOL)highlight
 {
     return [NSAttributedString attributedStringWithString:str
-                                               attributes:[self menuBarAttributesWithBold:NO italic:YES]];
-}
-*/
-
-+ (NSAttributedString *)lightAttributedStringForMenuBar:(NSString *)str
-{
-    return [NSAttributedString attributedStringWithString:str
-                                               attributes:[self menuBarAttributesWithBold:NO light:YES]];
+                                               attributes:[self menuBarAttributesWithBold:NO
+                                                                                    alpha:0.6
+                                                                                highlight:highlight]];
 }
 
 

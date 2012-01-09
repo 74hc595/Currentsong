@@ -66,7 +66,7 @@
 - (void)drawPauseIcon
 {
     NSPoint iconOrigin = NSMakePoint(5,7);
-    [[NSColor blackColor] set];
+    [((mHighlighted) ? [NSColor whiteColor] : [NSColor blackColor]) set];
     NSRect rect = NSMakeRect(iconOrigin.x,iconOrigin.y,3,9);
     [NSBezierPath fillRect:rect];
     rect.origin.x += 5;
@@ -93,8 +93,7 @@
 
 - (void)drawRect:(NSRect)rect
 {
-//    [[NSColor redColor] set];
-//    NSRectFill([self bounds]);
+    [mStatusItem drawStatusBarBackgroundInRect:[self bounds] withHighlight:mHighlighted];
     
     [NSGraphicsContext saveGraphicsState];
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
@@ -103,7 +102,9 @@
     CGContextSetShouldSmoothFonts(context, NO);
     
     // add subtle white shadow to match other menu bar text
-    [[CurrentsongStatusView menuBarShadow] set];
+    if (!mHighlighted) {
+        [[CurrentsongStatusView menuBarShadow] set];
+    }
     
     if (mTopRow && !mBottomRow) {
         [self drawSingleRowInRect:rect];
@@ -134,16 +135,7 @@
     [self setNeedsDisplay:YES];
 }
 
-- (void)setNotPlaying
-{
-    mShowPauseIcon = NO;
-    self.bottomRow = nil;
-    self.topRow = [NSAttributedString plainAttributedStringForMenuBar:@"\u266B"];
-    
-    [self updateBounds];
-}
-
-- (void)setTrackInfo
+- (void)updateAppearance
 {    
     BOOL haveArtist = mShowArtist && ([mArtist length] > 0);
     BOOL haveName = ([mName length] > 0);
@@ -151,34 +143,41 @@
         
     self.bottomRow = nil;
     
-    if (mViewStyle == kCSStyleFormatted)
-    {
-        NSMutableAttributedString *topRowFormatted = [[[NSMutableAttributedString alloc] init] autorelease];
-        NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
-        if (haveName)   [fields addObject:[NSAttributedString boldAttributedStringForMenuBar:mName]];
-        if (haveArtist) [fields addObject:[NSAttributedString plainAttributedStringForMenuBar:mArtist]];
-        if (haveAlbum)  [fields addObject:[NSAttributedString lightAttributedStringForMenuBar:mAlbum]];
-        
-        BOOL first = YES;
-        for (NSAttributedString *astr in fields)
+    // No track name, not plaing
+    if (!haveName) {
+        mShowPauseIcon = NO;
+        self.topRow = [NSAttributedString plainAttributedStringForMenuBar:@"\u266B" withHighlight:mHighlighted];
+    } else {    
+        if (mViewStyle == kCSStyleFormatted)
         {
-            if (!first) [topRowFormatted appendAttributedString:
-                         [NSAttributedString plainAttributedStringForMenuBar:@"  "]];
-            [topRowFormatted appendAttributedString:astr];
-            first = NO;
+            NSMutableAttributedString *topRowFormatted = [[[NSMutableAttributedString alloc] init] autorelease];
+            NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
+            if (haveName)   [fields addObject:[NSAttributedString boldAttributedStringForMenuBar:mName withHighlight:mHighlighted]];
+            if (haveArtist) [fields addObject:[NSAttributedString plainAttributedStringForMenuBar:mArtist withHighlight:mHighlighted]];
+            if (haveAlbum)  [fields addObject:[NSAttributedString lightAttributedStringForMenuBar:mAlbum withHighlight:mHighlighted]];
+            
+            BOOL first = YES;
+            for (NSAttributedString *astr in fields)
+            {
+                if (!first) [topRowFormatted appendAttributedString:
+                             [NSAttributedString plainAttributedStringForMenuBar:@"  " withHighlight:mHighlighted]];
+                [topRowFormatted appendAttributedString:astr];
+                first = NO;
+            }
+            
+            self.topRow = topRowFormatted;
+            
         }
-        
-        self.topRow = topRowFormatted;
-        
-    }
-    else
-    {
-        NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
-        if (haveName)   [fields addObject:mName];
-        if (haveArtist) [fields addObject:mArtist];
-        if (haveAlbum)  [fields addObject:mAlbum];
-        
-        self.topRow = [NSAttributedString plainAttributedStringForMenuBar:[fields componentsJoinedByString:@" - "]];
+        else
+        {
+            NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
+            if (haveName)   [fields addObject:mName];
+            if (haveArtist) [fields addObject:mArtist];
+            if (haveAlbum)  [fields addObject:mAlbum];
+            
+            self.topRow = [NSAttributedString plainAttributedStringForMenuBar:[fields componentsJoinedByString:@" - "]
+                                                                withHighlight:mHighlighted];
+        }
     }
     
     [self updateBounds];
@@ -189,14 +188,7 @@
     self.artist = [trackInfo objectForKey:@"Artist"];
     self.name = [trackInfo objectForKey:@"Name"];
     self.album = [trackInfo objectForKey:@"Album"];
-    NSString *streamTitle = [trackInfo objectForKey:@"Stream Title"];
-
-    // No song?
-    if (!self.name) {
-        [self setNotPlaying];
-        return;
-    }
-    
+    NSString *streamTitle = [trackInfo objectForKey:@"Stream Title"];   
     NSString *playerState = [trackInfo objectForKey:@"Player State"];
     mShowPauseIcon = ([playerState isEqualToString:@"Stopped"] || [playerState isEqualToString:@"Paused"]);
     
@@ -209,29 +201,48 @@
         mIsStream = NO;
     }
     
-    [self setTrackInfo];
+    [self updateAppearance];
 }
+
 
 #pragma mark -
 
+- (void)setHighlighted:(BOOL)highlighted
+{
+    mHighlighted = highlighted; [self updateAppearance];
+}
+
 - (void)setViewStyle:(CurrentsongViewStyle)viewStyle
 {
-    mViewStyle = viewStyle; [self updateBounds];
+    mViewStyle = viewStyle; [self updateAppearance];
 }
 
 - (void)setMaxWidth:(CGFloat)maxWidth
 {
-    mMaxWidth = maxWidth; [self updateBounds];
+    mMaxWidth = maxWidth; [self updateAppearance];
 }
 
 - (void)setShowArtist:(BOOL)showArtist
 {
-    mShowArtist = showArtist; [self updateBounds];
+    mShowArtist = showArtist; [self updateAppearance];
 }
 
 - (void)setShowAlbum:(BOOL)showAlbum
 {
-    mShowAlbum = showAlbum; [self updateBounds];
+    mShowAlbum = showAlbum; [self updateAppearance];
+}
+
+
+#pragma mark -
+- (void)mouseDown:(NSEvent *)event
+{
+    [mStatusItem popUpStatusItemMenu:[mStatusItem menu]];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)rightMouseDown:(NSEvent *)event
+{
+    [self mouseDown:event];
 }
 
 @end

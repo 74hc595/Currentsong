@@ -15,8 +15,8 @@
 + (NSAttributedString *)attributedStringWithString:(NSString *)str attributes:(NSDictionary *)attrs;
 
 // Create formatted attributed strings from plain strings
-+ (NSAttributedString *)plainAttributedStringForMenuBar:(NSString *)str;
-+ (NSAttributedString *)boldAttributedStringForMenuBar:(NSString *)str;
-+ (NSAttributedString *)lightAttributedStringForMenuBar:(NSString *)str;
++ (NSAttributedString *)plainAttributedStringForMenuBar:(NSString *)str withHighlight:(BOOL)highlight;
++ (NSAttributedString *)boldAttributedStringForMenuBar:(NSString *)str withHighlight:(BOOL)highlight;
++ (NSAttributedString *)lightAttributedStringForMenuBar:(NSString *)str withHighlight:(BOOL)highlight;
 
 @end

@@ -10,11 +10,26 @@
 
 @class CurrentsongStatusView;
 
-@interface CurrentsongAppDelegate : NSObject <NSApplicationDelegate>
+@interface CurrentsongAppDelegate : NSObject <NSApplicationDelegate,NSMenuDelegate>
 {
     NSStatusItem *mStatusItem;
     CurrentsongStatusView *mStatusView;
-    IBOutlet NSMenu *mMenu;    
+    NSTimer *mMenuUpdateTimer;
+    BOOL mMenuIsOpen;
+    
+    IBOutlet NSMenu *mMenu;
+    IBOutlet NSMenuItem *mNameMenuItem;
+    IBOutlet NSMenuItem *mArtistMenuItem;
+    IBOutlet NSMenuItem *mAlbumMenuItem;
+    IBOutlet NSMenuItem *mStreamTitleMenuItem;
+    IBOutlet NSMenuItem *mTimeMenuItem;
 }
+
+- (IBAction)toggleShowArtist:(id)sender;
+- (IBAction)toggleShowAlbum:(id)sender;
+
+- (IBAction)setLargeViewWidth:(id)sender;
+- (IBAction)setMediumViewWidth:(id)sender;
+- (IBAction)setSmallViewWidth:(id)sender;
 
 @end
