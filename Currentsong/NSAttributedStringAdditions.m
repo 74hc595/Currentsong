@@ -7,7 +7,6 @@
 //
 
 #import "NSAttributedStringAdditions.h"
-#import "NSFontAdditions.h"
 
 @implementation NSAttributedString (NSAttributedStringAdditions)
 

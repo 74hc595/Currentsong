@@ -17,7 +17,6 @@
 		C9E4B3B914B8D469006D7B1F /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E4B3B814B8D469006D7B1F /* ScriptingBridge.framework */; };
 		C9E4B3BC14B8DAE3006D7B1F /* CurrentsongStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */; };
 		C9E4B3C214B8FBF9006D7B1F /* NSAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */; };
-		C9E4B3C514B8FE20006D7B1F /* NSFontAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3C414B8FE20006D7B1F /* NSFontAdditions.m */; };
 		C9E4B3C814B90138006D7B1F /* CurrentsongPreferenceKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E4B3C714B90138006D7B1F /* CurrentsongPreferenceKeys.m */; };
 /* End PBXBuildFile section */
 
@@ -43,8 +42,6 @@
 		C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentsongStatusView.m; sourceTree = "<group>"; };
 		C9E4B3C014B8FBF9006D7B1F /* NSAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAttributedStringAdditions.h; sourceTree = "<group>"; };
 		C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAttributedStringAdditions.m; sourceTree = "<group>"; };
-		C9E4B3C314B8FE20006D7B1F /* NSFontAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFontAdditions.h; sourceTree = "<group>"; };
-		C9E4B3C414B8FE20006D7B1F /* NSFontAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFontAdditions.m; sourceTree = "<group>"; };
 		C9E4B3C614B90138006D7B1F /* CurrentsongPreferenceKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentsongPreferenceKeys.h; sourceTree = "<group>"; };
 		C9E4B3C714B90138006D7B1F /* CurrentsongPreferenceKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentsongPreferenceKeys.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,8 +106,6 @@
 				C9E4B3BB14B8DAE3006D7B1F /* CurrentsongStatusView.m */,
 				C9E4B3C614B90138006D7B1F /* CurrentsongPreferenceKeys.h */,
 				C9E4B3C714B90138006D7B1F /* CurrentsongPreferenceKeys.m */,
-				C9E4B3C314B8FE20006D7B1F /* NSFontAdditions.h */,
-				C9E4B3C414B8FE20006D7B1F /* NSFontAdditions.m */,
 				C9E4B3C014B8FBF9006D7B1F /* NSAttributedStringAdditions.h */,
 				C9E4B3C114B8FBF9006D7B1F /* NSAttributedStringAdditions.m */,
 				C91F1B6F14BA3E0B00C40108 /* MSDurationFormatter.h */,
@@ -200,7 +195,6 @@
 				C9E4B3A814B8C440006D7B1F /* CurrentsongAppDelegate.m in Sources */,
 				C9E4B3BC14B8DAE3006D7B1F /* CurrentsongStatusView.m in Sources */,
 				C9E4B3C214B8FBF9006D7B1F /* NSAttributedStringAdditions.m in Sources */,
-				C9E4B3C514B8FE20006D7B1F /* NSFontAdditions.m in Sources */,
 				C9E4B3C814B90138006D7B1F /* CurrentsongPreferenceKeys.m in Sources */,
 				C91F1B7114BA3E0C00C40108 /* MSDurationFormatter.m in Sources */,
 			);

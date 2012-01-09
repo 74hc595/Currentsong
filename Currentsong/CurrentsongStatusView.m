@@ -13,7 +13,7 @@
 #define kCSViewSideMargin           5
 #define kCSViewPauseIconOffset      13
 #define kCSViewScrollPadding        20
-#define kCSViewScrollDelayInSeconds 2
+#define kCSViewScrollDelayInSeconds 3
 #define kCSViewScrollTimerFrequency (1.0/30.0)
 
 #define kCSViewFadeEdges            0
@@ -139,69 +139,47 @@
     CGContextClipToMask(context, [self bounds], mAlphaMask);
 }
 
-- (void)drawSingleRowInRect:(NSRect)rect
+// If yPosition is less than 0, draw the text centered in the view.
+#define kCSDrawTextCentered -1
+- (void)drawTextRow:(NSAttributedString *)text leftEdge:(CGFloat)leftEdge yPosition:(CGFloat)y scrollOffset:(CGFloat)scrollOffset
 {
-    if (!mTopRow) {
+    if ([text length] == 0) {
         return;
     }
-        
-    NSSize viewSize = [self frame].size;
-    NSSize textSize = [mTopRow size];
-
-    NSPoint textOrigin = NSMakePoint(kCSViewSideMargin, ceil((viewSize.height - textSize.height)/2)+1);
-    if (mShowPauseIcon) {
-        textOrigin.x += kCSViewPauseIconOffset;
-        [self drawPauseIcon];
-    }
-
-    textOrigin.x -= MAX(0,mTopRowScrollOffset);
-    textOrigin.x = floor(textOrigin.x);
     
-    [self setEdgeMask];
-    [mTopRow drawAtPoint:textOrigin];
+    NSSize viewSize = [self frame].size;
+    NSSize topTextSize = [text size];
+    CGFloat rightEdge = viewSize.width-kCSViewSideMargin;
+    scrollOffset = MAX(0, scrollOffset);
+    
+    if (y < 0) {
+        y = ceil((viewSize.height - topTextSize.height)/2)+1;
+    }
+    
+    NSPoint topTextOrigin = NSMakePoint(rightEdge-topTextSize.width,y);        
+    topTextOrigin.x = floor(MAX(leftEdge, topTextOrigin.x) - scrollOffset);
+    [text drawAtPoint:topTextOrigin];
     
     // If scrolling, draw a second copy of the text
-    if (mScrollTopRow) {
-        textOrigin.x += textSize.width + kCSViewScrollPadding;
-        [mTopRow drawAtPoint:textOrigin];
+    if (scrollOffset) {
+        topTextOrigin.x += topTextSize.width + kCSViewScrollPadding;
+        [text drawAtPoint:topTextOrigin];
     }
 }
 
-- (void)drawTwoRowsInRect:(NSRect)rect
+- (void)drawTextInRect:(NSRect)rect
 {
-    if (!mTopRow || !mBottomRow) {
-        return;
-    }
-    
-    NSSize viewSize = [self frame].size;
-    NSSize topTextSize = [mTopRow size];
-    NSSize bottomTextSize = [mBottomRow size];
-        
+    BOOL twoRows = ([mTopRow length] > 0 && [mBottomRow length] > 0);
+
     CGFloat leftEdge = kCSViewSideMargin;
-    CGFloat rightEdge = viewSize.width-kCSViewSideMargin;
     if (mShowPauseIcon) {
         leftEdge += kCSViewPauseIconOffset;
         [self drawPauseIcon];
     }
     
-    NSPoint topTextOrigin = NSMakePoint(rightEdge-topTextSize.width,11);
-    NSPoint bottomTextOrigin = NSMakePoint(rightEdge-bottomTextSize.width,1);
-    topTextOrigin.x = floor(MAX(leftEdge, topTextOrigin.x) - MAX(0,mTopRowScrollOffset));
-    bottomTextOrigin.x = floor(MAX(leftEdge, bottomTextOrigin.x) - MAX(0,mBottomRowScrollOffset));
-    
     [self setEdgeMask];
-    [mTopRow drawAtPoint:topTextOrigin];
-    [mBottomRow drawAtPoint:bottomTextOrigin];
-    
-    // If scrolling, draw a second copy of the text
-    if (mScrollTopRow) {
-        topTextOrigin.x += topTextSize.width + kCSViewScrollPadding;
-        [mTopRow drawAtPoint:topTextOrigin];
-    }
-    if (mScrollBottomRow) {
-        bottomTextOrigin.x += bottomTextSize.width + kCSViewScrollPadding;
-        [mBottomRow drawAtPoint:bottomTextOrigin];
-    }
+    [self drawTextRow:mTopRow leftEdge:leftEdge yPosition:((twoRows) ? 11 : kCSDrawTextCentered) scrollOffset:mTopRowScrollOffset];
+    [self drawTextRow:mBottomRow leftEdge:leftEdge yPosition:((twoRows) ? 1 : kCSDrawTextCentered) scrollOffset:mBottomRowScrollOffset];
 }
 
 - (void)drawRect:(NSRect)rect
@@ -219,12 +197,8 @@
         [[CurrentsongStatusView menuBarShadow] set];
     }
     
-    if ([mTopRow length] > 0 && [mBottomRow length] == 0) {
-        [self drawSingleRowInRect:rect];
-    } else {
-        [self drawTwoRowsInRect:rect];
-    }
-    
+    [self drawTextInRect:rect];
+
     [NSGraphicsContext restoreGraphicsState];
 }
 
