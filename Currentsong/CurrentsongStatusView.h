@@ -26,7 +26,7 @@ typedef enum
     CGFloat mMaxWidth;
     BOOL mShowArtist;
     BOOL mShowAlbum;
-    BOOL mScroll;
+    BOOL mShouldScroll;
     
     // Track data
     BOOL mShowPauseIcon;
@@ -38,6 +38,7 @@ typedef enum
     NSAttributedString *mTopRow;
     NSAttributedString *mBottomRow;
     CGImageRef mAlphaMask;
+    BOOL mAlphaMaskAccountsForPauseIcon;
 }
 
 @property (nonatomic,retain) NSStatusItem *statusItem;
@@ -46,7 +47,7 @@ typedef enum
 @property (nonatomic,assign) CGFloat maxWidth;
 @property (nonatomic,assign) BOOL showArtist;
 @property (nonatomic,assign) BOOL showAlbum;
-@property (nonatomic,assign) BOOL scroll;
+@property (nonatomic,assign) BOOL shouldScroll;
 
 // Update track info from dictionary provided by iTunes distributed notification
 - (void)updateTrackInfo:(NSDictionary *)trackInfo;

@@ -10,4 +10,4 @@ extern NSString * const kCSPrefViewStyle;
 extern NSString * const kCSPrefMaxWidth;
 extern NSString * const kCSPrefShowArtist;
 extern NSString * const kCSPrefShowAlbum;
-
+extern NSString * const kCSPrefScrollLongText;

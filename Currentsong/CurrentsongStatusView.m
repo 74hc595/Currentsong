@@ -29,7 +29,7 @@
 @synthesize maxWidth = mMaxWidth;
 @synthesize showArtist = mShowArtist;
 @synthesize showAlbum = mShowAlbum;
-@synthesize scroll = mScroll;
+@synthesize shouldScroll = mShouldScroll;
 @synthesize artist = mArtist;
 @synthesize name = mName;
 @synthesize album = mAlbum;
@@ -78,6 +78,7 @@
 - (void)generateFadedEdgeMask
 {    
     NSSize viewSize = [self frame].size;
+    CGFloat leftEdge = (mShowPauseIcon) ? kCSViewPauseIconOffset : 0;
    
     CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
     CGContextRef maskContext = CGBitmapContextCreate(NULL, viewSize.width, viewSize.height, 8, viewSize.width, cs, 0);
@@ -93,10 +94,11 @@
     CGContextDrawLinearGradient(maskContext, gradient, CGPointMake(viewSize.width-kCSViewSideMargin, 0), CGPointMake(viewSize.width,0), 0);
 
     // Left edge
-    CGContextDrawLinearGradient(maskContext, gradient, CGPointMake(kCSViewSideMargin,0), CGPointMake(0,0), 0);
+    CGContextDrawLinearGradient(maskContext, gradient, CGPointMake(leftEdge+kCSViewSideMargin,0), CGPointMake(leftEdge,0), 0);
 
     CGImageRelease(mAlphaMask);
     mAlphaMask = CGBitmapContextCreateImage(maskContext);
+    mAlphaMaskAccountsForPauseIcon = mShowPauseIcon;
     CGContextRelease(maskContext);
     CGGradientRelease(gradient);
 }
@@ -108,7 +110,8 @@
     // generate the mask if necessary
     BOOL needToRegenerateMask = (!mAlphaMask ||
                                  CGImageGetWidth(mAlphaMask) != viewSize.width ||
-                                 CGImageGetHeight(mAlphaMask) != viewSize.height);
+                                 CGImageGetHeight(mAlphaMask) != viewSize.height ||
+                                 mAlphaMaskAccountsForPauseIcon != mShowPauseIcon);
     
     if (needToRegenerateMask) {
         [self generateFadedEdgeMask];

@@ -39,6 +39,7 @@
       [NSNumber numberWithDouble:kCSViewWidthLarge], kCSPrefMaxWidth,
       [NSNumber numberWithBool:YES], kCSPrefShowArtist,
       [NSNumber numberWithBool:NO], kCSPrefShowAlbum,
+      [NSNumber numberWithBool:YES], kCSPrefScrollLongText,
       nil]];
 
     // Install status item
@@ -49,10 +50,11 @@
     // Set up view
     mStatusView = [[CurrentsongStatusView alloc] init];
     mStatusView.statusItem = mStatusItem;
-    mStatusView.viewStyle   = (CurrentsongViewStyle)[[NSUserDefaults standardUserDefaults] integerForKey:kCSPrefViewStyle];
-    mStatusView.maxWidth    = [[NSUserDefaults standardUserDefaults] doubleForKey:kCSPrefMaxWidth];
-    mStatusView.showArtist  = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowArtist];
-    mStatusView.showAlbum   = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowAlbum];
+    mStatusView.viewStyle       = (CurrentsongViewStyle)[[NSUserDefaults standardUserDefaults] integerForKey:kCSPrefViewStyle];
+    mStatusView.maxWidth        = [[NSUserDefaults standardUserDefaults] doubleForKey:kCSPrefMaxWidth];
+    mStatusView.showArtist      = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowArtist];
+    mStatusView.showAlbum       = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowAlbum];
+    mStatusView.shouldScroll    = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefScrollLongText];
         
     // Get initial track info
     NSDictionary *initialTrackInfo = [self fetchTrackInfo];
@@ -161,6 +163,8 @@
         [menuItem setState:mStatusView.showAlbum];
     } else if ([menuItem action] == @selector(toggleTwoLineDisplay:)) {
         [menuItem setState:(mStatusView.viewStyle == kCSStyleTwoLevel)];
+    } else if ([menuItem action] == @selector(toggleScrollLongText:)) {
+        [menuItem setState:mStatusView.shouldScroll];
     } else if ([menuItem action] == @selector(setLargeViewWidth:)) {
         [menuItem setState:(mStatusView.maxWidth == kCSViewWidthLarge)];
     } else if ([menuItem action] == @selector(setMediumViewWidth:)) {
@@ -280,6 +284,12 @@
     if (!mStatusView.showArtist) {
         [self toggleShowArtist:self];
     }
+}
+
+- (IBAction)toggleScrollLongText:(id)sender
+{
+    mStatusView.shouldScroll = !mStatusView.shouldScroll;
+    [[NSUserDefaults standardUserDefaults] setBool:mStatusView.shouldScroll forKey:kCSPrefScrollLongText];
 }
 
 - (void)setMaxWidth:(CGFloat)maxWidth
