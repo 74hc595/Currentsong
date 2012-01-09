@@ -159,6 +159,8 @@
         [menuItem setState:mStatusView.showArtist];
     } else if ([menuItem action] == @selector(toggleShowAlbum:)) {
         [menuItem setState:mStatusView.showAlbum];
+    } else if ([menuItem action] == @selector(toggleTwoLineDisplay:)) {
+        [menuItem setState:(mStatusView.viewStyle == kCSStyleTwoLevel)];
     } else if ([menuItem action] == @selector(setLargeViewWidth:)) {
         [menuItem setState:(mStatusView.maxWidth == kCSViewWidthLarge)];
     } else if ([menuItem action] == @selector(setMediumViewWidth:)) {
@@ -269,6 +271,12 @@
     [[NSUserDefaults standardUserDefaults] setBool:mStatusView.showAlbum forKey:kCSPrefShowAlbum];
 }
 
+- (IBAction)toggleTwoLineDisplay:(id)sender
+{
+    mStatusView.viewStyle = (mStatusView.viewStyle == kCSStyleTwoLevel) ? kCSStyleFormatted : kCSStyleTwoLevel;
+    [[NSUserDefaults standardUserDefaults] setInteger:mStatusView.viewStyle forKey:kCSPrefViewStyle];
+}
+
 - (void)setMaxWidth:(CGFloat)maxWidth
 {
     mStatusView.maxWidth = maxWidth;
@@ -288,6 +296,5 @@
 {
     [self setMaxWidth:kCSViewWidthSmall];
 }
-
 
 @end

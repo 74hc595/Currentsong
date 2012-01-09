@@ -27,6 +27,7 @@
 
 - (IBAction)toggleShowArtist:(id)sender;
 - (IBAction)toggleShowAlbum:(id)sender;
+- (IBAction)toggleTwoLineDisplay:(id)sender;
 
 - (IBAction)setLargeViewWidth:(id)sender;
 - (IBAction)setMediumViewWidth:(id)sender;

@@ -11,50 +11,32 @@
 
 @implementation NSAttributedString (NSAttributedStringAdditions)
 
-+ (NSDictionary *)menuBarAttributesWithBold:(BOOL)useBold alpha:(CGFloat)alpha highlight:(BOOL)highlight
-{
-    NSFont *font = [NSFont menuFontOfSize:12];
-
-    if (useBold) {
-        font = [[NSFontManager sharedFontManager] convertFont:font toHaveTrait:NSBoldFontMask];
-    }
-    
-    NSColor *color = [NSColor colorWithDeviceWhite:(highlight) ? 1.0 : 0.0 alpha:alpha];
-    
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            font, NSFontAttributeName,
-            color, NSForegroundColorAttributeName,
-            nil];
-}
 
 + (NSAttributedString *)attributedStringWithString:(NSString *)str attributes:(NSDictionary *)attrs
 {
     return [[[NSAttributedString alloc] initWithString:str attributes:attrs] autorelease];
 }
 
-+ (NSAttributedString *)plainAttributedStringForMenuBar:(NSString *)str withHighlight:(BOOL)highlight
++ (NSAttributedString *)menuBarAttributedString:(NSString *)str attributes:(CurrentsongTextAttributeMask)attrs
 {
-    return [NSAttributedString attributedStringWithString:str
-                                               attributes:[self menuBarAttributesWithBold:NO
-                                                                                    alpha:1.0
-                                                                                highlight:highlight]];
-}
+    BOOL bold = (attrs & kCSBold);
+    BOOL highlight = (attrs & kCSHighlighted);
+    CGFloat fontSize = (attrs & kCSSmall) ? 9 : 12;
+    CGFloat alpha = (attrs & kCSLight) ? 0.6 : 1.0;
+    
+    NSFont *font = [NSFont menuFontOfSize:fontSize];
 
-+ (NSAttributedString *)boldAttributedStringForMenuBar:(NSString *)str withHighlight:(BOOL)highlight
-{
-    return [NSAttributedString attributedStringWithString:str
-                                               attributes:[self menuBarAttributesWithBold:YES
-                                                                                    alpha:1.0
-                                                                                highlight:highlight]];
+    if (bold) {
+        font = [[NSFontManager sharedFontManager] convertFont:font toHaveTrait:NSBoldFontMask];
+    }
+    
+    NSColor *color = [NSColor colorWithDeviceWhite:(highlight) ? 1.0 : 0.0 alpha:alpha];
+    
+    NSDictionary *attrsDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                               font, NSFontAttributeName,
+                               color, NSForegroundColorAttributeName,
+                           nil];
+    return [NSAttributedString attributedStringWithString:str attributes:attrsDict];
 }
-
-+ (NSAttributedString *)lightAttributedStringForMenuBar:(NSString *)str withHighlight:(BOOL)highlight
-{
-    return [NSAttributedString attributedStringWithString:str
-                                               attributes:[self menuBarAttributesWithBold:NO
-                                                                                    alpha:0.6
-                                                                                highlight:highlight]];
-}
-
 
 @end

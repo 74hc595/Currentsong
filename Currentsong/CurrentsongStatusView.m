@@ -35,6 +35,7 @@
 @synthesize album = mAlbum;
 @synthesize topRow = mTopRow;
 @synthesize bottomRow = mBottomRow;
+@synthesize highlighted = mHighlighted;
 
 #pragma mark -
 - (void)dealloc
@@ -91,6 +92,32 @@
     [mTopRow drawAtPoint:textOrigin];
 }
 
+- (void)drawTwoRowsInRect:(NSRect)rect
+{
+    if (!mTopRow || !mBottomRow) {
+        return;
+    }
+    
+    NSSize viewSize = [self frame].size;
+    NSSize topTextSize = [mTopRow size];
+    NSSize bottomTextSize = [mBottomRow size];
+        
+    CGFloat leftEdge = kCSViewSideMargin;
+    CGFloat rightEdge = viewSize.width-kCSViewSideMargin;
+    if (mShowPauseIcon) {
+        leftEdge += kCSViewPauseIconOffset;
+        [self drawPauseIcon];
+    }
+    
+    NSPoint topTextOrigin = NSMakePoint(rightEdge-topTextSize.width,11);
+    NSPoint bottomTextOrigin = NSMakePoint(rightEdge-bottomTextSize.width,1);
+    topTextOrigin.x = MAX(leftEdge, topTextOrigin.x);
+    bottomTextOrigin.x = MAX(leftEdge, bottomTextOrigin.x);
+    
+    [mTopRow drawAtPoint:topTextOrigin];
+    [mBottomRow drawAtPoint:bottomTextOrigin];
+}
+
 - (void)drawRect:(NSRect)rect
 {
     [mStatusItem drawStatusBarBackgroundInRect:[self bounds] withHighlight:mHighlighted];
@@ -106,8 +133,10 @@
         [[CurrentsongStatusView menuBarShadow] set];
     }
     
-    if (mTopRow && !mBottomRow) {
+    if ([mTopRow length] > 0 && [mBottomRow length] == 0) {
         [self drawSingleRowInRect:rect];
+    } else {
+        [self drawTwoRowsInRect:rect];
     }
     
     [NSGraphicsContext restoreGraphicsState];
@@ -140,33 +169,42 @@
     BOOL haveArtist = mShowArtist && ([mArtist length] > 0);
     BOOL haveName = ([mName length] > 0);
     BOOL haveAlbum = mShowAlbum && ([mAlbum length] > 0);
-        
+    
     self.bottomRow = nil;
     
     // No track name, not plaing
     if (!haveName) {
         mShowPauseIcon = NO;
-        self.topRow = [NSAttributedString plainAttributedStringForMenuBar:@"\u266B" withHighlight:mHighlighted];
+        self.topRow = [NSAttributedString menuBarAttributedString:@"\u266B" attributes:mHighlighted];
     } else {    
         if (mViewStyle == kCSStyleFormatted)
         {
             NSMutableAttributedString *topRowFormatted = [[[NSMutableAttributedString alloc] init] autorelease];
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
-            if (haveName)   [fields addObject:[NSAttributedString boldAttributedStringForMenuBar:mName withHighlight:mHighlighted]];
-            if (haveArtist) [fields addObject:[NSAttributedString plainAttributedStringForMenuBar:mArtist withHighlight:mHighlighted]];
-            if (haveAlbum)  [fields addObject:[NSAttributedString lightAttributedStringForMenuBar:mAlbum withHighlight:mHighlighted]];
+            if (haveName)   [fields addObject:[NSAttributedString menuBarAttributedString:mName attributes:mHighlighted|kCSBold]];
+            if (haveArtist) [fields addObject:[NSAttributedString menuBarAttributedString:mArtist attributes:mHighlighted]];
+            if (haveAlbum)  [fields addObject:[NSAttributedString menuBarAttributedString:mAlbum attributes:mHighlighted|kCSLight]];
             
             BOOL first = YES;
             for (NSAttributedString *astr in fields)
             {
                 if (!first) [topRowFormatted appendAttributedString:
-                             [NSAttributedString plainAttributedStringForMenuBar:@"  " withHighlight:mHighlighted]];
+                             [NSAttributedString menuBarAttributedString:@"  " attributes:mHighlighted]];
                 [topRowFormatted appendAttributedString:astr];
                 first = NO;
             }
             
             self.topRow = topRowFormatted;
             
+        }
+        else if (mViewStyle == kCSStyleTwoLevel)
+        {
+            self.topRow = [NSAttributedString menuBarAttributedString:mName attributes:mHighlighted|kCSBold|kCSSmall];
+            NSMutableArray *fields = [NSMutableArray arrayWithCapacity:2];
+            if (haveArtist) [fields addObject:mArtist];
+            if (haveAlbum)  [fields addObject:mAlbum];
+            self.bottomRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
+                                                              attributes:mHighlighted|kCSSmall];            
         }
         else
         {
@@ -175,8 +213,8 @@
             if (haveArtist) [fields addObject:mArtist];
             if (haveAlbum)  [fields addObject:mAlbum];
             
-            self.topRow = [NSAttributedString plainAttributedStringForMenuBar:[fields componentsJoinedByString:@" - "]
-                                                                withHighlight:mHighlighted];
+            self.topRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
+                                                           attributes:mHighlighted];
         }
     }
     
