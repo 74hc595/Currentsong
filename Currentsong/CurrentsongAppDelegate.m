@@ -201,7 +201,6 @@
         [menuItem setState:[mLaunchAtLoginController launchAtLogin]];
     } else if ([menuItem action] == @selector(launchITunes:)) {
         iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-        //[menuItem setHidden:[iTunes isRunning]];
         [menuItem setTitle:([iTunes isRunning]) ? NSLocalizedString(@"iTunes", @"iTunes")
                                                 : NSLocalizedString(@"Launch iTunes", @"Launch iTunes")];
     }
@@ -390,10 +389,15 @@
 
 - (IBAction)launchITunes:(id)sender
 {
+    // Reveal the current track (only if iTunes is already running)
+    iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+    [[iTunes currentTrack] reveal];
+    
+    // Activate iTunes (or launch it)
     [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:@"com.apple.iTunes"
                                                          options:0
                                   additionalEventParamDescriptor:NULL
-                                                launchIdentifier:NULL];
+                                                launchIdentifier:NULL];    
 }
 
 @end
