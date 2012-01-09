@@ -37,6 +37,12 @@ typedef enum
     
     NSAttributedString *mTopRow;
     NSAttributedString *mBottomRow;
+    CGFloat mTopRowScrollOffset;
+    CGFloat mBottomRowScrollOffset;
+    BOOL mScrollTopRow;
+    BOOL mScrollBottomRow;
+    NSTimer *mScrollTimer;
+
     CGImageRef mAlphaMask;
     BOOL mAlphaMaskAccountsForPauseIcon;
 }

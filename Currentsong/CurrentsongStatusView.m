@@ -10,8 +10,13 @@
 #import "CurrentsongPreferenceKeys.h"
 #import "NSAttributedStringAdditions.h"
 
-#define kCSViewSideMargin       5
-#define kCSViewPauseIconOffset  13
+#define kCSViewSideMargin           5
+#define kCSViewPauseIconOffset      13
+#define kCSViewScrollPadding        20
+#define kCSViewScrollDelayInSeconds 2
+#define kCSViewScrollTimerFrequency (1.0/30.0)
+
+#define kCSViewScrollStartOffset    (-kCSViewScrollDelayInSeconds/kCSViewScrollTimerFrequency)
 
 @interface CurrentsongStatusView ()
 @property (nonatomic,retain) NSString *artist;
@@ -19,6 +24,9 @@
 @property (nonatomic,retain) NSString *album;
 @property (nonatomic,retain) NSAttributedString *topRow;
 @property (nonatomic,retain) NSAttributedString *bottomRow;
+- (BOOL)isScrolling;
+- (void)startScrolling;
+- (void)stopScrolling;
 @end
 
 #pragma mark -
@@ -47,6 +55,8 @@
     [mTopRow release];
     [mBottomRow release];
     CGImageRelease(mAlphaMask);
+    [mScrollTimer invalidate];
+    [mScrollTimer release];
     [super dealloc];
 }
 
@@ -78,7 +88,7 @@
 - (void)generateFadedEdgeMask
 {    
     NSSize viewSize = [self frame].size;
-    CGFloat leftEdge = (mShowPauseIcon) ? kCSViewPauseIconOffset : 0;
+    CGFloat leftEdge = (mShowPauseIcon) ? kCSViewPauseIconOffset+2 : 0;
    
     CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
     CGContextRef maskContext = CGBitmapContextCreate(NULL, viewSize.width, viewSize.height, 8, viewSize.width, cs, 0);
@@ -86,6 +96,11 @@
     
     CGContextSetGrayFillColor(maskContext, 1, 1);
     CGContextFillRect(maskContext, [self bounds]);
+    
+    if (mShowPauseIcon) {
+        CGContextSetGrayFillColor(maskContext, 0, 1);
+        CGContextFillRect(maskContext, NSMakeRect(0, 0, leftEdge, viewSize.height));
+    }
     
     CGFloat components[] = {1, 1, 0, 1};
     CGGradientRef gradient = CGGradientCreateWithColorComponents(cs, components, NULL, 2);
@@ -136,8 +151,17 @@
         [self drawPauseIcon];
     }
 
+    textOrigin.x -= MAX(0,mTopRowScrollOffset);
+    textOrigin.x = floor(textOrigin.x);
+    
     [self setFadedEdgeMask];
     [mTopRow drawAtPoint:textOrigin];
+    
+    // If scrolling, draw a second copy of the text
+    if (mScrollTopRow) {
+        textOrigin.x += textSize.width + kCSViewScrollPadding;
+        [mTopRow drawAtPoint:textOrigin];
+    }
 }
 
 - (void)drawTwoRowsInRect:(NSRect)rect
@@ -159,12 +183,22 @@
     
     NSPoint topTextOrigin = NSMakePoint(rightEdge-topTextSize.width,11);
     NSPoint bottomTextOrigin = NSMakePoint(rightEdge-bottomTextSize.width,1);
-    topTextOrigin.x = MAX(leftEdge, topTextOrigin.x);
-    bottomTextOrigin.x = MAX(leftEdge, bottomTextOrigin.x);
+    topTextOrigin.x = floor(MAX(leftEdge, topTextOrigin.x) - MAX(0,mTopRowScrollOffset));
+    bottomTextOrigin.x = floor(MAX(leftEdge, bottomTextOrigin.x) - MAX(0,mBottomRowScrollOffset));
     
     [self setFadedEdgeMask];
     [mTopRow drawAtPoint:topTextOrigin];
     [mBottomRow drawAtPoint:bottomTextOrigin];
+    
+    // If scrolling, draw a second copy of the text
+    if (mScrollTopRow) {
+        topTextOrigin.x += topTextSize.width + kCSViewScrollPadding;
+        [mTopRow drawAtPoint:topTextOrigin];
+    }
+    if (mScrollBottomRow) {
+        bottomTextOrigin.x += bottomTextSize.width + kCSViewScrollPadding;
+        [mBottomRow drawAtPoint:bottomTextOrigin];
+    }
 }
 
 - (void)drawRect:(NSRect)rect
@@ -176,7 +210,7 @@
     
     // disabling font smoothing draws text makes it look just like other menu items and the clock
     CGContextSetShouldSmoothFonts(context, NO);
-    
+
     // add subtle white shadow to match other menu bar text
     if (!mHighlighted) {
         [[CurrentsongStatusView menuBarShadow] set];
@@ -197,16 +231,26 @@
     CGFloat topRowWidth = (mTopRow) ? [mTopRow size].width : 0;
     CGFloat bottomRowWidth = (mBottomRow) ? [mBottomRow size].width : 0;
     CGFloat width = MAX(topRowWidth, bottomRowWidth);
-    //width = MAX(width, 22);
-    width += kCSViewSideMargin*2;
-
-    if (mShowPauseIcon) {
-        width += kCSViewPauseIconOffset;
-    }
+    CGFloat padding = kCSViewSideMargin*2;
+    width += padding;
     
     // If mMaxWidth is greater than 0, enforce maximum width
     if (mMaxWidth > 0) {
         width = MIN(mMaxWidth, width);
+    }
+
+    if (mShowPauseIcon) {
+        padding += kCSViewPauseIconOffset;
+        width += kCSViewPauseIconOffset;
+    }
+    
+    mScrollTopRow = (topRowWidth > width-padding);
+    mScrollBottomRow = (bottomRowWidth > width-padding);
+    
+    if (mShouldScroll && (mScrollTopRow || mScrollBottomRow) && ![self isScrolling]) {
+        [self startScrolling];
+    } else if (!(mScrollTopRow || mScrollBottomRow) && [self isScrolling]) {
+        [self stopScrolling];
     }
     
     [self setFrame:NSMakeRect(0, 0, width, height)];
@@ -272,9 +316,9 @@
 
 - (void)updateTrackInfo:(NSDictionary *)trackInfo
 {        
-    self.artist = [trackInfo objectForKey:@"Artist"];
-    self.name = [trackInfo objectForKey:@"Name"];
-    self.album = [trackInfo objectForKey:@"Album"];
+    NSString *artist = [trackInfo objectForKey:@"Artist"];
+    NSString *name = [trackInfo objectForKey:@"Name"];
+    NSString *album = [trackInfo objectForKey:@"Album"];
     NSString *streamTitle = [trackInfo objectForKey:@"Stream Title"];   
     NSString *playerState = [trackInfo objectForKey:@"Player State"];
     mShowPauseIcon = ([playerState isEqualToString:@"Stopped"] || [playerState isEqualToString:@"Paused"]);
@@ -282,17 +326,81 @@
     // Streaming?
     if (streamTitle) {
         mIsStream = YES;
-        self.album = self.name;
-        self.name = streamTitle;
+        album = name;
+        name = streamTitle;
     } else {
         mIsStream = NO;
     }
+    
+    // Reset scroll offset if the track changed
+    if ([self isScrolling] && (![artist isEqualToString:self.artist] ||
+        ![name isEqualToString:self.name] ||
+        ![album isEqualToString:self.album]))
+    {
+        mTopRowScrollOffset = kCSViewScrollStartOffset;
+        mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    }
+    
+    self.artist = artist;
+    self.name = name;
+    self.album = album;
     
     [self updateAppearance];
 }
 
 
-#pragma mark -
+#pragma mark Scrolling
+
+- (BOOL)isScrolling
+{
+    return (mScrollTimer != nil);
+}
+        
+- (void)startScrolling
+{
+    if (mScrollTimer) {
+        return;
+    }
+    
+    mScrollTimer = [[NSTimer scheduledTimerWithTimeInterval:kCSViewScrollTimerFrequency
+                                                     target:self
+                                                   selector:@selector(scrollTimerFired:)
+                                                   userInfo:nil
+                                                    repeats:YES] retain];
+}
+
+- (void)stopScrolling
+{
+    if (!mScrollTimer) {
+        return;
+    }
+    
+    [mScrollTimer invalidate];
+    [mScrollTimer release];
+    mScrollTimer = nil;
+}
+
+- (void)scrollTimerFired:(NSTimer *)timer
+{
+    if (mScrollTopRow && mTopRow) {
+        mTopRowScrollOffset += 1;
+        if (mTopRowScrollOffset >= [mTopRow size].width+kCSViewScrollPadding) {
+            mTopRowScrollOffset = kCSViewScrollStartOffset;
+        }
+    }
+    
+    if (mScrollBottomRow && mBottomRow) {
+        mBottomRowScrollOffset += 1;
+        if (mBottomRowScrollOffset >= [mBottomRow size].width+kCSViewScrollPadding) {
+            mBottomRowScrollOffset = kCSViewScrollStartOffset;
+        }
+    }
+    
+    [self setNeedsDisplay:YES];
+}
+
+
+#pragma mark Properties
 
 - (void)setHighlighted:(BOOL)highlighted
 {
@@ -301,26 +409,51 @@
 
 - (void)setViewStyle:(CurrentsongViewStyle)viewStyle
 {
-    mViewStyle = viewStyle; [self updateAppearance];
+    mViewStyle = viewStyle;
+    mTopRowScrollOffset = kCSViewScrollStartOffset;
+    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    [self updateAppearance];
 }
 
 - (void)setMaxWidth:(CGFloat)maxWidth
 {
-    mMaxWidth = maxWidth; [self updateAppearance];
+    mMaxWidth = maxWidth;
+    mTopRowScrollOffset = kCSViewScrollStartOffset;
+    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    [self updateAppearance];
 }
 
 - (void)setShowArtist:(BOOL)showArtist
 {
-    mShowArtist = showArtist; [self updateAppearance];
+    mShowArtist = showArtist;
+    mTopRowScrollOffset = kCSViewScrollStartOffset;
+    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    [self updateAppearance];
 }
 
 - (void)setShowAlbum:(BOOL)showAlbum
 {
-    mShowAlbum = showAlbum; [self updateAppearance];
+    mShowAlbum = showAlbum;
+    mTopRowScrollOffset = kCSViewScrollStartOffset;
+    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    [self updateAppearance];
 }
 
+- (void)setShouldScroll:(BOOL)shouldScroll
+{
+    if (mShouldScroll != shouldScroll)
+    {
+        if (!shouldScroll) {
+            [self stopScrolling];
+        }
+        mShouldScroll = shouldScroll;
+        mTopRowScrollOffset = kCSViewScrollStartOffset;
+        mBottomRowScrollOffset = kCSViewScrollStartOffset;
+        [self updateAppearance];
+    }
+}
 
-#pragma mark -
+#pragma mark Events
 - (void)mouseDown:(NSEvent *)event
 {
     [mStatusItem popUpStatusItemMenu:[mStatusItem menu]];
