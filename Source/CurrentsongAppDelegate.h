@@ -24,6 +24,7 @@
     IBOutlet NSMenuItem *mAlbumMenuItem;
     IBOutlet NSMenuItem *mStreamTitleMenuItem;
     IBOutlet NSMenuItem *mTimeMenuItem;
+    IBOutlet NSMenuItem *mVersionMenuItem;
 
     IBOutlet LaunchAtLoginController *mLaunchAtLoginController;
 }

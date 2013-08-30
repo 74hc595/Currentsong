@@ -57,6 +57,10 @@
       [NSNumber numberWithBool:NO], kCSPrefShowAlbum,
       [NSNumber numberWithBool:YES], kCSPrefScrollLongText,
       nil]];
+    
+    // Inject version number into menu
+    [mVersionMenuItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"Currentsong %@", @"application name with version number"),
+                                [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]]];
 
     // Install status item
     mStatusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
@@ -81,11 +85,18 @@
     // Start listening to iTunes notifications
     NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
     [dnc addObserver:self selector:@selector(trackInfoDidChange:) name:@"com.apple.iTunes.playerInfo" object:nil];
+    
+    // Listen to application-did-terminate notifications since iTunes 11 no longer posts a "stopped" event on quit
+    [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self
+                                                           selector:@selector(anotherAppDidTerminate:)
+                                                               name:NSWorkspaceDidTerminateApplicationNotification
+                                                             object:nil];
 }
 
 - (void)dealloc
 {
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
+    [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
     [mMenuUpdateTimer invalidate];
     [mMenuUpdateTimer release];
     [mStatusItem release];
@@ -102,6 +113,14 @@
     if (mMenuIsOpen) {
         [self updateMenuTrackTime];
     }    
+}
+
+// Handle iTunes quit notifications
+- (void)anotherAppDidTerminate:(NSNotification *)notification
+{
+    if ([[[notification userInfo] valueForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.apple.iTunes"]) {
+        [self trackInfoDidChange:nil];
+    }
 }
 
 // Fetch track info directly using Scripting Bridge
