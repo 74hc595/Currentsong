@@ -310,6 +310,11 @@
     if (elapsedTimeString) {
         [mTimeMenuItem setTitle:elapsedTimeString];
     }
+    
+    NSString *playerState = [info objectForKey:@"Player State"];
+    if (!playerState || [playerState isEqualToString:@"Stopped"]) {
+        [mRatingMenuItem setHidden:YES];
+    }
 }
 
 - (void)menuUpdateTimerFired:(NSTimer *)timer
