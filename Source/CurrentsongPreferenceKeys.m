@@ -10,5 +10,6 @@ NSString * const kCSPrefViewStyle = @"viewStyle";
 NSString * const kCSPrefMaxWidth = @"maxWidth";
 NSString * const kCSPrefShowArtist = @"showArtist";
 NSString * const kCSPrefShowAlbum = @"showAlbum";
+NSString * const kCSPrefShowRating = @"showRating";
 NSString * const kCSPrefScrollLongText = @"scroll";
 NSString * const kCSPrefShownLaunchAtLoginPrompt = @"shownLaunchAtLoginPrompt";

@@ -22,6 +22,7 @@
     IBOutlet NSMenuItem *mNameMenuItem;
     IBOutlet NSMenuItem *mArtistMenuItem;
     IBOutlet NSMenuItem *mAlbumMenuItem;
+    IBOutlet NSMenuItem *mRatingMenuItem;
     IBOutlet NSMenuItem *mStreamTitleMenuItem;
     IBOutlet NSMenuItem *mTimeMenuItem;
     IBOutlet NSMenuItem *mVersionMenuItem;
@@ -37,8 +38,10 @@
 - (IBAction)setTitleOnly:(id)sender;
 - (IBAction)setTitleAndArtist:(id)sender;
 - (IBAction)setTitleArtistAlbum:(id)sender;
+- (IBAction)setTitleArtistAlbumRating:(id)sender;
 - (IBAction)setTitleAndArtistStacked:(id)sender;
 - (IBAction)setTitleArtistAlbumStacked:(id)sender;
+- (IBAction)setTitleArtistAlbumRatingStacked:(id)sender;
 
 - (IBAction)setLargeViewWidth:(id)sender;
 - (IBAction)setMediumViewWidth:(id)sender;

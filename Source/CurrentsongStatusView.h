@@ -26,6 +26,7 @@ typedef enum
     CGFloat mMaxWidth;
     BOOL mShowArtist;
     BOOL mShowAlbum;
+    BOOL mShowRating;
     BOOL mShouldScroll;
     
     // Track data
@@ -34,6 +35,7 @@ typedef enum
     NSString *mArtist;
     NSString *mName;
     NSString *mAlbum;
+    NSString *mRating;
     
     NSAttributedString *mTopRow;
     NSAttributedString *mBottomRow;
@@ -53,9 +55,10 @@ typedef enum
 @property (nonatomic,assign) CGFloat maxWidth;
 @property (nonatomic,assign) BOOL showArtist;
 @property (nonatomic,assign) BOOL showAlbum;
+@property (nonatomic,assign) BOOL showRating;
 @property (nonatomic,assign) BOOL shouldScroll;
 
-- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum viewStyle:(CurrentsongViewStyle)viewStyle;
+- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum showRating:(BOOL)showRating viewStyle:(CurrentsongViewStyle)viewStyle;
 
 // Update track info from dictionary provided by iTunes distributed notification
 - (void)updateTrackInfo:(NSDictionary *)trackInfo;

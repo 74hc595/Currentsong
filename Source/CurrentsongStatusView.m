@@ -23,6 +23,7 @@
 @property (nonatomic,retain) NSString *artist;
 @property (nonatomic,retain) NSString *name;
 @property (nonatomic,retain) NSString *album;
+@property (nonatomic,retain) NSString *rating;
 @property (nonatomic,retain) NSAttributedString *topRow;
 @property (nonatomic,retain) NSAttributedString *bottomRow;
 - (BOOL)isScrolling;
@@ -38,10 +39,12 @@
 @synthesize maxWidth = mMaxWidth;
 @synthesize showArtist = mShowArtist;
 @synthesize showAlbum = mShowAlbum;
+@synthesize showRating = mShowRating;
 @synthesize shouldScroll = mShouldScroll;
 @synthesize artist = mArtist;
 @synthesize name = mName;
 @synthesize album = mAlbum;
+@synthesize rating = mRating;
 @synthesize topRow = mTopRow;
 @synthesize bottomRow = mBottomRow;
 @synthesize highlighted = mHighlighted;
@@ -53,6 +56,7 @@
     [mArtist release];
     [mName release];
     [mAlbum release];
+    [mRating release];
     [mTopRow release];
     [mBottomRow release];
     CGImageRelease(mAlphaMask);
@@ -236,6 +240,7 @@
     BOOL haveArtist = mShowArtist && ([mArtist length] > 0);
     BOOL haveName = ([mName length] > 0);
     BOOL haveAlbum = mShowAlbum && ([mAlbum length] > 0);
+    BOOL haveRating = mShowRating && ([mRating length] > 0);
     
     self.bottomRow = nil;
     
@@ -251,6 +256,7 @@
             if (haveName)   [fields addObject:[NSAttributedString menuBarAttributedString:mName attributes:mHighlighted|kCSBold]];
             if (haveArtist) [fields addObject:[NSAttributedString menuBarAttributedString:mArtist attributes:mHighlighted]];
             if (haveAlbum)  [fields addObject:[NSAttributedString menuBarAttributedString:mAlbum attributes:mHighlighted|kCSLight]];
+            if (haveRating)  [fields addObject:[NSAttributedString menuBarAttributedString:mRating attributes:mHighlighted]];
             
             BOOL first = YES;
             for (NSAttributedString *astr in fields)
@@ -270,6 +276,7 @@
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:2];
             if (haveArtist) [fields addObject:mArtist];
             if (haveAlbum)  [fields addObject:mAlbum];
+            if (haveRating)  [fields addObject:mRating];
             self.bottomRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
                                                               attributes:mHighlighted|kCSSmall];            
         }
@@ -279,6 +286,7 @@
             if (haveName)   [fields addObject:mName];
             if (haveArtist) [fields addObject:mArtist];
             if (haveAlbum)  [fields addObject:mAlbum];
+            if (haveRating)  [fields addObject:mRating];
             
             self.topRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
                                                            attributes:mHighlighted];
@@ -296,6 +304,32 @@
     NSString *streamTitle = [trackInfo objectForKey:@"Stream Title"];   
     NSString *playerState = [trackInfo objectForKey:@"Player State"];
     mShowPauseIcon = ([playerState isEqualToString:@"Stopped"] || [playerState isEqualToString:@"Paused"]);
+    
+    NSNumber *ratingPercent = [trackInfo objectForKey:@"Rating"];
+    NSString *rating = nil;
+    if ([ratingPercent intValue] == 100) {
+        rating = @"★★★★★";
+    } else if ([ratingPercent intValue] == 90) {
+        rating = @"★★★★½";
+    } else if ([ratingPercent intValue] == 80) {
+        rating = @"★★★★☆";
+    } else if ([ratingPercent intValue] == 70) {
+        rating = @"★★★½☆";
+    } else if ([ratingPercent intValue] == 60) {
+        rating = @"★★★☆☆";
+    } else if ([ratingPercent intValue] == 50) {
+        rating = @"★★½☆☆";
+    } else if ([ratingPercent intValue] == 40) {
+        rating = @"★★☆☆☆";
+    } else if ([ratingPercent intValue] == 30) {
+        rating = @"★½☆☆☆";
+    } else if ([ratingPercent intValue] == 20) {
+        rating = @"★☆☆☆☆";
+    } else if ([ratingPercent intValue] == 10) {
+        rating = @"½☆☆☆☆";
+    } else {
+        rating = @"☆☆☆☆☆";
+    }
     
     // Streaming?
     if (streamTitle) {
@@ -318,6 +352,7 @@
     self.artist = artist;
     self.name = name;
     self.album = album;
+    self.rating = rating;
     
     [self updateAppearance];
 }
@@ -413,10 +448,20 @@
     [self updateAppearance];
 }
 
-- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum viewStyle:(CurrentsongViewStyle)viewStyle
+- (void)setShowRating:(BOOL)showRating
+{
+    mShowRating = showRating;
+    mTopRowScrollOffset = kCSViewScrollStartOffset;
+    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    [self updateAppearance];
+
+}
+
+- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum showRating:(BOOL)showRating viewStyle:(CurrentsongViewStyle)viewStyle
 {
     mShowArtist = showArtist;
     mShowAlbum = showAlbum;
+    mShowRating = showRating;
     mViewStyle = viewStyle;
     mTopRowScrollOffset = kCSViewScrollStartOffset;
     mBottomRowScrollOffset = kCSViewScrollStartOffset;
