@@ -20,11 +20,11 @@
 #define kCSViewScrollStartOffset    (-kCSViewScrollDelayInSeconds/kCSViewScrollTimerFrequency)
 
 @interface CurrentsongStatusView ()
-@property (nonatomic,retain) NSString *artist;
-@property (nonatomic,retain) NSString *name;
-@property (nonatomic,retain) NSString *album;
-@property (nonatomic,retain) NSAttributedString *topRow;
-@property (nonatomic,retain) NSAttributedString *bottomRow;
+@property (nonatomic,strong) NSString *artist;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *album;
+@property (nonatomic,strong) NSAttributedString *topRow;
+@property (nonatomic,strong) NSAttributedString *bottomRow;
 - (BOOL)isScrolling;
 - (void)startScrolling;
 - (void)stopScrolling;
@@ -49,16 +49,8 @@
 #pragma mark -
 - (void)dealloc
 {
-    [mStatusItem release];
-    [mArtist release];
-    [mName release];
-    [mAlbum release];
-    [mTopRow release];
-    [mBottomRow release];
     CGImageRelease(mAlphaMask);
     [mScrollTimer invalidate];
-    [mScrollTimer release];
-    [super dealloc];
 }
 
 // Mimic the white shadow under menu item text in the menu bar
@@ -246,7 +238,7 @@
     } else {    
         if (mViewStyle == kCSStyleFormatted)
         {
-            NSMutableAttributedString *topRowFormatted = [[[NSMutableAttributedString alloc] init] autorelease];
+            NSMutableAttributedString *topRowFormatted = [[NSMutableAttributedString alloc] init];
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
             if (haveName)   [fields addObject:[NSAttributedString menuBarAttributedString:mName attributes:mHighlighted|kCSBold]];
             if (haveArtist) [fields addObject:[NSAttributedString menuBarAttributedString:mArtist attributes:mHighlighted]];
@@ -336,11 +328,11 @@
         return;
     }
     
-    mScrollTimer = [[NSTimer scheduledTimerWithTimeInterval:kCSViewScrollTimerFrequency
+    mScrollTimer = [NSTimer scheduledTimerWithTimeInterval:kCSViewScrollTimerFrequency
                                                      target:self
                                                    selector:@selector(scrollTimerFired:)
                                                    userInfo:nil
-                                                    repeats:YES] retain];
+                                                    repeats:YES];
 }
 
 - (void)stopScrolling
@@ -350,7 +342,6 @@
     }
     
     [mScrollTimer invalidate];
-    [mScrollTimer release];
     mScrollTimer = nil;
 }
 

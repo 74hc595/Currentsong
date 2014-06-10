@@ -47,7 +47,7 @@ typedef enum
     BOOL mAlphaMaskAccountsForPauseIcon;
 }
 
-@property (nonatomic,retain) NSStatusItem *statusItem;
+@property (nonatomic,strong) NSStatusItem *statusItem;
 @property (nonatomic,assign) BOOL highlighted;
 @property (nonatomic,assign) CurrentsongViewStyle viewStyle;
 @property (nonatomic,assign) CGFloat maxWidth;

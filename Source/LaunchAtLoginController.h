@@ -1,6 +1,7 @@
 //
 //  LaunchAtLoginController.h
 //
+//  Copyright 2013 Siddharth Gupta
 //  Copyright 2011 Tomáš Znamenáček
 //  Copyright 2010 Ben Clark-Robinson
 //
@@ -22,10 +23,7 @@
 //  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-@interface LaunchAtLoginController : NSObject
-{
-    LSSharedFileListRef loginItems;
-}
+@interface LaunchAtLoginController : NSObject {}
 
 @property(assign) BOOL launchAtLogin;
 

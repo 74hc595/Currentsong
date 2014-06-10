@@ -63,7 +63,7 @@
                                 [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]]];
 
     // Install status item
-    mStatusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
+    mStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [mStatusItem setMenu:mMenu];
     [mMenu setDelegate:self];
     
@@ -98,10 +98,6 @@
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
     [mMenuUpdateTimer invalidate];
-    [mMenuUpdateTimer release];
-    [mStatusItem release];
-    [mStatusView release];
-    [super dealloc];
 }
 
 // Handle play state and track changes
@@ -301,7 +297,6 @@
     if (menu == mMenu)
     {
         [mMenuUpdateTimer invalidate];
-        [mMenuUpdateTimer release];
         mMenuUpdateTimer = nil;
         mStatusView.highlighted = NO;
         mMenuIsOpen = NO;

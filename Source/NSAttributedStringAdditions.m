@@ -13,7 +13,7 @@
 
 + (NSAttributedString *)attributedStringWithString:(NSString *)str attributes:(NSDictionary *)attrs
 {
-    return [[[NSAttributedString alloc] initWithString:str attributes:attrs] autorelease];
+    return [[NSAttributedString alloc] initWithString:str attributes:attrs];
 }
 
 + (NSAttributedString *)menuBarAttributedString:(NSString *)str attributes:(CurrentsongTextAttributeMask)attrs

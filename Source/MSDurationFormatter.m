@@ -25,7 +25,7 @@ static NSString *sSeparator = nil;
     NSRange separatorRange = [dateFormat rangeOfCharacterFromSet:separatorChars];
 
     if (separatorRange.location != NSNotFound) {
-        sSeparator = [[dateFormat substringWithRange:separatorRange] retain];
+        sSeparator = [dateFormat substringWithRange:separatorRange];
     } else {
         sSeparator = @":";
     }
@@ -38,9 +38,9 @@ static NSString *sSeparator = nil;
     NSInteger sec = seconds % 60;
     
     if (hr == 0) {
-        return [NSString stringWithFormat:@"%d%@%02d", min, sSeparator, sec];
+        return [NSString stringWithFormat:@"%ld%@%02ld", min, sSeparator, sec];
     } else {
-        return [NSString stringWithFormat:@"%d%@%02d%@%02d", hr, sSeparator, min, sSeparator, sec];
+        return [NSString stringWithFormat:@"%ld%@%02ld%@%02ld", hr, sSeparator, min, sSeparator, sec];
     }    
 }
 
