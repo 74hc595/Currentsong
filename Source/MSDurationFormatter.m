@@ -15,20 +15,23 @@ static NSString *sSeparator = nil;
 
 + (void)initialize
 {
-    // Cocoa provides no way to access the localized time separator,
-    // so extract them manually from the current locale
-    // This doesn't support weirdos with custom date/time formats, but whatever
-    NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:@"hhmmss" options:0 locale:[NSLocale currentLocale]];
-    NSMutableCharacterSet *separatorChars = [NSMutableCharacterSet letterCharacterSet];
-    [separatorChars formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
-    [separatorChars invert];
-    NSRange separatorRange = [dateFormat rangeOfCharacterFromSet:separatorChars];
-
-    if (separatorRange.location != NSNotFound) {
-        sSeparator = [dateFormat substringWithRange:separatorRange];
-    } else {
-        sSeparator = @":";
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // Cocoa provides no way to access the localized time separator,
+        // so extract them manually from the current locale
+        // This doesn't support weirdos with custom date/time formats, but whatever
+        NSString *dateFormat = [NSDateFormatter dateFormatFromTemplate:@"hhmmss" options:0 locale:[NSLocale currentLocale]];
+        NSMutableCharacterSet *separatorChars = [NSMutableCharacterSet letterCharacterSet];
+        [separatorChars formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
+        [separatorChars invert];
+        NSRange separatorRange = [dateFormat rangeOfCharacterFromSet:separatorChars];
+        
+        if (separatorRange.location != NSNotFound) {
+            sSeparator = [dateFormat substringWithRange:separatorRange];
+        } else {
+            sSeparator = @":";
+        }
+    });
 }
 
 + (NSString *)hoursMinutesSecondsFromSeconds:(NSInteger)seconds

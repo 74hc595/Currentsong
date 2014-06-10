@@ -10,7 +10,6 @@
 
 @implementation NSAttributedString (NSAttributedStringAdditions)
 
-
 + (NSAttributedString *)attributedStringWithString:(NSString *)str attributes:(NSDictionary *)attrs
 {
     return [[NSAttributedString alloc] initWithString:str attributes:attrs];
@@ -31,10 +30,8 @@
     
     NSColor *color = [NSColor colorWithDeviceWhite:(highlight) ? 1.0 : 0.0 alpha:alpha];
     
-    NSDictionary *attrsDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                               font, NSFontAttributeName,
-                               color, NSForegroundColorAttributeName,
-                           nil];
+    NSDictionary *attrsDict = @{NSFontAttributeName: font,
+                               NSForegroundColorAttributeName: color};
     return [NSAttributedString attributedStringWithString:str attributes:attrsDict];
 }
 

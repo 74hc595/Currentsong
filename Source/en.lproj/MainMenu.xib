@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
+<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1080</int>
-		<string key="IBDocument.SystemVersion">12E55</string>
-		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.39</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
+		<int key="IBDocument.SystemTarget">1070</int>
+		<string key="IBDocument.SystemVersion">13D65</string>
+		<string key="IBDocument.InterfaceBuilderVersion">6154.17</string>
+		<string key="IBDocument.AppKitVersion">1265.20</string>
+		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">3084</string>
+			<string key="NS.object.0">6154.17</string>
 		</object>
-		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
-			<bool key="EncodedWithXMLCoder">YES</bool>
+		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
 			<string>NSMenu</string>
 			<string>NSMenuItem</string>
-		</object>
-		<object class="NSArray" key="IBDocument.PluginDependencies">
-			<bool key="EncodedWithXMLCoder">YES</bool>
+		</array>
+		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-		</object>
+		</array>
 		<object class="NSMutableDictionary" key="IBDocument.Metadata">
 			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
 			<integer value="1" key="NS.object.0"/>
 		</object>
-		<object class="NSMutableArray" key="IBDocument.RootObjects" id="1048">
-			<bool key="EncodedWithXMLCoder">YES</bool>
+		<array class="NSMutableArray" key="IBDocument.RootObjects" id="1048">
 			<object class="NSCustomObject" id="1021">
 				<string key="NSClassName">NSApplication</string>
 			</object>
@@ -40,8 +37,7 @@
 			</object>
 			<object class="NSMenu" id="947590874">
 				<string key="NSTitle"/>
-				<object class="NSMutableArray" key="NSMenuItems">
-					<bool key="EncodedWithXMLCoder">YES</bool>
+				<array class="NSMutableArray" key="NSMenuItems">
 					<object class="NSMenuItem" id="96857993">
 						<reference key="NSMenu" ref="947590874"/>
 						<bool key="NSIsDisabled">YES</bool>
@@ -119,10 +115,10 @@
 						<reference key="NSOnImage" ref="111838853"/>
 						<reference key="NSMixedImage" ref="883337239"/>
 						<string key="NSAction">submenuAction:</string>
+						<reference key="NSTarget" ref="978597002"/>
 						<object class="NSMenu" key="NSSubmenu" id="978597002">
 							<string key="NSTitle"/>
-							<object class="NSMutableArray" key="NSMenuItems">
-								<bool key="EncodedWithXMLCoder">YES</bool>
+							<array class="NSMutableArray" key="NSMenuItems">
 								<object class="NSMenuItem" id="967337737">
 									<reference key="NSMenu" ref="978597002"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -269,7 +265,7 @@
 									<reference key="NSOnImage" ref="111838853"/>
 									<reference key="NSMixedImage" ref="883337239"/>
 								</object>
-							</object>
+							</array>
 						</object>
 					</object>
 					<object class="NSMenuItem" id="721622883">
@@ -280,15 +276,14 @@
 						<reference key="NSOnImage" ref="111838853"/>
 						<reference key="NSMixedImage" ref="883337239"/>
 					</object>
-				</object>
+				</array>
 			</object>
 			<object class="NSCustomObject" id="407065251">
 				<string key="NSClassName">LaunchAtLoginController</string>
 			</object>
-		</object>
+		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
-			<object class="NSMutableArray" key="connectionRecords">
-				<bool key="EncodedWithXMLCoder">YES</bool>
+			<array class="NSMutableArray" key="connectionRecords">
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
@@ -306,60 +301,12 @@
 					<int key="connectionID">560</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mMenu</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="947590874"/>
-					</object>
-					<int key="connectionID">554</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mArtistMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="602572125"/>
-					</object>
-					<int key="connectionID">556</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mAlbumMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="767813402"/>
-					</object>
-					<int key="connectionID">557</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mTimeMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="187533273"/>
-					</object>
-					<int key="connectionID">558</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mNameMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="96857993"/>
-					</object>
-					<int key="connectionID">561</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">trackElapsedTime:</string>
 						<reference key="source" ref="976324537"/>
 						<reference key="destination" ref="187533273"/>
 					</object>
 					<int key="connectionID">562</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mStreamTitleMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="102643582"/>
-					</object>
-					<int key="connectionID">564</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -434,14 +381,6 @@
 					<int key="connectionID">595</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mLaunchAtLoginController</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="407065251"/>
-					</object>
-					<int key="connectionID">597</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleLaunchAtLogin:</string>
 						<reference key="source" ref="976324537"/>
@@ -465,15 +404,76 @@
 					</object>
 					<int key="connectionID">601</int>
 				</object>
-			</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menu</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="947590874"/>
+					</object>
+					<int key="connectionID">602</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">albumMenuItem</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="767813402"/>
+					</object>
+					<int key="connectionID">603</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">artistMenuItem</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="602572125"/>
+					</object>
+					<int key="connectionID">604</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">launchAtLoginController</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="407065251"/>
+					</object>
+					<int key="connectionID">605</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nameMenuItem</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="96857993"/>
+					</object>
+					<int key="connectionID">606</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">streamTitleMenuItem</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="102643582"/>
+					</object>
+					<int key="connectionID">607</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">timeMenuItem</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="187533273"/>
+					</object>
+					<int key="connectionID">608</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">versionMenuItem</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="407475671"/>
+					</object>
+					<int key="connectionID">609</int>
+				</object>
+			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
-				<object class="NSArray" key="orderedObjects">
-					<bool key="EncodedWithXMLCoder">YES</bool>
+				<array key="orderedObjects">
 					<object class="IBObjectRecord">
 						<int key="objectID">0</int>
-						<object class="NSArray" key="object" id="0">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-						</object>
+						<array key="object" id="0"/>
 						<reference key="children" ref="1048"/>
 						<nil key="parent"/>
 					</object>
@@ -503,8 +503,7 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">533</int>
 						<reference key="object" ref="947590874"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
+						<array class="NSMutableArray" key="children">
 							<reference ref="96857993"/>
 							<reference ref="602572125"/>
 							<reference ref="767813402"/>
@@ -514,7 +513,7 @@
 							<reference ref="721622883"/>
 							<reference ref="102643582"/>
 							<reference ref="1028767459"/>
-						</object>
+						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -545,10 +544,9 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">539</int>
 						<reference key="object" ref="239610712"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
+						<array class="NSMutableArray" key="children">
 							<reference ref="978597002"/>
-						</object>
+						</array>
 						<reference key="parent" ref="947590874"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -559,8 +557,7 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">541</int>
 						<reference key="object" ref="978597002"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
+						<array class="NSMutableArray" key="children">
 							<reference ref="7399817"/>
 							<reference ref="86002005"/>
 							<reference ref="839605201"/>
@@ -578,7 +575,7 @@
 							<reference ref="549131647"/>
 							<reference ref="339923888"/>
 							<reference ref="240469131"/>
-						</object>
+						</array>
 						<reference key="parent" ref="239610712"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -681,303 +678,339 @@
 						<reference key="object" ref="1028767459"/>
 						<reference key="parent" ref="947590874"/>
 					</object>
-				</object>
+				</array>
 			</object>
-			<object class="NSMutableDictionary" key="flattenedProperties">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<object class="NSArray" key="dict.sortedKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>-1.IBPluginDependency</string>
-					<string>-2.IBPluginDependency</string>
-					<string>-3.IBPluginDependency</string>
-					<string>494.IBPluginDependency</string>
-					<string>533.IBPluginDependency</string>
-					<string>534.IBPluginDependency</string>
-					<string>535.IBPluginDependency</string>
-					<string>536.IBPluginDependency</string>
-					<string>537.IBPluginDependency</string>
-					<string>538.IBPluginDependency</string>
-					<string>539.IBPluginDependency</string>
-					<string>540.IBPluginDependency</string>
-					<string>541.IBPluginDependency</string>
-					<string>548.IBPluginDependency</string>
-					<string>549.IBPluginDependency</string>
-					<string>550.IBPluginDependency</string>
-					<string>551.IBPluginDependency</string>
-					<string>552.IBPluginDependency</string>
-					<string>553.IBPluginDependency</string>
-					<string>559.IBPluginDependency</string>
-					<string>563.IBPluginDependency</string>
-					<string>568.IBPluginDependency</string>
-					<string>577.IBPluginDependency</string>
-					<string>578.IBPluginDependency</string>
-					<string>579.IBPluginDependency</string>
-					<string>584.IBPluginDependency</string>
-					<string>585.IBPluginDependency</string>
-					<string>586.IBPluginDependency</string>
-					<string>587.IBPluginDependency</string>
-					<string>589.IBPluginDependency</string>
-					<string>590.IBPluginDependency</string>
-					<string>596.IBPluginDependency</string>
-					<string>599.IBPluginDependency</string>
-				</object>
-				<object class="NSArray" key="dict.values">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-				</object>
-			</object>
-			<object class="NSMutableDictionary" key="unlocalizedProperties">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<reference key="dict.sortedKeys" ref="0"/>
-				<reference key="dict.values" ref="0"/>
-			</object>
+			<dictionary class="NSMutableDictionary" key="flattenedProperties">
+				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="494.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="533.IBPersistedLastKnownCanvasPosition">{570, 269.5}</string>
+				<string key="533.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="534.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="535.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="536.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="537.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="538.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="539.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="540.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="541.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="548.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="549.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="550.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="551.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="552.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="553.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="559.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="563.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="568.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="577.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="578.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="579.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="584.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="585.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="586.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="587.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="589.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="590.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="596.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="599.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+			</dictionary>
+			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
-			<object class="NSMutableDictionary" key="localizations">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<reference key="dict.sortedKeys" ref="0"/>
-				<reference key="dict.values" ref="0"/>
-			</object>
+			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">601</int>
+			<int key="maxID">609</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<bool key="EncodedWithXMLCoder">YES</bool>
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">CurrentsongAppDelegate</string>
 					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>launchITunes:</string>
-							<string>setLargeViewWidth:</string>
-							<string>setMediumViewWidth:</string>
-							<string>setSmallViewWidth:</string>
-							<string>setTitleAndArtist:</string>
-							<string>setTitleAndArtistStacked:</string>
-							<string>setTitleArtistAlbum:</string>
-							<string>setTitleArtistAlbumStacked:</string>
-							<string>setTitleOnly:</string>
-							<string>toggleLaunchAtLogin:</string>
-							<string>toggleScrollLongText:</string>
-							<string>toggleShowAlbum:</string>
-							<string>toggleShowArtist:</string>
-							<string>toggleTwoLineDisplay:</string>
-							<string>trackElapsedTime:</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="launchITunes:">id</string>
+						<string key="setLargeViewWidth:">id</string>
+						<string key="setMediumViewWidth:">id</string>
+						<string key="setSmallViewWidth:">id</string>
+						<string key="setTitleAndArtist:">id</string>
+						<string key="setTitleAndArtistStacked:">id</string>
+						<string key="setTitleArtistAlbum:">id</string>
+						<string key="setTitleArtistAlbumStacked:">id</string>
+						<string key="setTitleOnly:">id</string>
+						<string key="toggleLaunchAtLogin:">id</string>
+						<string key="toggleScrollLongText:">id</string>
+						<string key="toggleShowAlbum:">id</string>
+						<string key="toggleShowArtist:">id</string>
+						<string key="toggleTwoLineDisplay:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="launchITunes:" id="586693583">
+							<string key="name">launchITunes:</string>
+							<string key="candidateClassName">id</string>
 						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
+						<object class="IBActionInfo" key="setLargeViewWidth:" id="559370716">
+							<string key="name">setLargeViewWidth:</string>
+							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="setMediumViewWidth:" id="878365029">
+							<string key="name">setMediumViewWidth:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setSmallViewWidth:" id="660363089">
+							<string key="name">setSmallViewWidth:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleAndArtist:" id="127984018">
+							<string key="name">setTitleAndArtist:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleAndArtistStacked:" id="398224620">
+							<string key="name">setTitleAndArtistStacked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleArtistAlbum:" id="1026270181">
+							<string key="name">setTitleArtistAlbum:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleArtistAlbumStacked:" id="524985616">
+							<string key="name">setTitleArtistAlbumStacked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleOnly:" id="256227865">
+							<string key="name">setTitleOnly:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleLaunchAtLogin:" id="66757509">
+							<string key="name">toggleLaunchAtLogin:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleScrollLongText:" id="910996887">
+							<string key="name">toggleScrollLongText:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleShowAlbum:" id="335338751">
+							<string key="name">toggleShowAlbum:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleShowArtist:" id="680041963">
+							<string key="name">toggleShowArtist:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleTwoLineDisplay:" id="71206303">
+							<string key="name">toggleTwoLineDisplay:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="albumMenuItem">NSMenuItem</string>
+						<string key="artistMenuItem">NSMenuItem</string>
+						<string key="launchAtLoginController">LaunchAtLoginController</string>
+						<string key="menu">NSMenu</string>
+						<string key="nameMenuItem">NSMenuItem</string>
+						<string key="streamTitleMenuItem">NSMenuItem</string>
+						<string key="timeMenuItem">NSMenuItem</string>
+						<string key="versionMenuItem">NSMenuItem</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="albumMenuItem" id="198675918">
+							<string key="name">albumMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="artistMenuItem" id="571050563">
+							<string key="name">artistMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="launchAtLoginController" id="841779472">
+							<string key="name">launchAtLoginController</string>
+							<string key="candidateClassName">LaunchAtLoginController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="menu" id="1002485447">
+							<string key="name">menu</string>
+							<string key="candidateClassName">NSMenu</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="nameMenuItem" id="20352066">
+							<string key="name">nameMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="streamTitleMenuItem" id="1068497797">
+							<string key="name">streamTitleMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="timeMenuItem" id="815383647">
+							<string key="name">timeMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="versionMenuItem" id="870421119">
+							<string key="name">versionMenuItem</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../Source/CurrentsongAppDelegate.h</string>
 					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>launchITunes:</string>
-							<string>setLargeViewWidth:</string>
-							<string>setMediumViewWidth:</string>
-							<string>setSmallViewWidth:</string>
-							<string>setTitleAndArtist:</string>
-							<string>setTitleAndArtistStacked:</string>
-							<string>setTitleArtistAlbum:</string>
-							<string>setTitleArtistAlbumStacked:</string>
-							<string>setTitleOnly:</string>
-							<string>toggleLaunchAtLogin:</string>
-							<string>toggleScrollLongText:</string>
-							<string>toggleShowAlbum:</string>
-							<string>toggleShowArtist:</string>
-							<string>toggleTwoLineDisplay:</string>
-							<string>trackElapsedTime:</string>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">CurrentsongAppDelegate</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="launchITunes:">id</string>
+						<string key="setLargeViewWidth:">id</string>
+						<string key="setMediumViewWidth:">id</string>
+						<string key="setSmallViewWidth:">id</string>
+						<string key="setTitleAndArtist:">id</string>
+						<string key="setTitleAndArtistStacked:">id</string>
+						<string key="setTitleArtistAlbum:">id</string>
+						<string key="setTitleArtistAlbumStacked:">id</string>
+						<string key="setTitleOnly:">id</string>
+						<string key="toggleLaunchAtLogin:">id</string>
+						<string key="toggleScrollLongText:">id</string>
+						<string key="toggleShowAlbum:">id</string>
+						<string key="toggleShowArtist:">id</string>
+						<string key="toggleTwoLineDisplay:">id</string>
+						<string key="trackElapsedTime:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="launchITunes:">
+							<string key="name">launchITunes:</string>
+							<string key="candidateClassName">id</string>
 						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">launchITunes:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">setLargeViewWidth:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">setMediumViewWidth:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">setSmallViewWidth:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">setTitleAndArtist:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">setTitleAndArtistStacked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">setTitleArtistAlbum:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">setTitleArtistAlbumStacked:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">setTitleOnly:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleLaunchAtLogin:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleScrollLongText:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleShowAlbum:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleShowArtist:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">toggleTwoLineDisplay:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">trackElapsedTime:</string>
-								<string key="candidateClassName">id</string>
-							</object>
+						<object class="IBActionInfo" key="setLargeViewWidth:">
+							<string key="name">setLargeViewWidth:</string>
+							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="setMediumViewWidth:">
+							<string key="name">setMediumViewWidth:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setSmallViewWidth:">
+							<string key="name">setSmallViewWidth:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleAndArtist:">
+							<string key="name">setTitleAndArtist:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleAndArtistStacked:">
+							<string key="name">setTitleAndArtistStacked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleArtistAlbum:">
+							<string key="name">setTitleArtistAlbum:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleArtistAlbumStacked:">
+							<string key="name">setTitleArtistAlbumStacked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTitleOnly:">
+							<string key="name">setTitleOnly:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleLaunchAtLogin:">
+							<string key="name">toggleLaunchAtLogin:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleScrollLongText:">
+							<string key="name">toggleScrollLongText:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleShowAlbum:">
+							<string key="name">toggleShowAlbum:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleShowArtist:">
+							<string key="name">toggleShowArtist:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleTwoLineDisplay:">
+							<string key="name">toggleTwoLineDisplay:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="trackElapsedTime:" id="819145263">
+							<string key="name">trackElapsedTime:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../Source/CurrentsongAppDelegate.m</string>
 					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>mAlbumMenuItem</string>
-							<string>mArtistMenuItem</string>
-							<string>mLaunchAtLoginController</string>
-							<string>mMenu</string>
-							<string>mNameMenuItem</string>
-							<string>mStreamTitleMenuItem</string>
-							<string>mTimeMenuItem</string>
-							<string>mVersionMenuItem</string>
-						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>LaunchAtLoginController</string>
-							<string>NSMenu</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>mAlbumMenuItem</string>
-							<string>mArtistMenuItem</string>
-							<string>mLaunchAtLoginController</string>
-							<string>mMenu</string>
-							<string>mNameMenuItem</string>
-							<string>mStreamTitleMenuItem</string>
-							<string>mTimeMenuItem</string>
-							<string>mVersionMenuItem</string>
-						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">mAlbumMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">mArtistMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">mLaunchAtLoginController</string>
-								<string key="candidateClassName">LaunchAtLoginController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">mMenu</string>
-								<string key="candidateClassName">NSMenu</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">mNameMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">mStreamTitleMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">mTimeMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">mVersionMenuItem</string>
-								<string key="candidateClassName">NSMenuItem</string>
-							</object>
-						</object>
-					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">CurrentsongAppDelegate</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="launchITunes:">id</string>
+						<string key="setLargeViewWidth:">id</string>
+						<string key="setMediumViewWidth:">id</string>
+						<string key="setSmallViewWidth:">id</string>
+						<string key="setTitleAndArtist:">id</string>
+						<string key="setTitleAndArtistStacked:">id</string>
+						<string key="setTitleArtistAlbum:">id</string>
+						<string key="setTitleArtistAlbumStacked:">id</string>
+						<string key="setTitleOnly:">id</string>
+						<string key="toggleLaunchAtLogin:">id</string>
+						<string key="toggleScrollLongText:">id</string>
+						<string key="toggleShowAlbum:">id</string>
+						<string key="toggleShowArtist:">id</string>
+						<string key="toggleTwoLineDisplay:">id</string>
+						<string key="trackElapsedTime:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<reference key="launchITunes:" ref="586693583"/>
+						<reference key="setLargeViewWidth:" ref="559370716"/>
+						<reference key="setMediumViewWidth:" ref="878365029"/>
+						<reference key="setSmallViewWidth:" ref="660363089"/>
+						<reference key="setTitleAndArtist:" ref="127984018"/>
+						<reference key="setTitleAndArtistStacked:" ref="398224620"/>
+						<reference key="setTitleArtistAlbum:" ref="1026270181"/>
+						<reference key="setTitleArtistAlbumStacked:" ref="524985616"/>
+						<reference key="setTitleOnly:" ref="256227865"/>
+						<reference key="toggleLaunchAtLogin:" ref="66757509"/>
+						<reference key="toggleScrollLongText:" ref="910996887"/>
+						<reference key="toggleShowAlbum:" ref="335338751"/>
+						<reference key="toggleShowArtist:" ref="680041963"/>
+						<reference key="toggleTwoLineDisplay:" ref="71206303"/>
+						<reference key="trackElapsedTime:" ref="819145263"/>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="albumMenuItem">NSMenuItem</string>
+						<string key="artistMenuItem">NSMenuItem</string>
+						<string key="launchAtLoginController">LaunchAtLoginController</string>
+						<string key="menu">NSMenu</string>
+						<string key="nameMenuItem">NSMenuItem</string>
+						<string key="streamTitleMenuItem">NSMenuItem</string>
+						<string key="timeMenuItem">NSMenuItem</string>
+						<string key="versionMenuItem">NSMenuItem</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<reference key="albumMenuItem" ref="198675918"/>
+						<reference key="artistMenuItem" ref="571050563"/>
+						<reference key="launchAtLoginController" ref="841779472"/>
+						<reference key="menu" ref="1002485447"/>
+						<reference key="nameMenuItem" ref="20352066"/>
+						<reference key="streamTitleMenuItem" ref="1068497797"/>
+						<reference key="timeMenuItem" ref="815383647"/>
+						<reference key="versionMenuItem" ref="870421119"/>
+					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/CurrentsongAppDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FirstResponder</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">LaunchAtLoginController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">../Source/LaunchAtLoginController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -988,28 +1021,24 @@
 						<string key="minorKey">./Classes/LaunchAtLoginController.h</string>
 					</object>
 				</object>
-			</object>
+			</array>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
+		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">NO</bool>
+		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
+			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
+			<real value="1070" key="NS.object.0"/>
+		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
-			<integer value="3000" key="NS.object.0"/>
+			<integer value="4600" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="NSArray" key="dict.sortedKeys">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>NSMenuCheckmark</string>
-				<string>NSMenuMixedState</string>
-			</object>
-			<object class="NSArray" key="dict.values">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{11, 11}</string>
-				<string>{10, 3}</string>
-			</object>
-		</object>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NSMenuCheckmark">{11, 11}</string>
+			<string key="NSMenuMixedState">{10, 3}</string>
+		</dictionary>
 	</data>
 </archive>

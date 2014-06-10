@@ -25,7 +25,17 @@
 @end
 
 
-@implementation CurrentsongAppDelegate
+@implementation CurrentsongAppDelegate {
+    NSStatusItem *_statusItem;
+    CurrentsongStatusView *_statusView;
+    NSTimer *_menuUpdateTimer;
+    BOOL _menuIsOpen;
+}
+
++ (iTunesApplication *)iTunes
+{
+    return [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -42,7 +52,7 @@
         NSInteger result = [alert runModal];
 
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kCSPrefShownLaunchAtLoginPrompt];
-        [mLaunchAtLoginController setLaunchAtLogin:(result == NSAlertDefaultReturn)];
+        [_launchAtLoginController setLaunchAtLogin:(result == NSAlertDefaultReturn)];
     }
 }
 
@@ -50,37 +60,35 @@
 {
     // Initialize preferences
     [[NSUserDefaults standardUserDefaults] registerDefaults:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [NSNumber numberWithInteger:kCSStyleFormatted], kCSPrefViewStyle,
-      [NSNumber numberWithDouble:kCSViewWidthLarge], kCSPrefMaxWidth,
-      [NSNumber numberWithBool:YES], kCSPrefShowArtist,
-      [NSNumber numberWithBool:NO], kCSPrefShowAlbum,
-      [NSNumber numberWithBool:YES], kCSPrefScrollLongText,
-      nil]];
+     @{kCSPrefViewStyle: @(kCSStyleFormatted),
+      kCSPrefMaxWidth: [NSNumber numberWithDouble:kCSViewWidthLarge],
+      kCSPrefShowArtist: @YES,
+      kCSPrefShowAlbum: @NO,
+      kCSPrefScrollLongText: @YES}];
     
     // Inject version number into menu
-    [mVersionMenuItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"Currentsong %@", @"application name with version number"),
+    [_versionMenuItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"Currentsong %@", @"application name with version number"),
                                 [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]]];
 
     // Install status item
-    mStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    [mStatusItem setMenu:mMenu];
-    [mMenu setDelegate:self];
+    _statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    [_statusItem setMenu:_menu];
+    [_menu setDelegate:self];
     
     // Set up view
-    mStatusView = [[CurrentsongStatusView alloc] init];
-    mStatusView.statusItem = mStatusItem;
-    mStatusView.viewStyle       = (CurrentsongViewStyle)[[NSUserDefaults standardUserDefaults] integerForKey:kCSPrefViewStyle];
-    mStatusView.maxWidth        = [[NSUserDefaults standardUserDefaults] doubleForKey:kCSPrefMaxWidth];
-    mStatusView.showArtist      = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowArtist];
-    mStatusView.showAlbum       = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowAlbum];
-    mStatusView.shouldScroll    = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefScrollLongText];
+    _statusView = [[CurrentsongStatusView alloc] init];
+    _statusView.statusItem = _statusItem;
+    _statusView.viewStyle       = (CurrentsongViewStyle)[[NSUserDefaults standardUserDefaults] integerForKey:kCSPrefViewStyle];
+    _statusView.maxWidth        = [[NSUserDefaults standardUserDefaults] doubleForKey:kCSPrefMaxWidth];
+    _statusView.showArtist      = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowArtist];
+    _statusView.showAlbum       = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowAlbum];
+    _statusView.shouldScroll    = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefScrollLongText];
         
     // Get initial track info
     NSDictionary *initialTrackInfo = [self fetchTrackInfo];
     [self updateMenuItemsWithTrackInfo:initialTrackInfo];
-    [mStatusView updateTrackInfo:initialTrackInfo];
-    [mStatusItem setView:mStatusView];
+    [_statusView updateTrackInfo:initialTrackInfo];
+    [_statusItem setView:_statusView];
     
     // Start listening to iTunes notifications
     NSDistributedNotificationCenter *dnc = [NSDistributedNotificationCenter defaultCenter];
@@ -97,16 +105,16 @@
 {
     [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
     [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
-    [mMenuUpdateTimer invalidate];
+    [_menuUpdateTimer invalidate];
 }
 
 // Handle play state and track changes
 - (void)trackInfoDidChange:(NSNotification *)notification
 {    
     [self updateMenuItemsWithTrackInfo:[notification userInfo]];
-    [mStatusView updateTrackInfo:[notification userInfo]];
+    [_statusView updateTrackInfo:[notification userInfo]];
     
-    if (mMenuIsOpen) {
+    if (_menuIsOpen) {
         [self updateMenuTrackTime];
     }    
 }
@@ -123,7 +131,7 @@
 // Fetches play state, artist, name, album, and stream title.
 - (NSDictionary *)fetchTrackInfo
 {
-    iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
+    iTunesApplication *iTunes = [[self class] iTunes];
 
     // Application not found or not running
     if (!iTunes || ![iTunes isRunning]) {
@@ -146,15 +154,25 @@
     NSString *streamTitle = iTunes.currentStreamTitle;
     
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
-    if (playerStateString)  [info setObject:playerStateString forKey:@"Player State"];
-    if (artist)             [info setObject:artist forKey:@"Artist"];
-    if (name)               [info setObject:name forKey:@"Name"];
-    if (album)              [info setObject:album forKey:@"Album"];
-    if (streamTitle)        [info setObject:streamTitle forKey:@"Stream Title"];
+    if (playerStateString) {
+        [info setObject:playerStateString forKey:@"Player State"];
+    }
+    if (artist) {
+        [info setObject:artist forKey:@"Artist"];
+    }
+    if (name) {
+        [info setObject:name forKey:@"Name"];
+    }
+    if (album) {
+        [info setObject:album forKey:@"Album"];
+    }
+    if (streamTitle) {
+        [info setObject:streamTitle forKey:@"Stream Title"];
+    }
     
     // note: these keys aren't provided by the track change notification
-    [info setObject:[NSNumber numberWithInteger:iTunes.playerPosition] forKey:@"Player Position"];
-    [info setObject:[NSNumber numberWithDouble:currentTrack.duration] forKey:@"Duration"];
+    [info setObject:@(iTunes.playerPosition) forKey:@"Player Position"];
+    [info setObject:@(currentTrack.duration) forKey:@"Duration"];
     return info;
 }
 
@@ -189,35 +207,34 @@
         [self updateMenuTrackTime];
         return NO;
     } else if ([menuItem action] == @selector(toggleShowArtist:)) {
-        [menuItem setState:mStatusView.showArtist];
+        [menuItem setState:_statusView.showArtist];
     } else if ([menuItem action] == @selector(toggleShowAlbum:)) {
-        [menuItem setState:mStatusView.showAlbum];
+        [menuItem setState:_statusView.showAlbum];
     } else if ([menuItem action] == @selector(toggleTwoLineDisplay:)) {
-        [menuItem setState:(mStatusView.viewStyle == kCSStyleTwoLevel)];
+        [menuItem setState:(_statusView.viewStyle == kCSStyleTwoLevel)];
     } else if ([menuItem action] == @selector(toggleScrollLongText:)) {
-        [menuItem setState:mStatusView.shouldScroll];
+        [menuItem setState:_statusView.shouldScroll];
     } else if ([menuItem action] == @selector(setLargeViewWidth:)) {
-        [menuItem setState:(mStatusView.maxWidth == kCSViewWidthLarge)];
+        [menuItem setState:(_statusView.maxWidth == kCSViewWidthLarge)];
     } else if ([menuItem action] == @selector(setMediumViewWidth:)) {
-        [menuItem setState:(mStatusView.maxWidth == kCSViewWidthMedium)];
+        [menuItem setState:(_statusView.maxWidth == kCSViewWidthMedium)];
     } else if ([menuItem action] == @selector(setSmallViewWidth:)) {
-        [menuItem setState:(mStatusView.maxWidth == kCSViewWidthSmall)];
+        [menuItem setState:(_statusView.maxWidth == kCSViewWidthSmall)];
     } else if ([menuItem action] == @selector(setTitleOnly:)) {
-        [menuItem setState:(!mStatusView.showArtist && !mStatusView.showAlbum && !(mStatusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(!_statusView.showArtist && !_statusView.showAlbum && !(_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(setTitleAndArtist:)) {
-        [menuItem setState:(mStatusView.showArtist && !mStatusView.showAlbum && !(mStatusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(_statusView.showArtist && !_statusView.showAlbum && !(_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(setTitleArtistAlbum:)) {
-        [menuItem setState:(mStatusView.showArtist && mStatusView.showAlbum && !(mStatusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(_statusView.showArtist && _statusView.showAlbum && !(_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(setTitleAndArtistStacked:)) {
-        [menuItem setState:(mStatusView.showArtist && !mStatusView.showAlbum && (mStatusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(_statusView.showArtist && !_statusView.showAlbum && (_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(setTitleArtistAlbumStacked:)) {
-        [menuItem setState:(mStatusView.showArtist && mStatusView.showAlbum && (mStatusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(_statusView.showArtist && _statusView.showAlbum && (_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(toggleLaunchAtLogin:)) {
-        [menuItem setState:[mLaunchAtLoginController launchAtLogin]];
+        [menuItem setState:[_launchAtLoginController launchAtLogin]];
     } else if ([menuItem action] == @selector(launchITunes:)) {
-        iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-        [menuItem setTitle:([iTunes isRunning]) ? NSLocalizedString(@"iTunes", @"iTunes")
-                                                : NSLocalizedString(@"Launch iTunes", @"Launch iTunes")];
+        [menuItem setTitle:([[[self class] iTunes] isRunning]) ? NSLocalizedString(@"iTunes", @"iTunes")
+                                                               : NSLocalizedString(@"Launch iTunes", @"Launch iTunes")];
     }
     return YES;
 }
@@ -230,31 +247,31 @@
     NSString *streamTitle = [trackInfo objectForKey:@"Stream Title"];
     
     if ([name length] > 0) {
-        [mNameMenuItem setHidden:NO];
-        [mNameMenuItem setTitle:name];
+        [_nameMenuItem setHidden:NO];
+        [_nameMenuItem setTitle:name];
     } else {
-        [mNameMenuItem setHidden:YES];
+        [_nameMenuItem setHidden:YES];
     }
     
     if ([artist length] > 0) {
-        [mArtistMenuItem setHidden:NO];
-        [mArtistMenuItem setTitle:artist];
+        [_artistMenuItem setHidden:NO];
+        [_artistMenuItem setTitle:artist];
     } else {
-        [mArtistMenuItem setHidden:YES];
+        [_artistMenuItem setHidden:YES];
     }
     
     if ([album length] > 0) {
-        [mAlbumMenuItem setHidden:NO];
-        [mAlbumMenuItem setTitle:album];
+        [_albumMenuItem setHidden:NO];
+        [_albumMenuItem setTitle:album];
     } else {
-        [mAlbumMenuItem setHidden:YES];
+        [_albumMenuItem setHidden:YES];
     }
     
     if ([streamTitle length] > 0) {
-        [mStreamTitleMenuItem setHidden:NO];
-        [mStreamTitleMenuItem setTitle:streamTitle];
+        [_streamTitleMenuItem setHidden:NO];
+        [_streamTitleMenuItem setTitle:streamTitle];
     } else {
-        [mStreamTitleMenuItem setHidden:YES];
+        [_streamTitleMenuItem setHidden:YES];
     }
 }
 
@@ -263,7 +280,7 @@
     NSDictionary *info = [self fetchTrackInfo];
     NSString *elapsedTimeString = [[self class] timeStringFromTrackInfo:info];
     if (elapsedTimeString) {
-        [mTimeMenuItem setTitle:elapsedTimeString];
+        [_timeMenuItem setTitle:elapsedTimeString];
     }
 }
 
@@ -274,32 +291,29 @@
 
 - (void)menuWillOpen:(NSMenu *)menu
 {
-    if (menu == mMenu)
-    {
-        if (!mMenuUpdateTimer)
-        {
-            mMenuUpdateTimer = [[NSTimer alloc] initWithFireDate:[NSDate date]
+    if (menu == _menu) {
+        if (!_menuUpdateTimer) {
+            _menuUpdateTimer = [[NSTimer alloc] initWithFireDate:[NSDate date]
                                                         interval:1
                                                           target:self
                                                         selector:@selector(menuUpdateTimerFired:)
                                                         userInfo:nil
                                                          repeats:YES];
-            [[NSRunLoop currentRunLoop] addTimer:mMenuUpdateTimer forMode:NSRunLoopCommonModes];
+            [[NSRunLoop currentRunLoop] addTimer:_menuUpdateTimer forMode:NSRunLoopCommonModes];
         }
         
-        mStatusView.highlighted = YES;
-        mMenuIsOpen = YES;
+        _statusView.highlighted = YES;
+        _menuIsOpen = YES;
     }
 }
 
 - (void)menuDidClose:(NSMenu *)menu
 {
-    if (menu == mMenu)
-    {
-        [mMenuUpdateTimer invalidate];
-        mMenuUpdateTimer = nil;
-        mStatusView.highlighted = NO;
-        mMenuIsOpen = NO;
+    if (menu == _menu) {
+        [_menuUpdateTimer invalidate];
+        _menuUpdateTimer = nil;
+        _statusView.highlighted = NO;
+        _menuIsOpen = NO;
     }
 }
 
@@ -311,74 +325,74 @@
 
 - (IBAction)toggleShowArtist:(id)sender
 {
-    mStatusView.showArtist = !mStatusView.showArtist;
-    [[NSUserDefaults standardUserDefaults] setBool:mStatusView.showArtist forKey:kCSPrefShowArtist];
+    _statusView.showArtist = !_statusView.showArtist;
+    [[NSUserDefaults standardUserDefaults] setBool:_statusView.showArtist forKey:kCSPrefShowArtist];
 }
 
 - (IBAction)toggleShowAlbum:(id)sender
 {
-    mStatusView.showAlbum = !mStatusView.showAlbum;
-    [[NSUserDefaults standardUserDefaults] setBool:mStatusView.showAlbum forKey:kCSPrefShowAlbum];
+    _statusView.showAlbum = !_statusView.showAlbum;
+    [[NSUserDefaults standardUserDefaults] setBool:_statusView.showAlbum forKey:kCSPrefShowAlbum];
 }
 
 - (IBAction)toggleTwoLineDisplay:(id)sender
 {
-    mStatusView.viewStyle = (mStatusView.viewStyle == kCSStyleTwoLevel) ? kCSStyleFormatted : kCSStyleTwoLevel;
-    [[NSUserDefaults standardUserDefaults] setInteger:mStatusView.viewStyle forKey:kCSPrefViewStyle];
+    _statusView.viewStyle = (_statusView.viewStyle == kCSStyleTwoLevel) ? kCSStyleFormatted : kCSStyleTwoLevel;
+    [[NSUserDefaults standardUserDefaults] setInteger:_statusView.viewStyle forKey:kCSPrefViewStyle];
     
     // make sure the second line is showing
-    if (!mStatusView.showArtist) {
+    if (!_statusView.showArtist) {
         [self toggleShowArtist:self];
     }
 }
 
 - (void)writeDisplayPreference
 {
-    [[NSUserDefaults standardUserDefaults] setBool:mStatusView.showArtist forKey:kCSPrefShowArtist];
-    [[NSUserDefaults standardUserDefaults] setBool:mStatusView.showAlbum forKey:kCSPrefShowAlbum];
-    [[NSUserDefaults standardUserDefaults] setInteger:mStatusView.viewStyle forKey:kCSPrefViewStyle];
+    [[NSUserDefaults standardUserDefaults] setBool:_statusView.showArtist forKey:kCSPrefShowArtist];
+    [[NSUserDefaults standardUserDefaults] setBool:_statusView.showAlbum forKey:kCSPrefShowAlbum];
+    [[NSUserDefaults standardUserDefaults] setInteger:_statusView.viewStyle forKey:kCSPrefViewStyle];
 }
 
 - (IBAction)setTitleOnly:(id)sender
 {
-    [mStatusView setShowArtist:NO showAlbum:NO viewStyle:kCSStyleFormatted];
+    [_statusView setShowArtist:NO showAlbum:NO viewStyle:kCSStyleFormatted];
     [self writeDisplayPreference];
 }
 
 - (IBAction)setTitleAndArtist:(id)sender
 {
-    [mStatusView setShowArtist:YES showAlbum:NO viewStyle:kCSStyleFormatted];
+    [_statusView setShowArtist:YES showAlbum:NO viewStyle:kCSStyleFormatted];
     [self writeDisplayPreference];
 }
 
 - (IBAction)setTitleArtistAlbum:(id)sender
 {
-    [mStatusView setShowArtist:YES showAlbum:YES viewStyle:kCSStyleFormatted];
+    [_statusView setShowArtist:YES showAlbum:YES viewStyle:kCSStyleFormatted];
     [self writeDisplayPreference];
 }
 
 - (IBAction)setTitleAndArtistStacked:(id)sender
 {
-    [mStatusView setShowArtist:YES showAlbum:NO viewStyle:kCSStyleTwoLevel];
+    [_statusView setShowArtist:YES showAlbum:NO viewStyle:kCSStyleTwoLevel];
     [self writeDisplayPreference];
 }
 
 - (IBAction)setTitleArtistAlbumStacked:(id)sender;
 {
-    [mStatusView setShowArtist:YES showAlbum:YES viewStyle:kCSStyleTwoLevel];
+    [_statusView setShowArtist:YES showAlbum:YES viewStyle:kCSStyleTwoLevel];
     [self writeDisplayPreference];
 }
 
 - (IBAction)toggleScrollLongText:(id)sender
 {
-    mStatusView.shouldScroll = !mStatusView.shouldScroll;
-    [[NSUserDefaults standardUserDefaults] setBool:mStatusView.shouldScroll forKey:kCSPrefScrollLongText];
+    _statusView.shouldScroll = !_statusView.shouldScroll;
+    [[NSUserDefaults standardUserDefaults] setBool:_statusView.shouldScroll forKey:kCSPrefScrollLongText];
 }
 
 - (void)setMaxWidth:(CGFloat)maxWidth
 {
-    mStatusView.maxWidth = maxWidth;
-    [[NSUserDefaults standardUserDefaults] setDouble:mStatusView.maxWidth forKey:kCSPrefMaxWidth];
+    _statusView.maxWidth = maxWidth;
+    [[NSUserDefaults standardUserDefaults] setDouble:_statusView.maxWidth forKey:kCSPrefMaxWidth];
 }
 
 - (IBAction)setLargeViewWidth:(id)sender
@@ -398,14 +412,13 @@
 
 - (IBAction)toggleLaunchAtLogin:(id)sender
 {
-    [mLaunchAtLoginController setLaunchAtLogin:![mLaunchAtLoginController launchAtLogin]];
+    [_launchAtLoginController setLaunchAtLogin:![_launchAtLoginController launchAtLogin]];
 }
 
 - (IBAction)launchITunes:(id)sender
 {
     // Reveal the current track (only if iTunes is already running)
-    iTunesApplication *iTunes = [SBApplication applicationWithBundleIdentifier:@"com.apple.iTunes"];
-    [[iTunes currentTrack] reveal];
+    [[[[self class] iTunes] currentTrack] reveal];
     
     // Activate iTunes (or launch it)
     [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:@"com.apple.iTunes"
