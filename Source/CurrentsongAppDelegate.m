@@ -30,6 +30,7 @@
     CurrentsongStatusView *_statusView;
     NSTimer *_menuUpdateTimer;
     BOOL _menuIsOpen;
+    BOOL _needStreamTitleWorkaround;
 }
 
 + (iTunesApplication *)iTunes
@@ -39,6 +40,17 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    // Check the version of iTunes, see if we need to workaround the issue on 11.2+ where the stream title
+    // is not included in the update notification
+    iTunesApplication *iTunes = [[self class] iTunes];
+    if (iTunes) {
+        NSString *version = iTunes.version;
+        NSArray *versionComponents = [version componentsSeparatedByString:@"."];
+        if ([versionComponents count] >= 2) {
+            _needStreamTitleWorkaround = ([versionComponents[0] integerValue] >= 11 && [versionComponents[1] integerValue] >= 2);
+        }
+    }
+
     // If this is the first run, prompt the user to select launch at login
     if (![[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShownLaunchAtLoginPrompt])
     {
@@ -110,13 +122,40 @@
 
 // Handle play state and track changes
 - (void)trackInfoDidChange:(NSNotification *)notification
-{    
-    [self updateMenuItemsWithTrackInfo:[notification userInfo]];
-    [_statusView updateTrackInfo:[notification userInfo]];
+{
+    NSDictionary *trackInfo = [notification userInfo];
+    if (_needStreamTitleWorkaround) {
+        trackInfo = [self infoWithAddedStreamTitle:trackInfo];
+    }
+    
+    [self updateMenuItemsWithTrackInfo:trackInfo];
+    [_statusView updateTrackInfo:trackInfo];
     
     if (_menuIsOpen) {
         [self updateMenuTrackTime];
-    }    
+    }
+}
+
+// iTunes 11.2 and up no longer include the "Stream Title" property in the track-changed notification,
+// so we need to fetch it manually.
+- (NSDictionary *)infoWithAddedStreamTitle:(NSDictionary *)info
+{
+    // Check if the file is remote (not sure how robust this is...)
+    NSString *location = [info objectForKey:@"Location"];
+    if (location && ![location hasPrefix:@"file:"] && ![info objectForKey:@"Stream Title"]) {
+        NSMutableDictionary *newTrackInfo = [NSMutableDictionary dictionaryWithDictionary:info];
+        NSString *streamTitle = nil;
+        iTunesApplication *iTunes = [[self class] iTunes];
+        if (iTunes && [iTunes isRunning]) {
+            streamTitle = iTunes.currentStreamTitle;
+        }
+        if (streamTitle) {
+            [newTrackInfo setObject:streamTitle forKey:@"Stream Title"];
+        }
+        return newTrackInfo;
+    } else {
+        return info;
+    }
 }
 
 // Handle iTunes quit notifications
