@@ -12,23 +12,16 @@
 @class LaunchAtLoginController;
 
 @interface CurrentsongAppDelegate : NSObject <NSApplicationDelegate,NSMenuDelegate>
-{
-    NSStatusItem *mStatusItem;
-    CurrentsongStatusView *mStatusView;
-    NSTimer *mMenuUpdateTimer;
-    BOOL mMenuIsOpen;
-    
-    IBOutlet NSMenu *mMenu;
-    IBOutlet NSMenuItem *mNameMenuItem;
-    IBOutlet NSMenuItem *mArtistMenuItem;
-    IBOutlet NSMenuItem *mAlbumMenuItem;
-    IBOutlet NSMenuItem *mRatingMenuItem;
-    IBOutlet NSMenuItem *mStreamTitleMenuItem;
-    IBOutlet NSMenuItem *mTimeMenuItem;
-    IBOutlet NSMenuItem *mVersionMenuItem;
 
-    IBOutlet LaunchAtLoginController *mLaunchAtLoginController;
-}
+@property (weak) IBOutlet NSMenu *menu;
+@property (weak) IBOutlet NSMenuItem *nameMenuItem;
+@property (weak) IBOutlet NSMenuItem *artistMenuItem;
+@property (weak) IBOutlet NSMenuItem *albumMenuItem;
+@property (weak) IBOutlet NSMenuItem *streamTitleMenuItem;
+@property (weak) IBOutlet NSMenuItem *ratingMenuItem;
+@property (weak) IBOutlet NSMenuItem *timeMenuItem;
+@property (weak) IBOutlet NSMenuItem *versionMenuItem;
+@property (weak) IBOutlet LaunchAtLoginController *launchAtLoginController;
 
 - (IBAction)toggleShowArtist:(id)sender;
 - (IBAction)toggleShowAlbum:(id)sender;

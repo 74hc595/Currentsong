@@ -1,6 +1,7 @@
 //
 //  LaunchAtLoginController.m
 //
+//  Copyright 2013 Siddharth Gupta
 //  Copyright 2011 Tomáš Znamenáček
 //  Copyright 2010 Ben Clark-Robinson
 //
@@ -37,7 +38,7 @@ static NSString *const StartAtLoginKey = @"launchAtLogin";
 
 static void sharedFileListDidChange(LSSharedFileListRef inList, void *context)
 {
-    LaunchAtLoginController *self = (id) context;
+    LaunchAtLoginController *self = (__bridge id) context;
     [self willChangeValueForKey:StartAtLoginKey];
     [self didChangeValueForKey:StartAtLoginKey];
 }
@@ -46,19 +47,17 @@ static void sharedFileListDidChange(LSSharedFileListRef inList, void *context)
 
 - (id) init
 {
-    [super init];
     loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
     LSSharedFileListAddObserver(loginItems, CFRunLoopGetMain(),
-        (CFStringRef)NSDefaultRunLoopMode, sharedFileListDidChange, self);
+                                (CFStringRef)NSDefaultRunLoopMode, sharedFileListDidChange, (__bridge void *)(self));
     return self;
 }
 
 - (void) dealloc
 {
     LSSharedFileListRemoveObserver(loginItems, CFRunLoopGetMain(),
-        (CFStringRef)NSDefaultRunLoopMode, sharedFileListDidChange, self);
+                                   (CFStringRef)NSDefaultRunLoopMode, sharedFileListDidChange, (__bridge void *)(self));
     CFRelease(loginItems);
-    [super dealloc];
 }
 
 #pragma mark Launch List Control
@@ -67,21 +66,22 @@ static void sharedFileListDidChange(LSSharedFileListRef inList, void *context)
 {
     if (wantedURL == NULL || fileList == NULL)
         return NULL;
-
-    NSArray *listSnapshot = [NSMakeCollectable(LSSharedFileListCopySnapshot(fileList, NULL)) autorelease];
+    
+    NSArray *listSnapshot = (__bridge NSArray *)(LSSharedFileListCopySnapshot(fileList, NULL));
+    
     for (id itemObject in listSnapshot) {
-        LSSharedFileListItemRef item = (LSSharedFileListItemRef) itemObject;
+        LSSharedFileListItemRef item = (__bridge LSSharedFileListItemRef) itemObject;
         UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
         CFURLRef currentItemURL = NULL;
         LSSharedFileListItemResolve(item, resolutionFlags, &currentItemURL, NULL);
-        if (currentItemURL && CFEqual(currentItemURL, wantedURL)) {
+        if (currentItemURL && CFEqual(currentItemURL, (__bridge CFTypeRef)(wantedURL))) {
             CFRelease(currentItemURL);
             return item;
         }
         if (currentItemURL)
             CFRelease(currentItemURL);
     }
-
+    
     return NULL;
 }
 
@@ -95,7 +95,7 @@ static void sharedFileListDidChange(LSSharedFileListRef inList, void *context)
     LSSharedFileListItemRef appItem = [self findItemWithURL:itemURL inFileList:loginItems];
     if (enabled && !appItem) {
         LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst,
-            NULL, NULL, (CFURLRef)itemURL, NULL, NULL);
+                                      NULL, NULL, (__bridge CFURLRef)itemURL, NULL, NULL);
     } else if (!enabled && appItem)
         LSSharedFileListItemRemove(loginItems, appItem);
 }

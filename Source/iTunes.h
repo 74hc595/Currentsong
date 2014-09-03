@@ -176,6 +176,7 @@ typedef enum iTunesEAPD iTunesEAPD;
 @property (copy, readonly) NSString *version;  // the version of iTunes
 @property BOOL visualsEnabled;  // are visuals currently being displayed?
 @property iTunesEVSz visualSize;  // the size of the displayed visual
+@property (copy, readonly) NSString *iAdIdentifier;  // the iAd identifier
 
 - (void) printPrintDialog:(BOOL)printDialog withProperties:(iTunesPrintSettings *)withProperties kind:(iTunesEKnd)kind theme:(NSString *)theme;  // Print the specified object(s)
 - (void) run;  // run iTunes

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <deployment defaultVersion="1070" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -14,15 +14,16 @@
         <customObject id="-3" userLabel="Application"/>
         <customObject id="494" customClass="CurrentsongAppDelegate">
             <connections>
-                <outlet property="mAlbumMenuItem" destination="536" id="557"/>
-                <outlet property="mArtistMenuItem" destination="535" id="556"/>
-                <outlet property="mLaunchAtLoginController" destination="596" id="597"/>
-                <outlet property="mMenu" destination="533" id="554"/>
-                <outlet property="mNameMenuItem" destination="534" id="561"/>
-                <outlet property="mRatingMenuItem" destination="uXb-op-bHe" id="RjW-GU-2JQ"/>
-                <outlet property="mStreamTitleMenuItem" destination="563" id="564"/>
-                <outlet property="mTimeMenuItem" destination="537" id="558"/>
+                <outlet property="albumMenuItem" destination="536" id="603"/>
+                <outlet property="artistMenuItem" destination="535" id="604"/>
+                <outlet property="launchAtLoginController" destination="596" id="605"/>
                 <outlet property="mVersionMenuItem" destination="578" id="601"/>
+                <outlet property="menu" destination="533" id="602"/>
+                <outlet property="nameMenuItem" destination="534" id="606"/>
+                <outlet property="ratingMenuItem" destination="7OM-hs-a07" id="fBc-Fg-V4d"/>
+                <outlet property="streamTitleMenuItem" destination="563" id="607"/>
+                <outlet property="timeMenuItem" destination="537" id="608"/>
+                <outlet property="versionMenuItem" destination="578" id="609"/>
             </connections>
         </customObject>
         <menu id="533">
@@ -45,7 +46,7 @@
                         <action selector="trackElapsedTime:" target="494" id="562"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Rating" enabled="NO" id="uXb-op-bHe">
+                <menuItem title="Rating" enabled="NO" id="7OM-hs-a07" userLabel="Menu Item - Rating">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="538"/>
@@ -80,10 +81,10 @@
                                     <action selector="setTitleArtistAlbum:" target="494" id="593"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Title, Artist, Album, Rating" id="vZ9-gC-fQ8">
+                            <menuItem title="Title, Artist, Album, Rating" id="1oz-j9-MAe" userLabel="Menu Item - Title, Artist, Album, Rating">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="setTitleArtistAlbumRating:" target="494" id="fcU-wQ-7yA"/>
+                                    <action selector="setTitleArtistAlbumRating:" target="494" id="5DI-Cc-bnT"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Title and Artist (Stacked)" id="589">
@@ -98,10 +99,10 @@
                                     <action selector="setTitleArtistAlbumStacked:" target="494" id="595"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Title, Artist, Album, Rating (Stacked)" id="fyb-4t-LBZ">
+                            <menuItem title="Title, Artist, Album, Rating (Stacked)" id="NPH-VS-GXu" userLabel="Menu Item - Title, Artist, Album, Rating (Stacked)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="setTitleArtistAlbumRatingStacked:" target="494" id="XsU-kR-NuN"/>
+                                    <action selector="setTitleArtistAlbumRatingStacked:" target="494" id="VnW-gw-E0g"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="548"/>
@@ -156,6 +157,7 @@
                     </connections>
                 </menuItem>
             </items>
+            <metadata/>
         </menu>
         <customObject id="596" customClass="LaunchAtLoginController"/>
     </objects>

@@ -20,57 +20,48 @@
 #define kCSViewScrollStartOffset    (-kCSViewScrollDelayInSeconds/kCSViewScrollTimerFrequency)
 
 @interface CurrentsongStatusView ()
-@property (nonatomic,retain) NSString *artist;
-@property (nonatomic,retain) NSString *name;
-@property (nonatomic,retain) NSString *album;
-@property (nonatomic,retain) NSString *rating;
-@property (nonatomic,retain) NSAttributedString *topRow;
-@property (nonatomic,retain) NSAttributedString *bottomRow;
-- (BOOL)isScrolling;
+@property (nonatomic,strong) NSString *artist;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *album;
+@property (nonatomic,strong) NSString *rating;
+@property (nonatomic,strong) NSAttributedString *topRow;
+@property (nonatomic,strong) NSAttributedString *bottomRow;
+@property (nonatomic, getter=isScrolling, readonly) BOOL scrolling;
 - (void)startScrolling;
 - (void)stopScrolling;
 @end
 
 #pragma mark -
-@implementation CurrentsongStatusView
-
-@synthesize statusItem = mStatusItem;
-@synthesize viewStyle = mViewStyle;
-@synthesize maxWidth = mMaxWidth;
-@synthesize showArtist = mShowArtist;
-@synthesize showAlbum = mShowAlbum;
-@synthesize showRating = mShowRating;
-@synthesize shouldScroll = mShouldScroll;
-@synthesize artist = mArtist;
-@synthesize name = mName;
-@synthesize album = mAlbum;
-@synthesize rating = mRating;
-@synthesize topRow = mTopRow;
-@synthesize bottomRow = mBottomRow;
-@synthesize highlighted = mHighlighted;
+@implementation CurrentsongStatusView {
+    BOOL _highlighted;
+    CGFloat _maxWidth;
+    BOOL _showPauseIcon;
+    BOOL _isStream;
+    
+    NSAttributedString *_topRow;
+    NSAttributedString *_bottomRow;
+    CGFloat _topRowScrollOffset;
+    CGFloat _bottomRowScrollOffset;
+    BOOL _scrollTopRow;
+    BOOL _scrollBottomRow;
+    NSTimer *_scrollTimer;
+    
+    CGImageRef _alphaMask;
+    BOOL _alphaMaskAccountsForPauseIcon;
+}
 
 #pragma mark -
 - (void)dealloc
 {
-    [mStatusItem release];
-    [mArtist release];
-    [mName release];
-    [mAlbum release];
-    [mRating release];
-    [mTopRow release];
-    [mBottomRow release];
-    CGImageRelease(mAlphaMask);
-    [mScrollTimer invalidate];
-    [mScrollTimer release];
-    [super dealloc];
+    CGImageRelease(_alphaMask);
+    [_scrollTimer invalidate];
 }
 
 // Mimic the white shadow under menu item text in the menu bar
 + (NSShadow *)menuBarShadow
 {
     static NSShadow *shadow = nil;
-    if (!shadow)
-    {
+    if (!shadow) {
         shadow = [[NSShadow alloc] init];
         [shadow setShadowColor:[NSColor colorWithDeviceWhite:1 alpha:0.25]];
         [shadow setShadowOffset:NSMakeSize(0, -1)];
@@ -83,7 +74,7 @@
 - (void)drawPauseIcon
 {
     NSPoint iconOrigin = NSMakePoint(5,7);
-    [((mHighlighted) ? [NSColor whiteColor] : [NSColor blackColor]) set];
+    [((_highlighted) ? [NSColor whiteColor] : [NSColor blackColor]) set];
     NSRect rect = NSMakeRect(iconOrigin.x,iconOrigin.y,3,9);
     [NSBezierPath fillRect:rect];
     rect.origin.x += 5;
@@ -93,7 +84,7 @@
 - (void)generateEdgeMask
 {    
     NSSize viewSize = [self frame].size;
-    CGFloat leftEdge = (mShowPauseIcon) ? kCSViewPauseIconOffset : 0;
+    CGFloat leftEdge = (_showPauseIcon) ? kCSViewPauseIconOffset : 0;
    
     CGColorSpaceRef cs = CGColorSpaceCreateDeviceGray();
     CGContextRef maskContext = CGBitmapContextCreate(NULL, viewSize.width, viewSize.height, 8, viewSize.width, cs, 0);
@@ -103,7 +94,7 @@
     CGContextFillRect(maskContext, NSRectToCGRect([self bounds]));
     
 #if kCSViewFadeEdges
-    if (mShowPauseIcon) {
+    if (_showPauseIcon) {
         CGContextSetGrayFillColor(maskContext, 0, 1);
         CGContextFillRect(maskContext, NSMakeRect(0, 0, leftEdge, viewSize.height));
     }
@@ -119,9 +110,9 @@
     CGContextFillRect(maskContext, CGRectMake(0, 0, leftEdge+kCSViewSideMargin, viewSize.height)); // left edges
 #endif
     
-    CGImageRelease(mAlphaMask);
-    mAlphaMask = CGBitmapContextCreateImage(maskContext);
-    mAlphaMaskAccountsForPauseIcon = mShowPauseIcon;
+    CGImageRelease(_alphaMask);
+    _alphaMask = CGBitmapContextCreateImage(maskContext);
+    _alphaMaskAccountsForPauseIcon = _showPauseIcon;
     CGContextRelease(maskContext);
 }
 
@@ -131,17 +122,17 @@
     NSSize viewSize = [self frame].size;
     
     // generate the mask if necessary
-    BOOL needToRegenerateMask = (!mAlphaMask ||
-                                 CGImageGetWidth(mAlphaMask) != viewSize.width ||
-                                 CGImageGetHeight(mAlphaMask) != viewSize.height ||
-                                 mAlphaMaskAccountsForPauseIcon != mShowPauseIcon);
+    BOOL needToRegenerateMask = (!_alphaMask ||
+                                 CGImageGetWidth(_alphaMask) != viewSize.width ||
+                                 CGImageGetHeight(_alphaMask) != viewSize.height ||
+                                 _alphaMaskAccountsForPauseIcon != _showPauseIcon);
     
     if (needToRegenerateMask) {
         [self generateEdgeMask];
     }
     
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
-    CGContextClipToMask(context, NSRectToCGRect([self bounds]), mAlphaMask);
+    CGContextClipToMask(context, NSRectToCGRect([self bounds]), _alphaMask);
 }
 
 // If yPosition is less than 0, draw the text centered in the view.
@@ -174,7 +165,7 @@
 
 - (void)drawRect:(NSRect)rect
 {
-    [mStatusItem drawStatusBarBackgroundInRect:[self bounds] withHighlight:mHighlighted];
+    [_statusItem drawStatusBarBackgroundInRect:[self bounds] withHighlight:_highlighted];
     
     [NSGraphicsContext saveGraphicsState];
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
@@ -183,51 +174,51 @@
     CGContextSetShouldSmoothFonts(context, NO);
 
     // add subtle white shadow to match other menu bar text
-    if (!mHighlighted) {
+    if (!_highlighted) {
         [[CurrentsongStatusView menuBarShadow] set];
     }
     
     // draw pause icon
     CGFloat leftEdge = kCSViewSideMargin;
-    if (mShowPauseIcon) {
+    if (_showPauseIcon) {
         leftEdge += kCSViewPauseIconOffset;
         [self drawPauseIcon];
     }
     
     // set clipping mask and draw text
-    BOOL twoRows = ([mTopRow length] > 0 && [mBottomRow length] > 0);
+    BOOL twoRows = ([_topRow length] > 0 && [_bottomRow length] > 0);
     [self setEdgeMask];
-    [self drawTextRow:mTopRow leftEdge:leftEdge yPosition:((twoRows) ? 11 : kCSDrawTextCentered) scrollOffset:mTopRowScrollOffset];
-    [self drawTextRow:mBottomRow leftEdge:leftEdge yPosition:((twoRows) ? 1 : kCSDrawTextCentered) scrollOffset:mBottomRowScrollOffset];
+    [self drawTextRow:_topRow leftEdge:leftEdge yPosition:((twoRows) ? 11 : kCSDrawTextCentered) scrollOffset:_topRowScrollOffset];
+    [self drawTextRow:_bottomRow leftEdge:leftEdge yPosition:((twoRows) ? 1 : kCSDrawTextCentered) scrollOffset:_bottomRowScrollOffset];
 
     [NSGraphicsContext restoreGraphicsState];
 }
 
 - (void)updateBounds
 {
-    CGFloat height = mStatusItem.statusBar.thickness;
-    CGFloat topRowWidth = (mTopRow) ? [mTopRow size].width : 0;
-    CGFloat bottomRowWidth = (mBottomRow) ? [mBottomRow size].width : 0;
+    CGFloat height = _statusItem.statusBar.thickness;
+    CGFloat topRowWidth = (_topRow) ? [_topRow size].width : 0;
+    CGFloat bottomRowWidth = (_bottomRow) ? [_bottomRow size].width : 0;
     CGFloat width = MAX(topRowWidth, bottomRowWidth);
     CGFloat padding = kCSViewSideMargin*2;
     width += padding;
     
-    // If mMaxWidth is greater than 0, enforce maximum width
-    if (mMaxWidth > 0) {
-        width = MIN(mMaxWidth, width);
+    // If _maxWidth is greater than 0, enforce maximum width
+    if (_maxWidth > 0) {
+        width = MIN(_maxWidth, width);
     }
 
-    if (mShowPauseIcon) {
+    if (_showPauseIcon) {
         padding += kCSViewPauseIconOffset;
         width += kCSViewPauseIconOffset;
     }
     
-    mScrollTopRow = (topRowWidth > width-padding);
-    mScrollBottomRow = (bottomRowWidth > width-padding);
+    _scrollTopRow = (topRowWidth > width-padding);
+    _scrollBottomRow = (bottomRowWidth > width-padding);
     
-    if (mShouldScroll && (mScrollTopRow || mScrollBottomRow) && ![self isScrolling]) {
+    if (_shouldScroll && (_scrollTopRow || _scrollBottomRow) && ![self isScrolling]) {
         [self startScrolling];
-    } else if (!(mScrollTopRow || mScrollBottomRow) && [self isScrolling]) {
+    } else if (!(_scrollTopRow || _scrollBottomRow) && [self isScrolling]) {
         [self stopScrolling];
     }
     
@@ -237,59 +228,75 @@
 
 - (void)updateAppearance
 {    
-    BOOL haveArtist = mShowArtist && ([mArtist length] > 0);
-    BOOL haveName = ([mName length] > 0);
-    BOOL haveAlbum = mShowAlbum && ([mAlbum length] > 0);
-    BOOL haveRating = mShowRating && ([mRating length] > 0);
+    BOOL haveArtist = _showArtist && ([_artist length] > 0);
+    BOOL haveName = ([_name length] > 0);
+    BOOL haveAlbum = _showAlbum && ([_album length] > 0);
+    BOOL haveRating = _showRating && ([_rating length] > 0);
     
     self.bottomRow = nil;
     
     // No track name, not plaing
     if (!haveName) {
-        mShowPauseIcon = NO;
-        self.topRow = [NSAttributedString menuBarAttributedString:@"\u266B" attributes:mHighlighted];
+        _showPauseIcon = NO;
+        self.topRow = [NSAttributedString menuBarAttributedString:@"\u266B" attributes:_highlighted];
     } else {    
-        if (mViewStyle == kCSStyleFormatted)
-        {
-            NSMutableAttributedString *topRowFormatted = [[[NSMutableAttributedString alloc] init] autorelease];
+        if (_viewStyle == kCSStyleFormatted) {
+            NSMutableAttributedString *topRowFormatted = [[NSMutableAttributedString alloc] init];
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
-            if (haveName)   [fields addObject:[NSAttributedString menuBarAttributedString:mName attributes:mHighlighted|kCSBold]];
-            if (haveArtist) [fields addObject:[NSAttributedString menuBarAttributedString:mArtist attributes:mHighlighted]];
-            if (haveAlbum)  [fields addObject:[NSAttributedString menuBarAttributedString:mAlbum attributes:mHighlighted|kCSLight]];
-            if (haveRating)  [fields addObject:[NSAttributedString menuBarAttributedString:mRating attributes:mHighlighted]];
-            
+            if (haveName)   {
+                [fields addObject:[NSAttributedString menuBarAttributedString:_name attributes:_highlighted|kCSBold]];
+            }
+            if (haveArtist) {
+                [fields addObject:[NSAttributedString menuBarAttributedString:_artist attributes:_highlighted]];
+            }
+            if (haveAlbum) {
+                [fields addObject:[NSAttributedString menuBarAttributedString:_album attributes:_highlighted|kCSLight]];
+            }
+            if (haveRating) {
+                [fields addObject:[NSAttributedString menuBarAttributedString:_rating attributes:_highlighted|kCSLight]];
+            }
+        
             BOOL first = YES;
-            for (NSAttributedString *astr in fields)
-            {
-                if (!first) [topRowFormatted appendAttributedString:
-                             [NSAttributedString menuBarAttributedString:@"  " attributes:mHighlighted]];
+            for (NSAttributedString *astr in fields) {
+                if (!first) {
+                    [topRowFormatted appendAttributedString:[NSAttributedString menuBarAttributedString:@"  " attributes:_highlighted]];
+                }
                 [topRowFormatted appendAttributedString:astr];
                 first = NO;
             }
             
             self.topRow = topRowFormatted;
             
-        }
-        else if (mViewStyle == kCSStyleTwoLevel)
-        {
-            self.topRow = [NSAttributedString menuBarAttributedString:mName attributes:mHighlighted|kCSBold|kCSSmall];
+        } else if (_viewStyle == kCSStyleTwoLevel) {
+            self.topRow = [NSAttributedString menuBarAttributedString:_name attributes:_highlighted|kCSBold|kCSSmall];
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:2];
-            if (haveArtist) [fields addObject:mArtist];
-            if (haveAlbum)  [fields addObject:mAlbum];
-            if (haveRating)  [fields addObject:mRating];
+            if (haveArtist) {
+                [fields addObject:_artist];
+            }
+            if (haveAlbum) {
+                [fields addObject:_album];
+            }
+            if (haveRating) {
+                [fields addObject:_rating];
+            }
             self.bottomRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
-                                                              attributes:mHighlighted|kCSSmall];            
-        }
-        else
-        {
+                                                              attributes:_highlighted|kCSSmall];            
+        } else {
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
-            if (haveName)   [fields addObject:mName];
-            if (haveArtist) [fields addObject:mArtist];
-            if (haveAlbum)  [fields addObject:mAlbum];
-            if (haveRating)  [fields addObject:mRating];
-            
+            if (haveName) {
+                [fields addObject:_name];
+            }
+            if (haveArtist) {
+                [fields addObject:_artist];
+            }
+            if (haveAlbum) {
+                [fields addObject:_album];
+            }
+            if (haveRating) {
+                [fields addObject:_rating];
+            }
             self.topRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
-                                                           attributes:mHighlighted];
+                                                           attributes:_highlighted];
         }
     }
     
@@ -303,7 +310,7 @@
     NSString *album = [trackInfo objectForKey:@"Album"];
     NSString *streamTitle = [trackInfo objectForKey:@"Stream Title"];   
     NSString *playerState = [trackInfo objectForKey:@"Player State"];
-    mShowPauseIcon = ([playerState isEqualToString:@"Stopped"] || [playerState isEqualToString:@"Paused"]);
+    _showPauseIcon = ([playerState isEqualToString:@"Stopped"] || [playerState isEqualToString:@"Paused"]);
     
     NSNumber *ratingPercent = [trackInfo objectForKey:@"Rating"];
     NSString *rating = nil;
@@ -333,20 +340,19 @@
     
     // Streaming?
     if (streamTitle) {
-        mIsStream = YES;
+        _isStream = YES;
         album = name;
         name = streamTitle;
     } else {
-        mIsStream = NO;
+        _isStream = NO;
     }
     
     // Reset scroll offset if the track changed
     if ([self isScrolling] && (![artist isEqualToString:self.artist] ||
         ![name isEqualToString:self.name] ||
-        ![album isEqualToString:self.album]))
-    {
-        mTopRowScrollOffset = kCSViewScrollStartOffset;
-        mBottomRowScrollOffset = kCSViewScrollStartOffset;
+        ![album isEqualToString:self.album])) {
+        _topRowScrollOffset = kCSViewScrollStartOffset;
+        _bottomRowScrollOffset = kCSViewScrollStartOffset;
     }
     
     self.artist = artist;
@@ -362,46 +368,45 @@
 
 - (BOOL)isScrolling
 {
-    return (mScrollTimer != nil);
+    return (_scrollTimer != nil);
 }
         
 - (void)startScrolling
 {
-    if (mScrollTimer) {
+    if (_scrollTimer) {
         return;
     }
     
-    mScrollTimer = [[NSTimer scheduledTimerWithTimeInterval:kCSViewScrollTimerFrequency
-                                                     target:self
-                                                   selector:@selector(scrollTimerFired:)
-                                                   userInfo:nil
-                                                    repeats:YES] retain];
+    _scrollTimer = [NSTimer scheduledTimerWithTimeInterval:kCSViewScrollTimerFrequency
+                                                    target:self
+                                                  selector:@selector(scrollTimerFired:)
+                                                  userInfo:nil
+                                                   repeats:YES];
 }
 
 - (void)stopScrolling
 {
-    if (!mScrollTimer) {
+    if (!_scrollTimer) {
         return;
     }
     
-    [mScrollTimer invalidate];
-    [mScrollTimer release];
-    mScrollTimer = nil;
+    [_scrollTimer invalidate];
+    _scrollTimer = nil;
 }
 
 - (void)scrollTimerFired:(NSTimer *)timer
 {
-    if (mScrollTopRow && mTopRow) {
-        mTopRowScrollOffset += 1;
-        if (mTopRowScrollOffset >= [mTopRow size].width+kCSViewScrollPadding) {
-            mTopRowScrollOffset = kCSViewScrollStartOffset;
+    if (_scrollTopRow && _topRow) {
+        _topRowScrollOffset += 1;
+        if (_topRowScrollOffset >= [_topRow size].width+kCSViewScrollPadding) {
+            _topRowScrollOffset = kCSViewScrollStartOffset;
         }
     }
     
-    if (mScrollBottomRow && mBottomRow) {
-        mBottomRowScrollOffset += 1;
-        if (mBottomRowScrollOffset >= [mBottomRow size].width+kCSViewScrollPadding) {
-            mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    if (_scrollBottomRow && _bottomRow) {
+        _bottomRowScrollOffset += 1;
+        if (_bottomRowScrollOffset >= [_bottomRow size].width+kCSViewScrollPadding) {
+            _bottomRowScrollOffset = kCSViewScrollStartOffset;
         }
     }
     
@@ -413,71 +418,70 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
-    mHighlighted = highlighted; [self updateAppearance];
+    _highlighted = highlighted; [self updateAppearance];
 }
 
 - (void)setViewStyle:(CurrentsongViewStyle)viewStyle
 {
-    mViewStyle = viewStyle;
-    mTopRowScrollOffset = kCSViewScrollStartOffset;
-    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    _viewStyle = viewStyle;
+    _topRowScrollOffset = kCSViewScrollStartOffset;
+    _bottomRowScrollOffset = kCSViewScrollStartOffset;
     [self updateAppearance];
 }
 
 - (void)setMaxWidth:(CGFloat)maxWidth
 {
-    mMaxWidth = maxWidth;
-    mTopRowScrollOffset = kCSViewScrollStartOffset;
-    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    _maxWidth = maxWidth;
+    _topRowScrollOffset = kCSViewScrollStartOffset;
+    _bottomRowScrollOffset = kCSViewScrollStartOffset;
     [self updateAppearance];
 }
 
 - (void)setShowArtist:(BOOL)showArtist
 {
-    mShowArtist = showArtist;
-    mTopRowScrollOffset = kCSViewScrollStartOffset;
-    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    _showArtist = showArtist;
+    _topRowScrollOffset = kCSViewScrollStartOffset;
+    _bottomRowScrollOffset = kCSViewScrollStartOffset;
     [self updateAppearance];
 }
 
 - (void)setShowAlbum:(BOOL)showAlbum
 {
-    mShowAlbum = showAlbum;
-    mTopRowScrollOffset = kCSViewScrollStartOffset;
-    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    _showAlbum = showAlbum;
+    _topRowScrollOffset = kCSViewScrollStartOffset;
+    _bottomRowScrollOffset = kCSViewScrollStartOffset;
     [self updateAppearance];
 }
 
 - (void)setShowRating:(BOOL)showRating
 {
-    mShowRating = showRating;
-    mTopRowScrollOffset = kCSViewScrollStartOffset;
-    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    _showRating = showRating;
+    _topRowScrollOffset = kCSViewScrollStartOffset;
+    _bottomRowScrollOffset = kCSViewScrollStartOffset;
     [self updateAppearance];
 
 }
 
 - (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum showRating:(BOOL)showRating viewStyle:(CurrentsongViewStyle)viewStyle
 {
-    mShowArtist = showArtist;
-    mShowAlbum = showAlbum;
-    mShowRating = showRating;
-    mViewStyle = viewStyle;
-    mTopRowScrollOffset = kCSViewScrollStartOffset;
-    mBottomRowScrollOffset = kCSViewScrollStartOffset;
+    _showArtist = showArtist;
+    _showAlbum = showAlbum;
+    _showRating = showRating;
+    _viewStyle = viewStyle;
+    _topRowScrollOffset = kCSViewScrollStartOffset;
+    _bottomRowScrollOffset = kCSViewScrollStartOffset;
     [self updateAppearance];    
 }
 
 - (void)setShouldScroll:(BOOL)shouldScroll
 {
-    if (mShouldScroll != shouldScroll)
-    {
+    if (_shouldScroll != shouldScroll) {
         if (!shouldScroll) {
             [self stopScrolling];
         }
-        mShouldScroll = shouldScroll;
-        mTopRowScrollOffset = kCSViewScrollStartOffset;
-        mBottomRowScrollOffset = kCSViewScrollStartOffset;
+        _shouldScroll = shouldScroll;
+        _topRowScrollOffset = kCSViewScrollStartOffset;
+        _bottomRowScrollOffset = kCSViewScrollStartOffset;
         [self updateAppearance];
     }
 }
@@ -485,7 +489,7 @@
 #pragma mark Events
 - (void)mouseDown:(NSEvent *)event
 {
-    [mStatusItem popUpStatusItemMenu:[mStatusItem menu]];
+    [_statusItem popUpStatusItemMenu:[_statusItem menu]];
     [self setNeedsDisplay:YES];
 }
 

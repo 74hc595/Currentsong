@@ -9,7 +9,7 @@
 
 #import <Foundation/Foundation.h>
 
-enum
+typedef NS_OPTIONS(NSUInteger, CurrentsongTextAttributeMask)
 {
     kCSPlain        = 0,
     kCSHighlighted  = 1,
@@ -17,7 +17,6 @@ enum
     kCSLight        = 4,
     kCSSmall        = 8
 };
-typedef NSInteger CurrentsongTextAttributeMask;
 
 @interface NSAttributedString (NSAttributedStringAdditions)
 

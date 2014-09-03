@@ -8,48 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 
-typedef enum
+typedef NS_ENUM(NSInteger, CurrentsongViewStyle)
 {
     kCSStyleFormatted,
     kCSStylePlain,
     kCSStyleTwoLevel
-} CurrentsongViewStyle;
+};
 
 
 @interface CurrentsongStatusView : NSView
-{
-    NSStatusItem *mStatusItem;
 
-    // Properties
-    BOOL mHighlighted;
-    CurrentsongViewStyle mViewStyle;
-    CGFloat mMaxWidth;
-    BOOL mShowArtist;
-    BOOL mShowAlbum;
-    BOOL mShowRating;
-    BOOL mShouldScroll;
-    
-    // Track data
-    BOOL mShowPauseIcon;
-    BOOL mIsStream;
-    NSString *mArtist;
-    NSString *mName;
-    NSString *mAlbum;
-    NSString *mRating;
-    
-    NSAttributedString *mTopRow;
-    NSAttributedString *mBottomRow;
-    CGFloat mTopRowScrollOffset;
-    CGFloat mBottomRowScrollOffset;
-    BOOL mScrollTopRow;
-    BOOL mScrollBottomRow;
-    NSTimer *mScrollTimer;
-
-    CGImageRef mAlphaMask;
-    BOOL mAlphaMaskAccountsForPauseIcon;
-}
-
-@property (nonatomic,retain) NSStatusItem *statusItem;
+@property (nonatomic,strong) NSStatusItem *statusItem;
 @property (nonatomic,assign) BOOL highlighted;
 @property (nonatomic,assign) CurrentsongViewStyle viewStyle;
 @property (nonatomic,assign) CGFloat maxWidth;
