@@ -22,6 +22,7 @@
 - (NSDictionary *)fetchTrackInfo;
 - (void)updateMenuItemsWithTrackInfo:(NSDictionary *)trackInfo;
 - (void)updateMenuTrackTime;
+- (void)updateRatingDisplay;
 @end
 
 
@@ -250,6 +251,7 @@
 {
     if ([menuItem action] == @selector(trackElapsedTime:)) {
         [self updateMenuTrackTime];
+        [self updateRatingDisplay];
         return NO;
     } else if ([menuItem action] == @selector(toggleShowArtist:)) {
         [menuItem setState:_statusView.showArtist];
@@ -364,7 +366,11 @@
     if (elapsedTimeString) {
         [_timeMenuItem setTitle:elapsedTimeString];
     }
-    
+}
+
+- (void)updateRatingDisplay
+{
+    NSDictionary *info = [self fetchTrackInfo];
     NSString *playerState = [info objectForKey:@"Player State"];
     if (!playerState || [playerState isEqualToString:@"Stopped"]) {
         [_ratingMenuItem setHidden:YES];
