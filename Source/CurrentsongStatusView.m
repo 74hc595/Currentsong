@@ -75,7 +75,7 @@
 - (void)drawPauseIcon
 {
     NSPoint iconOrigin = NSMakePoint(5,7);
-    [((_highlighted) ? [NSColor whiteColor] : [NSColor blackColor]) set];
+    [((_highlighted|[self isDarkMode]) ? [NSColor whiteColor] : [NSColor blackColor]) set];
     NSRect rect = NSMakeRect(iconOrigin.x,iconOrigin.y,3,9);
     [NSBezierPath fillRect:rect];
     rect.origin.x += 5;
@@ -233,34 +233,35 @@
     BOOL haveName = ([_name length] > 0);
     BOOL haveAlbum = _showAlbum && ([_album length] > 0);
     BOOL haveRating = _showRating && ([_rating length] > 0);
+    BOOL darkMode = [self isDarkMode];
     
     self.bottomRow = nil;
     
     // No track name, not plaing
     if (!haveName) {
         _showPauseIcon = NO;
-        self.topRow = [NSAttributedString menuBarAttributedString:@"\u266B" attributes:_highlighted];
+        self.topRow = [NSAttributedString menuBarAttributedString:@"\u266B" attributes:_highlighted|darkMode];
     } else {    
         if (_viewStyle == kCSStyleFormatted) {
             NSMutableAttributedString *topRowFormatted = [[NSMutableAttributedString alloc] init];
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
             if (haveName)   {
-                [fields addObject:[NSAttributedString menuBarAttributedString:_name attributes:_highlighted|kCSBold]];
+                [fields addObject:[NSAttributedString menuBarAttributedString:_name attributes:_highlighted|darkMode|kCSBold]];
             }
             if (haveArtist) {
-                [fields addObject:[NSAttributedString menuBarAttributedString:_artist attributes:_highlighted]];
+                [fields addObject:[NSAttributedString menuBarAttributedString:_artist attributes:_highlighted|darkMode]];
             }
             if (haveAlbum) {
-                [fields addObject:[NSAttributedString menuBarAttributedString:_album attributes:_highlighted|kCSLight]];
+                [fields addObject:[NSAttributedString menuBarAttributedString:_album attributes:_highlighted|darkMode|kCSLight]];
             }
             if (haveRating) {
-                [fields addObject:[NSAttributedString menuBarAttributedString:_rating attributes:_highlighted|kCSLight]];
+                [fields addObject:[NSAttributedString menuBarAttributedString:_rating attributes:_highlighted|darkMode|kCSLight]];
             }
         
             BOOL first = YES;
             for (NSAttributedString *astr in fields) {
                 if (!first) {
-                    [topRowFormatted appendAttributedString:[NSAttributedString menuBarAttributedString:@"  " attributes:_highlighted]];
+                    [topRowFormatted appendAttributedString:[NSAttributedString menuBarAttributedString:@"  " attributes:_highlighted|darkMode]];
                 }
                 [topRowFormatted appendAttributedString:astr];
                 first = NO;
@@ -269,7 +270,7 @@
             self.topRow = topRowFormatted;
             
         } else if (_viewStyle == kCSStyleTwoLevel) {
-            self.topRow = [NSAttributedString menuBarAttributedString:_name attributes:_highlighted|kCSBold|kCSSmall];
+            self.topRow = [NSAttributedString menuBarAttributedString:_name attributes:_highlighted|darkMode|kCSBold|kCSSmall];
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:2];
             if (haveArtist) {
                 [fields addObject:_artist];
@@ -281,7 +282,7 @@
                 [fields addObject:_rating];
             }
             self.bottomRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
-                                                              attributes:_highlighted|kCSSmall];            
+                                                              attributes:_highlighted|darkMode|kCSSmall];
         } else {
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
             if (haveName) {
@@ -297,7 +298,7 @@
                 [fields addObject:_rating];
             }
             self.topRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
-                                                           attributes:_highlighted];
+                                                           attributes:_highlighted|darkMode];
         }
     }
     
