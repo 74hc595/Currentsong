@@ -29,6 +29,7 @@
 @property (nonatomic, getter=isScrolling, readonly) BOOL scrolling;
 - (void)startScrolling;
 - (void)stopScrolling;
+- (BOOL)isDarkMode;
 @end
 
 #pragma mark -
@@ -496,6 +497,14 @@
 - (void)rightMouseDown:(NSEvent *)event
 {
     [self mouseDown:event];
+}
+
+#pragma marke DarkMode (Yosemite)
+- (BOOL)isDarkMode
+{
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:NSGlobalDomain];
+    id style = [dict objectForKey:@"AppleInterfaceStyle"];
+    return ( style && [style isKindOfClass:[NSString class]] && NSOrderedSame == [style caseInsensitiveCompare:@"dark"] );
 }
 
 @end
