@@ -1,1044 +1,164 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
-	<data>
-		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">13D65</string>
-		<string key="IBDocument.InterfaceBuilderVersion">6154.17</string>
-		<string key="IBDocument.AppKitVersion">1265.20</string>
-		<string key="IBDocument.HIToolboxVersion">698.00</string>
-		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">6154.17</string>
-		</object>
-		<array key="IBDocument.IntegratedClassDependencies">
-			<string>NSCustomObject</string>
-			<string>NSMenu</string>
-			<string>NSMenuItem</string>
-		</array>
-		<array key="IBDocument.PluginDependencies">
-			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-		</array>
-		<object class="NSMutableDictionary" key="IBDocument.Metadata">
-			<string key="NS.key.0">PluginDependencyRecalculationVersion</string>
-			<integer value="1" key="NS.object.0"/>
-		</object>
-		<array class="NSMutableArray" key="IBDocument.RootObjects" id="1048">
-			<object class="NSCustomObject" id="1021">
-				<string key="NSClassName">NSApplication</string>
-			</object>
-			<object class="NSCustomObject" id="1014">
-				<string key="NSClassName">FirstResponder</string>
-			</object>
-			<object class="NSCustomObject" id="1050">
-				<string key="NSClassName">NSApplication</string>
-			</object>
-			<object class="NSCustomObject" id="976324537">
-				<string key="NSClassName">CurrentsongAppDelegate</string>
-			</object>
-			<object class="NSMenu" id="947590874">
-				<string key="NSTitle"/>
-				<array class="NSMutableArray" key="NSMenuItems">
-					<object class="NSMenuItem" id="96857993">
-						<reference key="NSMenu" ref="947590874"/>
-						<bool key="NSIsDisabled">YES</bool>
-						<string key="NSTitle">Title</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<object class="NSCustomResource" key="NSOnImage" id="111838853">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">NSMenuCheckmark</string>
-						</object>
-						<object class="NSCustomResource" key="NSMixedImage" id="883337239">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">NSMenuMixedState</string>
-						</object>
-					</object>
-					<object class="NSMenuItem" id="102643582">
-						<reference key="NSMenu" ref="947590874"/>
-						<bool key="NSIsDisabled">YES</bool>
-						<string key="NSTitle">Stream Title</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="111838853"/>
-						<reference key="NSMixedImage" ref="883337239"/>
-					</object>
-					<object class="NSMenuItem" id="602572125">
-						<reference key="NSMenu" ref="947590874"/>
-						<bool key="NSIsDisabled">YES</bool>
-						<string key="NSTitle">Artist</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="111838853"/>
-						<reference key="NSMixedImage" ref="883337239"/>
-					</object>
-					<object class="NSMenuItem" id="767813402">
-						<reference key="NSMenu" ref="947590874"/>
-						<bool key="NSIsDisabled">YES</bool>
-						<string key="NSTitle">Album</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="111838853"/>
-						<reference key="NSMixedImage" ref="883337239"/>
-					</object>
-					<object class="NSMenuItem" id="187533273">
-						<reference key="NSMenu" ref="947590874"/>
-						<bool key="NSIsDisabled">YES</bool>
-						<string key="NSTitle">Time</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="111838853"/>
-						<reference key="NSMixedImage" ref="883337239"/>
-					</object>
-					<object class="NSMenuItem" id="14160589">
-						<reference key="NSMenu" ref="947590874"/>
-						<bool key="NSIsDisabled">YES</bool>
-						<bool key="NSIsSeparator">YES</bool>
-						<string key="NSTitle"/>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="111838853"/>
-						<reference key="NSMixedImage" ref="883337239"/>
-					</object>
-					<object class="NSMenuItem" id="1028767459">
-						<reference key="NSMenu" ref="947590874"/>
-						<string key="NSTitle">Launch iTunes</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="111838853"/>
-						<reference key="NSMixedImage" ref="883337239"/>
-					</object>
-					<object class="NSMenuItem" id="239610712">
-						<reference key="NSMenu" ref="947590874"/>
-						<string key="NSTitle">Options</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="111838853"/>
-						<reference key="NSMixedImage" ref="883337239"/>
-						<string key="NSAction">submenuAction:</string>
-						<reference key="NSTarget" ref="978597002"/>
-						<object class="NSMenu" key="NSSubmenu" id="978597002">
-							<string key="NSTitle"/>
-							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="967337737">
-									<reference key="NSMenu" ref="978597002"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<string key="NSTitle">Display</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="567147797">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Title Only</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="359054804">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Title and Artist</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="549131647">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Title, Artist, Album</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="339923888">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Title and Artist (Stacked)</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="240469131">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Title, Artist, Album (Stacked)</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="7399817">
-									<reference key="NSMenu" ref="978597002"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="266894051">
-									<reference key="NSMenu" ref="978597002"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<string key="NSTitle">Maximum Width</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="86002005">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Large</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="839605201">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Medium</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="632387616">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Small</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="60983643">
-									<reference key="NSMenu" ref="978597002"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="963111987">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Scroll Long Text</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="478343420">
-									<reference key="NSMenu" ref="978597002"/>
-									<string key="NSTitle">Launch at Login</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="324259891">
-									<reference key="NSMenu" ref="978597002"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="407475671">
-									<reference key="NSMenu" ref="978597002"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<string key="NSTitle">Currentsong 0.0</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-								<object class="NSMenuItem" id="758467202">
-									<reference key="NSMenu" ref="978597002"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<string key="NSTitle">Matt Sarnoff · msarnoff.org</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="111838853"/>
-									<reference key="NSMixedImage" ref="883337239"/>
-								</object>
-							</array>
-						</object>
-					</object>
-					<object class="NSMenuItem" id="721622883">
-						<reference key="NSMenu" ref="947590874"/>
-						<string key="NSTitle">Quit Currentsong</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="111838853"/>
-						<reference key="NSMixedImage" ref="883337239"/>
-					</object>
-				</array>
-			</object>
-			<object class="NSCustomObject" id="407065251">
-				<string key="NSClassName">LaunchAtLoginController</string>
-			</object>
-		</array>
-		<object class="IBObjectContainer" key="IBDocument.Objects">
-			<array class="NSMutableArray" key="connectionRecords">
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="1021"/>
-						<reference key="destination" ref="976324537"/>
-					</object>
-					<int key="connectionID">495</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">stop:</string>
-						<reference key="source" ref="1021"/>
-						<reference key="destination" ref="721622883"/>
-					</object>
-					<int key="connectionID">560</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">trackElapsedTime:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="187533273"/>
-					</object>
-					<int key="connectionID">562</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setLargeViewWidth:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="86002005"/>
-					</object>
-					<int key="connectionID">569</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setMediumViewWidth:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="839605201"/>
-					</object>
-					<int key="connectionID">570</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setSmallViewWidth:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="632387616"/>
-					</object>
-					<int key="connectionID">571</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleScrollLongText:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="963111987"/>
-					</object>
-					<int key="connectionID">582</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setTitleOnly:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="567147797"/>
-					</object>
-					<int key="connectionID">591</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setTitleAndArtist:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="359054804"/>
-					</object>
-					<int key="connectionID">592</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setTitleArtistAlbum:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="549131647"/>
-					</object>
-					<int key="connectionID">593</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setTitleAndArtistStacked:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="339923888"/>
-					</object>
-					<int key="connectionID">594</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setTitleArtistAlbumStacked:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="240469131"/>
-					</object>
-					<int key="connectionID">595</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleLaunchAtLogin:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="478343420"/>
-					</object>
-					<int key="connectionID">598</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">launchITunes:</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="1028767459"/>
-					</object>
-					<int key="connectionID">600</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">mVersionMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="407475671"/>
-					</object>
-					<int key="connectionID">601</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">menu</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="947590874"/>
-					</object>
-					<int key="connectionID">602</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">albumMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="767813402"/>
-					</object>
-					<int key="connectionID">603</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">artistMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="602572125"/>
-					</object>
-					<int key="connectionID">604</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">launchAtLoginController</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="407065251"/>
-					</object>
-					<int key="connectionID">605</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nameMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="96857993"/>
-					</object>
-					<int key="connectionID">606</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">streamTitleMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="102643582"/>
-					</object>
-					<int key="connectionID">607</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">timeMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="187533273"/>
-					</object>
-					<int key="connectionID">608</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">versionMenuItem</string>
-						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="407475671"/>
-					</object>
-					<int key="connectionID">609</int>
-				</object>
-			</array>
-			<object class="IBMutableOrderedSet" key="objectRecords">
-				<array key="orderedObjects">
-					<object class="IBObjectRecord">
-						<int key="objectID">0</int>
-						<array key="object" id="0"/>
-						<reference key="children" ref="1048"/>
-						<nil key="parent"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">-2</int>
-						<reference key="object" ref="1021"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">File's Owner</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">-1</int>
-						<reference key="object" ref="1014"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">First Responder</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">-3</int>
-						<reference key="object" ref="1050"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Application</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">494</int>
-						<reference key="object" ref="976324537"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">533</int>
-						<reference key="object" ref="947590874"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="96857993"/>
-							<reference ref="602572125"/>
-							<reference ref="767813402"/>
-							<reference ref="187533273"/>
-							<reference ref="14160589"/>
-							<reference ref="239610712"/>
-							<reference ref="721622883"/>
-							<reference ref="102643582"/>
-							<reference ref="1028767459"/>
-						</array>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">534</int>
-						<reference key="object" ref="96857993"/>
-						<reference key="parent" ref="947590874"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">535</int>
-						<reference key="object" ref="602572125"/>
-						<reference key="parent" ref="947590874"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">536</int>
-						<reference key="object" ref="767813402"/>
-						<reference key="parent" ref="947590874"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">537</int>
-						<reference key="object" ref="187533273"/>
-						<reference key="parent" ref="947590874"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">538</int>
-						<reference key="object" ref="14160589"/>
-						<reference key="parent" ref="947590874"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">539</int>
-						<reference key="object" ref="239610712"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="978597002"/>
-						</array>
-						<reference key="parent" ref="947590874"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">540</int>
-						<reference key="object" ref="721622883"/>
-						<reference key="parent" ref="947590874"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">541</int>
-						<reference key="object" ref="978597002"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="7399817"/>
-							<reference ref="86002005"/>
-							<reference ref="839605201"/>
-							<reference ref="632387616"/>
-							<reference ref="60983643"/>
-							<reference ref="478343420"/>
-							<reference ref="266894051"/>
-							<reference ref="963111987"/>
-							<reference ref="324259891"/>
-							<reference ref="407475671"/>
-							<reference ref="758467202"/>
-							<reference ref="967337737"/>
-							<reference ref="567147797"/>
-							<reference ref="359054804"/>
-							<reference ref="549131647"/>
-							<reference ref="339923888"/>
-							<reference ref="240469131"/>
-						</array>
-						<reference key="parent" ref="239610712"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">548</int>
-						<reference key="object" ref="7399817"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">549</int>
-						<reference key="object" ref="86002005"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">550</int>
-						<reference key="object" ref="839605201"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">551</int>
-						<reference key="object" ref="632387616"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">552</int>
-						<reference key="object" ref="60983643"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">553</int>
-						<reference key="object" ref="478343420"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">559</int>
-						<reference key="object" ref="963111987"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">563</int>
-						<reference key="object" ref="102643582"/>
-						<reference key="parent" ref="947590874"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">568</int>
-						<reference key="object" ref="266894051"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">577</int>
-						<reference key="object" ref="324259891"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">578</int>
-						<reference key="object" ref="407475671"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">579</int>
-						<reference key="object" ref="758467202"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">584</int>
-						<reference key="object" ref="967337737"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">585</int>
-						<reference key="object" ref="567147797"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">586</int>
-						<reference key="object" ref="359054804"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">587</int>
-						<reference key="object" ref="549131647"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">589</int>
-						<reference key="object" ref="339923888"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">590</int>
-						<reference key="object" ref="240469131"/>
-						<reference key="parent" ref="978597002"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">596</int>
-						<reference key="object" ref="407065251"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">599</int>
-						<reference key="object" ref="1028767459"/>
-						<reference key="parent" ref="947590874"/>
-					</object>
-				</array>
-			</object>
-			<dictionary class="NSMutableDictionary" key="flattenedProperties">
-				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="494.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="533.IBPersistedLastKnownCanvasPosition">{570, 269.5}</string>
-				<string key="533.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="534.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="535.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="536.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="537.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="538.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="539.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="540.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="541.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="548.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="549.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="550.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="551.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="552.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="553.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="559.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="563.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="568.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="577.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="578.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="579.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="584.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="585.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="586.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="587.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="589.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="590.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="596.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="599.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			</dictionary>
-			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
-			<nil key="activeLocalization"/>
-			<dictionary class="NSMutableDictionary" key="localizations"/>
-			<nil key="sourceID"/>
-			<int key="maxID">609</int>
-		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">CurrentsongAppDelegate</string>
-					<string key="superclassName">NSObject</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="launchITunes:">id</string>
-						<string key="setLargeViewWidth:">id</string>
-						<string key="setMediumViewWidth:">id</string>
-						<string key="setSmallViewWidth:">id</string>
-						<string key="setTitleAndArtist:">id</string>
-						<string key="setTitleAndArtistStacked:">id</string>
-						<string key="setTitleArtistAlbum:">id</string>
-						<string key="setTitleArtistAlbumStacked:">id</string>
-						<string key="setTitleOnly:">id</string>
-						<string key="toggleLaunchAtLogin:">id</string>
-						<string key="toggleScrollLongText:">id</string>
-						<string key="toggleShowAlbum:">id</string>
-						<string key="toggleShowArtist:">id</string>
-						<string key="toggleTwoLineDisplay:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="launchITunes:" id="586693583">
-							<string key="name">launchITunes:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setLargeViewWidth:" id="559370716">
-							<string key="name">setLargeViewWidth:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setMediumViewWidth:" id="878365029">
-							<string key="name">setMediumViewWidth:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setSmallViewWidth:" id="660363089">
-							<string key="name">setSmallViewWidth:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleAndArtist:" id="127984018">
-							<string key="name">setTitleAndArtist:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleAndArtistStacked:" id="398224620">
-							<string key="name">setTitleAndArtistStacked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleArtistAlbum:" id="1026270181">
-							<string key="name">setTitleArtistAlbum:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleArtistAlbumStacked:" id="524985616">
-							<string key="name">setTitleArtistAlbumStacked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleOnly:" id="256227865">
-							<string key="name">setTitleOnly:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleLaunchAtLogin:" id="66757509">
-							<string key="name">toggleLaunchAtLogin:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleScrollLongText:" id="910996887">
-							<string key="name">toggleScrollLongText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleShowAlbum:" id="335338751">
-							<string key="name">toggleShowAlbum:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleShowArtist:" id="680041963">
-							<string key="name">toggleShowArtist:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleTwoLineDisplay:" id="71206303">
-							<string key="name">toggleTwoLineDisplay:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="albumMenuItem">NSMenuItem</string>
-						<string key="artistMenuItem">NSMenuItem</string>
-						<string key="launchAtLoginController">LaunchAtLoginController</string>
-						<string key="menu">NSMenu</string>
-						<string key="nameMenuItem">NSMenuItem</string>
-						<string key="streamTitleMenuItem">NSMenuItem</string>
-						<string key="timeMenuItem">NSMenuItem</string>
-						<string key="versionMenuItem">NSMenuItem</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="albumMenuItem" id="198675918">
-							<string key="name">albumMenuItem</string>
-							<string key="candidateClassName">NSMenuItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="artistMenuItem" id="571050563">
-							<string key="name">artistMenuItem</string>
-							<string key="candidateClassName">NSMenuItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="launchAtLoginController" id="841779472">
-							<string key="name">launchAtLoginController</string>
-							<string key="candidateClassName">LaunchAtLoginController</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="menu" id="1002485447">
-							<string key="name">menu</string>
-							<string key="candidateClassName">NSMenu</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="nameMenuItem" id="20352066">
-							<string key="name">nameMenuItem</string>
-							<string key="candidateClassName">NSMenuItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="streamTitleMenuItem" id="1068497797">
-							<string key="name">streamTitleMenuItem</string>
-							<string key="candidateClassName">NSMenuItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="timeMenuItem" id="815383647">
-							<string key="name">timeMenuItem</string>
-							<string key="candidateClassName">NSMenuItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="versionMenuItem" id="870421119">
-							<string key="name">versionMenuItem</string>
-							<string key="candidateClassName">NSMenuItem</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../Source/CurrentsongAppDelegate.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">CurrentsongAppDelegate</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="launchITunes:">id</string>
-						<string key="setLargeViewWidth:">id</string>
-						<string key="setMediumViewWidth:">id</string>
-						<string key="setSmallViewWidth:">id</string>
-						<string key="setTitleAndArtist:">id</string>
-						<string key="setTitleAndArtistStacked:">id</string>
-						<string key="setTitleArtistAlbum:">id</string>
-						<string key="setTitleArtistAlbumStacked:">id</string>
-						<string key="setTitleOnly:">id</string>
-						<string key="toggleLaunchAtLogin:">id</string>
-						<string key="toggleScrollLongText:">id</string>
-						<string key="toggleShowAlbum:">id</string>
-						<string key="toggleShowArtist:">id</string>
-						<string key="toggleTwoLineDisplay:">id</string>
-						<string key="trackElapsedTime:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="launchITunes:">
-							<string key="name">launchITunes:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setLargeViewWidth:">
-							<string key="name">setLargeViewWidth:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setMediumViewWidth:">
-							<string key="name">setMediumViewWidth:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setSmallViewWidth:">
-							<string key="name">setSmallViewWidth:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleAndArtist:">
-							<string key="name">setTitleAndArtist:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleAndArtistStacked:">
-							<string key="name">setTitleAndArtistStacked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleArtistAlbum:">
-							<string key="name">setTitleArtistAlbum:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleArtistAlbumStacked:">
-							<string key="name">setTitleArtistAlbumStacked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setTitleOnly:">
-							<string key="name">setTitleOnly:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleLaunchAtLogin:">
-							<string key="name">toggleLaunchAtLogin:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleScrollLongText:">
-							<string key="name">toggleScrollLongText:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleShowAlbum:">
-							<string key="name">toggleShowAlbum:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleShowArtist:">
-							<string key="name">toggleShowArtist:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleTwoLineDisplay:">
-							<string key="name">toggleTwoLineDisplay:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="trackElapsedTime:" id="819145263">
-							<string key="name">trackElapsedTime:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../Source/CurrentsongAppDelegate.m</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">CurrentsongAppDelegate</string>
-					<string key="superclassName">NSObject</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="launchITunes:">id</string>
-						<string key="setLargeViewWidth:">id</string>
-						<string key="setMediumViewWidth:">id</string>
-						<string key="setSmallViewWidth:">id</string>
-						<string key="setTitleAndArtist:">id</string>
-						<string key="setTitleAndArtistStacked:">id</string>
-						<string key="setTitleArtistAlbum:">id</string>
-						<string key="setTitleArtistAlbumStacked:">id</string>
-						<string key="setTitleOnly:">id</string>
-						<string key="toggleLaunchAtLogin:">id</string>
-						<string key="toggleScrollLongText:">id</string>
-						<string key="toggleShowAlbum:">id</string>
-						<string key="toggleShowArtist:">id</string>
-						<string key="toggleTwoLineDisplay:">id</string>
-						<string key="trackElapsedTime:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<reference key="launchITunes:" ref="586693583"/>
-						<reference key="setLargeViewWidth:" ref="559370716"/>
-						<reference key="setMediumViewWidth:" ref="878365029"/>
-						<reference key="setSmallViewWidth:" ref="660363089"/>
-						<reference key="setTitleAndArtist:" ref="127984018"/>
-						<reference key="setTitleAndArtistStacked:" ref="398224620"/>
-						<reference key="setTitleArtistAlbum:" ref="1026270181"/>
-						<reference key="setTitleArtistAlbumStacked:" ref="524985616"/>
-						<reference key="setTitleOnly:" ref="256227865"/>
-						<reference key="toggleLaunchAtLogin:" ref="66757509"/>
-						<reference key="toggleScrollLongText:" ref="910996887"/>
-						<reference key="toggleShowAlbum:" ref="335338751"/>
-						<reference key="toggleShowArtist:" ref="680041963"/>
-						<reference key="toggleTwoLineDisplay:" ref="71206303"/>
-						<reference key="trackElapsedTime:" ref="819145263"/>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="albumMenuItem">NSMenuItem</string>
-						<string key="artistMenuItem">NSMenuItem</string>
-						<string key="launchAtLoginController">LaunchAtLoginController</string>
-						<string key="menu">NSMenu</string>
-						<string key="nameMenuItem">NSMenuItem</string>
-						<string key="streamTitleMenuItem">NSMenuItem</string>
-						<string key="timeMenuItem">NSMenuItem</string>
-						<string key="versionMenuItem">NSMenuItem</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<reference key="albumMenuItem" ref="198675918"/>
-						<reference key="artistMenuItem" ref="571050563"/>
-						<reference key="launchAtLoginController" ref="841779472"/>
-						<reference key="menu" ref="1002485447"/>
-						<reference key="nameMenuItem" ref="20352066"/>
-						<reference key="streamTitleMenuItem" ref="1068497797"/>
-						<reference key="timeMenuItem" ref="815383647"/>
-						<reference key="versionMenuItem" ref="870421119"/>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/CurrentsongAppDelegate.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">FirstResponder</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBUserSource</string>
-						<string key="minorKey"/>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">LaunchAtLoginController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">../Source/LaunchAtLoginController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">LaunchAtLoginController</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/LaunchAtLoginController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
-		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
-		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">NO</bool>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<real value="1070" key="NS.object.0"/>
-		</object>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
-			<integer value="4600" key="NS.object.0"/>
-		</object>
-		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NSMenuCheckmark">{11, 11}</string>
-			<string key="NSMenuMixedState">{10, 3}</string>
-		</dictionary>
-	</data>
-</archive>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment defaultVersion="1070" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="494" id="495"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <customObject id="494" customClass="CurrentsongAppDelegate">
+            <connections>
+                <outlet property="albumMenuItem" destination="536" id="603"/>
+                <outlet property="artistMenuItem" destination="535" id="604"/>
+                <outlet property="launchAtLoginController" destination="596" id="605"/>
+                <outlet property="mVersionMenuItem" destination="578" id="601"/>
+                <outlet property="menu" destination="533" id="602"/>
+                <outlet property="nameMenuItem" destination="534" id="606"/>
+                <outlet property="ratingMenuItem" destination="7OM-hs-a07" id="fBc-Fg-V4d"/>
+                <outlet property="streamTitleMenuItem" destination="563" id="607"/>
+                <outlet property="timeMenuItem" destination="537" id="608"/>
+                <outlet property="versionMenuItem" destination="578" id="609"/>
+            </connections>
+        </customObject>
+        <menu id="533">
+            <items>
+                <menuItem title="Title" enabled="NO" id="534">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Stream Title" enabled="NO" id="563">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Artist" enabled="NO" id="535">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Album" enabled="NO" id="536">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Time" enabled="NO" id="537">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="trackElapsedTime:" target="494" id="562"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Rating" enabled="NO" id="7OM-hs-a07" userLabel="Menu Item - Rating">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="538"/>
+                <menuItem title="Launch iTunes" id="599">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="launchITunes:" target="494" id="600"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Options" id="539">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" id="541">
+                        <items>
+                            <menuItem title="Display" enabled="NO" id="584">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Title Only" id="585">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setTitleOnly:" target="494" id="591"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Title and Artist" id="586">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setTitleAndArtist:" target="494" id="592"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Title, Artist, Album" id="587">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setTitleArtistAlbum:" target="494" id="593"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Title, Artist, Album, Rating" id="1oz-j9-MAe" userLabel="Menu Item - Title, Artist, Album, Rating">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setTitleArtistAlbumRating:" target="494" id="5DI-Cc-bnT"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Title and Artist (Stacked)" id="589">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setTitleAndArtistStacked:" target="494" id="594"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Title, Artist, Album (Stacked)" id="590">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setTitleArtistAlbumStacked:" target="494" id="595"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Title, Artist, Album, Rating (Stacked)" id="NPH-VS-GXu" userLabel="Menu Item - Title, Artist, Album, Rating (Stacked)">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setTitleArtistAlbumRatingStacked:" target="494" id="VnW-gw-E0g"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="548"/>
+                            <menuItem title="Maximum Width" enabled="NO" id="568">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Large" id="549">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setLargeViewWidth:" target="494" id="569"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Medium" id="550">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setMediumViewWidth:" target="494" id="570"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Small" id="551">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="setSmallViewWidth:" target="494" id="571"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="552"/>
+                            <menuItem title="Scroll Long Text" id="559">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleScrollLongText:" target="494" id="582"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Launch at Login" id="553">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleLaunchAtLogin:" target="494" id="598"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="577"/>
+                            <menuItem title="Currentsong 0.0" enabled="NO" id="578">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Matt Sarnoff · msarnoff.org" enabled="NO" id="579">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Quit Currentsong" id="540">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="stop:" target="-2" id="560"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <metadata/>
+        </menu>
+        <customObject id="596" customClass="LaunchAtLoginController"/>
+    </objects>
+</document>

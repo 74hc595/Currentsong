@@ -22,6 +22,7 @@
 - (NSDictionary *)fetchTrackInfo;
 - (void)updateMenuItemsWithTrackInfo:(NSDictionary *)trackInfo;
 - (void)updateMenuTrackTime;
+- (void)updateRatingDisplay;
 @end
 
 
@@ -76,6 +77,7 @@
       kCSPrefMaxWidth: [NSNumber numberWithDouble:kCSViewWidthLarge],
       kCSPrefShowArtist: @YES,
       kCSPrefShowAlbum: @NO,
+      kCSPrefShowRating: @NO,
       kCSPrefScrollLongText: @YES}];
     
     // Inject version number into menu
@@ -94,6 +96,7 @@
     _statusView.maxWidth        = [[NSUserDefaults standardUserDefaults] doubleForKey:kCSPrefMaxWidth];
     _statusView.showArtist      = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowArtist];
     _statusView.showAlbum       = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowAlbum];
+    _statusView.showRating       = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefShowRating];
     _statusView.shouldScroll    = [[NSUserDefaults standardUserDefaults] boolForKey:kCSPrefScrollLongText];
         
     // Get initial track info
@@ -190,6 +193,7 @@
     NSString *artist = currentTrack.artist;
     NSString *name = currentTrack.name;
     NSString *album = currentTrack.album;
+    NSInteger rating = currentTrack.rating;
     NSString *streamTitle = iTunes.currentStreamTitle;
     
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
@@ -204,6 +208,9 @@
     }
     if (album) {
         [info setObject:album forKey:@"Album"];
+    }
+    if (rating) {
+        [info setObject:[NSNumber numberWithInteger:rating] forKey:@"Rating"];
     }
     if (streamTitle) {
         [info setObject:streamTitle forKey:@"Stream Title"];
@@ -244,6 +251,7 @@
 {
     if ([menuItem action] == @selector(trackElapsedTime:)) {
         [self updateMenuTrackTime];
+        [self updateRatingDisplay];
         return NO;
     } else if ([menuItem action] == @selector(toggleShowArtist:)) {
         [menuItem setState:_statusView.showArtist];
@@ -260,15 +268,19 @@
     } else if ([menuItem action] == @selector(setSmallViewWidth:)) {
         [menuItem setState:(_statusView.maxWidth == kCSViewWidthSmall)];
     } else if ([menuItem action] == @selector(setTitleOnly:)) {
-        [menuItem setState:(!_statusView.showArtist && !_statusView.showAlbum && !(_statusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(!_statusView.showArtist && !_statusView.showAlbum && !_statusView.showRating && !(_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(setTitleAndArtist:)) {
-        [menuItem setState:(_statusView.showArtist && !_statusView.showAlbum && !(_statusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(_statusView.showArtist && !_statusView.showAlbum && !_statusView.showRating && !(_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(setTitleArtistAlbum:)) {
-        [menuItem setState:(_statusView.showArtist && _statusView.showAlbum && !(_statusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(_statusView.showArtist && _statusView.showAlbum && !_statusView.showRating && !(_statusView.viewStyle == kCSStyleTwoLevel))];
+    } else if ([menuItem action] == @selector(setTitleArtistAlbumRating:)) {
+        [menuItem setState:(_statusView.showArtist && _statusView.showAlbum && _statusView.showRating && !(_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(setTitleAndArtistStacked:)) {
-        [menuItem setState:(_statusView.showArtist && !_statusView.showAlbum && (_statusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(_statusView.showArtist && !_statusView.showAlbum && !_statusView.showRating && (_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(setTitleArtistAlbumStacked:)) {
-        [menuItem setState:(_statusView.showArtist && _statusView.showAlbum && (_statusView.viewStyle == kCSStyleTwoLevel))];
+        [menuItem setState:(_statusView.showArtist && _statusView.showAlbum && !_statusView.showRating && (_statusView.viewStyle == kCSStyleTwoLevel))];
+    } else if ([menuItem action] == @selector(setTitleArtistAlbumRatingStacked:)) {
+        [menuItem setState:(_statusView.showArtist && _statusView.showAlbum && _statusView.showRating && (_statusView.viewStyle == kCSStyleTwoLevel))];
     } else if ([menuItem action] == @selector(toggleLaunchAtLogin:)) {
         [menuItem setState:[_launchAtLoginController launchAtLogin]];
     } else if ([menuItem action] == @selector(launchITunes:)) {
@@ -285,6 +297,32 @@
     NSString *album = [trackInfo objectForKey:@"Album"];
     NSString *streamTitle = [trackInfo objectForKey:@"Stream Title"];
     
+    NSNumber *ratingPercent = [trackInfo objectForKey:@"Rating"];
+    NSString *rating = nil;
+    if ([ratingPercent intValue] == 100) {
+        rating = @"★★★★★";
+    } else if ([ratingPercent intValue] == 90) {
+        rating = @"★★★★½";
+    } else if ([ratingPercent intValue] == 80) {
+        rating = @"★★★★☆";
+    } else if ([ratingPercent intValue] == 70) {
+        rating = @"★★★½☆";
+    } else if ([ratingPercent intValue] == 60) {
+        rating = @"★★★☆☆";
+    } else if ([ratingPercent intValue] == 50) {
+        rating = @"★★½☆☆";
+    } else if ([ratingPercent intValue] == 40) {
+        rating = @"★★☆☆☆";
+    } else if ([ratingPercent intValue] == 30) {
+        rating = @"★½☆☆☆";
+    } else if ([ratingPercent intValue] == 20) {
+        rating = @"★☆☆☆☆";
+    } else if ([ratingPercent intValue] == 10) {
+        rating = @"½☆☆☆☆";
+    } else {
+        rating = @"☆☆☆☆☆";
+    }
+
     if ([name length] > 0) {
         [_nameMenuItem setHidden:NO];
         [_nameMenuItem setTitle:name];
@@ -312,6 +350,13 @@
     } else {
         [_streamTitleMenuItem setHidden:YES];
     }
+    
+    if ([rating length] > 0) {
+        [_ratingMenuItem setHidden:NO];
+        [_ratingMenuItem setTitle:rating];
+    } else {
+        [_ratingMenuItem setHidden:YES];
+    }
 }
 
 - (void)updateMenuTrackTime
@@ -320,6 +365,15 @@
     NSString *elapsedTimeString = [[self class] timeStringFromTrackInfo:info];
     if (elapsedTimeString) {
         [_timeMenuItem setTitle:elapsedTimeString];
+    }
+}
+
+- (void)updateRatingDisplay
+{
+    NSDictionary *info = [self fetchTrackInfo];
+    NSString *playerState = [info objectForKey:@"Player State"];
+    if (!playerState || [playerState isEqualToString:@"Stopped"]) {
+        [_ratingMenuItem setHidden:YES];
     }
 }
 
@@ -389,36 +443,49 @@
 {
     [[NSUserDefaults standardUserDefaults] setBool:_statusView.showArtist forKey:kCSPrefShowArtist];
     [[NSUserDefaults standardUserDefaults] setBool:_statusView.showAlbum forKey:kCSPrefShowAlbum];
+    [[NSUserDefaults standardUserDefaults] setBool:_statusView.showRating forKey:kCSPrefShowRating];
     [[NSUserDefaults standardUserDefaults] setInteger:_statusView.viewStyle forKey:kCSPrefViewStyle];
 }
 
 - (IBAction)setTitleOnly:(id)sender
 {
-    [_statusView setShowArtist:NO showAlbum:NO viewStyle:kCSStyleFormatted];
+    [_statusView setShowArtist:NO showAlbum:NO showRating:NO viewStyle:kCSStyleFormatted];
     [self writeDisplayPreference];
 }
 
 - (IBAction)setTitleAndArtist:(id)sender
 {
-    [_statusView setShowArtist:YES showAlbum:NO viewStyle:kCSStyleFormatted];
+    [_statusView setShowArtist:YES showAlbum:NO showRating:NO viewStyle:kCSStyleFormatted];
     [self writeDisplayPreference];
 }
 
 - (IBAction)setTitleArtistAlbum:(id)sender
 {
-    [_statusView setShowArtist:YES showAlbum:YES viewStyle:kCSStyleFormatted];
+    [_statusView setShowArtist:YES showAlbum:YES showRating:NO viewStyle:kCSStyleFormatted];
+    [self writeDisplayPreference];
+}
+
+- (IBAction)setTitleArtistAlbumRating:(id)sender
+{
+    [_statusView setShowArtist:YES showAlbum:YES showRating:YES viewStyle:kCSStyleFormatted];
     [self writeDisplayPreference];
 }
 
 - (IBAction)setTitleAndArtistStacked:(id)sender
 {
-    [_statusView setShowArtist:YES showAlbum:NO viewStyle:kCSStyleTwoLevel];
+    [_statusView setShowArtist:YES showAlbum:NO showRating:NO viewStyle:kCSStyleTwoLevel];
     [self writeDisplayPreference];
 }
 
 - (IBAction)setTitleArtistAlbumStacked:(id)sender;
 {
-    [_statusView setShowArtist:YES showAlbum:YES viewStyle:kCSStyleTwoLevel];
+    [_statusView setShowArtist:YES showAlbum:YES showRating:NO viewStyle:kCSStyleTwoLevel];
+    [self writeDisplayPreference];
+}
+
+- (IBAction)setTitleArtistAlbumRatingStacked:(id)sender;
+{
+    [_statusView setShowArtist:YES showAlbum:YES showRating:YES viewStyle:kCSStyleTwoLevel];
     [self writeDisplayPreference];
 }
 

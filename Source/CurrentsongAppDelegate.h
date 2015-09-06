@@ -18,6 +18,7 @@
 @property (weak) IBOutlet NSMenuItem *artistMenuItem;
 @property (weak) IBOutlet NSMenuItem *albumMenuItem;
 @property (weak) IBOutlet NSMenuItem *streamTitleMenuItem;
+@property (weak) IBOutlet NSMenuItem *ratingMenuItem;
 @property (weak) IBOutlet NSMenuItem *timeMenuItem;
 @property (weak) IBOutlet NSMenuItem *versionMenuItem;
 @property (weak) IBOutlet LaunchAtLoginController *launchAtLoginController;
@@ -30,8 +31,10 @@
 - (IBAction)setTitleOnly:(id)sender;
 - (IBAction)setTitleAndArtist:(id)sender;
 - (IBAction)setTitleArtistAlbum:(id)sender;
+- (IBAction)setTitleArtistAlbumRating:(id)sender;
 - (IBAction)setTitleAndArtistStacked:(id)sender;
 - (IBAction)setTitleArtistAlbumStacked:(id)sender;
+- (IBAction)setTitleArtistAlbumRatingStacked:(id)sender;
 
 - (IBAction)setLargeViewWidth:(id)sender;
 - (IBAction)setMediumViewWidth:(id)sender;

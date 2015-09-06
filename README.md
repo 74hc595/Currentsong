@@ -13,7 +13,7 @@ Click on the menu item to show full track info and change options:
 
 ![](https://github.com/74hc595/Currentsong/raw/master/Screenshots/screenshot3.png)
 
-I think you get the idea. [Download the .app here.](https://github.com/74hc595/Currentsong/raw/master/Binaries/Currentsong.zip)
+I think you get the idea. [Download the .app here.](https://github.com/narze/Currentsong/raw/master/Binaries/Currentsong-1.2.zip)
 
 About
 -----

@@ -23,11 +23,13 @@
 @property (nonatomic,strong) NSString *artist;
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *album;
+@property (nonatomic,strong) NSString *rating;
 @property (nonatomic,strong) NSAttributedString *topRow;
 @property (nonatomic,strong) NSAttributedString *bottomRow;
 @property (nonatomic, getter=isScrolling, readonly) BOOL scrolling;
 - (void)startScrolling;
 - (void)stopScrolling;
+- (BOOL)isDarkMode;
 @end
 
 #pragma mark -
@@ -73,7 +75,7 @@
 - (void)drawPauseIcon
 {
     NSPoint iconOrigin = NSMakePoint(5,7);
-    [((_highlighted) ? [NSColor whiteColor] : [NSColor blackColor]) set];
+    [((_highlighted|[self isDarkMode]) ? [NSColor whiteColor] : [NSColor blackColor]) set];
     NSRect rect = NSMakeRect(iconOrigin.x,iconOrigin.y,3,9);
     [NSBezierPath fillRect:rect];
     rect.origin.x += 5;
@@ -230,31 +232,36 @@
     BOOL haveArtist = _showArtist && ([_artist length] > 0);
     BOOL haveName = ([_name length] > 0);
     BOOL haveAlbum = _showAlbum && ([_album length] > 0);
+    BOOL haveRating = _showRating && ([_rating length] > 0);
+    BOOL darkMode = [self isDarkMode];
     
     self.bottomRow = nil;
     
     // No track name, not plaing
     if (!haveName) {
         _showPauseIcon = NO;
-        self.topRow = [NSAttributedString menuBarAttributedString:@"\u266B" attributes:_highlighted];
+        self.topRow = [NSAttributedString menuBarAttributedString:@"\u266B" attributes:_highlighted|darkMode];
     } else {    
         if (_viewStyle == kCSStyleFormatted) {
             NSMutableAttributedString *topRowFormatted = [[NSMutableAttributedString alloc] init];
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
             if (haveName)   {
-                [fields addObject:[NSAttributedString menuBarAttributedString:_name attributes:_highlighted|kCSBold]];
+                [fields addObject:[NSAttributedString menuBarAttributedString:_name attributes:_highlighted|darkMode|kCSBold]];
             }
             if (haveArtist) {
-                [fields addObject:[NSAttributedString menuBarAttributedString:_artist attributes:_highlighted]];
+                [fields addObject:[NSAttributedString menuBarAttributedString:_artist attributes:_highlighted|darkMode]];
             }
             if (haveAlbum) {
-                [fields addObject:[NSAttributedString menuBarAttributedString:_album attributes:_highlighted|kCSLight]];
+                [fields addObject:[NSAttributedString menuBarAttributedString:_album attributes:_highlighted|darkMode|kCSLight]];
+            }
+            if (haveRating) {
+                [fields addObject:[NSAttributedString menuBarAttributedString:_rating attributes:_highlighted|darkMode|kCSLight]];
             }
         
             BOOL first = YES;
             for (NSAttributedString *astr in fields) {
                 if (!first) {
-                    [topRowFormatted appendAttributedString:[NSAttributedString menuBarAttributedString:@"  " attributes:_highlighted]];
+                    [topRowFormatted appendAttributedString:[NSAttributedString menuBarAttributedString:@"  " attributes:_highlighted|darkMode]];
                 }
                 [topRowFormatted appendAttributedString:astr];
                 first = NO;
@@ -263,7 +270,7 @@
             self.topRow = topRowFormatted;
             
         } else if (_viewStyle == kCSStyleTwoLevel) {
-            self.topRow = [NSAttributedString menuBarAttributedString:_name attributes:_highlighted|kCSBold|kCSSmall];
+            self.topRow = [NSAttributedString menuBarAttributedString:_name attributes:_highlighted|darkMode|kCSBold|kCSSmall];
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:2];
             if (haveArtist) {
                 [fields addObject:_artist];
@@ -271,8 +278,11 @@
             if (haveAlbum) {
                 [fields addObject:_album];
             }
+            if (haveRating) {
+                [fields addObject:_rating];
+            }
             self.bottomRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
-                                                              attributes:_highlighted|kCSSmall];            
+                                                              attributes:_highlighted|darkMode|kCSSmall];
         } else {
             NSMutableArray *fields = [NSMutableArray arrayWithCapacity:3];
             if (haveName) {
@@ -284,8 +294,11 @@
             if (haveAlbum) {
                 [fields addObject:_album];
             }
+            if (haveRating) {
+                [fields addObject:_rating];
+            }
             self.topRow = [NSAttributedString menuBarAttributedString:[fields componentsJoinedByString:@" \u2014 "]
-                                                           attributes:_highlighted];
+                                                           attributes:_highlighted|darkMode];
         }
     }
     
@@ -300,6 +313,32 @@
     NSString *streamTitle = [trackInfo objectForKey:@"Stream Title"];   
     NSString *playerState = [trackInfo objectForKey:@"Player State"];
     _showPauseIcon = ([playerState isEqualToString:@"Stopped"] || [playerState isEqualToString:@"Paused"]);
+    
+    NSNumber *ratingPercent = [trackInfo objectForKey:@"Rating"];
+    NSString *rating = nil;
+    if ([ratingPercent intValue] == 100) {
+        rating = @"★★★★★";
+    } else if ([ratingPercent intValue] == 90) {
+        rating = @"★★★★½";
+    } else if ([ratingPercent intValue] == 80) {
+        rating = @"★★★★☆";
+    } else if ([ratingPercent intValue] == 70) {
+        rating = @"★★★½☆";
+    } else if ([ratingPercent intValue] == 60) {
+        rating = @"★★★☆☆";
+    } else if ([ratingPercent intValue] == 50) {
+        rating = @"★★½☆☆";
+    } else if ([ratingPercent intValue] == 40) {
+        rating = @"★★☆☆☆";
+    } else if ([ratingPercent intValue] == 30) {
+        rating = @"★½☆☆☆";
+    } else if ([ratingPercent intValue] == 20) {
+        rating = @"★☆☆☆☆";
+    } else if ([ratingPercent intValue] == 10) {
+        rating = @"½☆☆☆☆";
+    } else {
+        rating = @"☆☆☆☆☆";
+    }
     
     // Streaming?
     if (streamTitle) {
@@ -321,6 +360,7 @@
     self.artist = artist;
     self.name = name;
     self.album = album;
+    self.rating = rating;
     
     [self updateAppearance];
 }
@@ -415,10 +455,20 @@
     [self updateAppearance];
 }
 
-- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum viewStyle:(CurrentsongViewStyle)viewStyle
+- (void)setShowRating:(BOOL)showRating
+{
+    _showRating = showRating;
+    _topRowScrollOffset = kCSViewScrollStartOffset;
+    _bottomRowScrollOffset = kCSViewScrollStartOffset;
+    [self updateAppearance];
+
+}
+
+- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum showRating:(BOOL)showRating viewStyle:(CurrentsongViewStyle)viewStyle
 {
     _showArtist = showArtist;
     _showAlbum = showAlbum;
+    _showRating = showRating;
     _viewStyle = viewStyle;
     _topRowScrollOffset = kCSViewScrollStartOffset;
     _bottomRowScrollOffset = kCSViewScrollStartOffset;
@@ -448,6 +498,14 @@
 - (void)rightMouseDown:(NSEvent *)event
 {
     [self mouseDown:event];
+}
+
+#pragma marke DarkMode (Yosemite)
+- (BOOL)isDarkMode
+{
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:NSGlobalDomain];
+    id style = [dict objectForKey:@"AppleInterfaceStyle"];
+    return ( style && [style isKindOfClass:[NSString class]] && NSOrderedSame == [style caseInsensitiveCompare:@"dark"] );
 }
 
 @end

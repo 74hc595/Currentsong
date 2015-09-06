@@ -24,9 +24,10 @@ typedef NS_ENUM(NSInteger, CurrentsongViewStyle)
 @property (nonatomic,assign) CGFloat maxWidth;
 @property (nonatomic,assign) BOOL showArtist;
 @property (nonatomic,assign) BOOL showAlbum;
+@property (nonatomic,assign) BOOL showRating;
 @property (nonatomic,assign) BOOL shouldScroll;
 
-- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum viewStyle:(CurrentsongViewStyle)viewStyle;
+- (void)setShowArtist:(BOOL)showArtist showAlbum:(BOOL)showAlbum showRating:(BOOL)showRating viewStyle:(CurrentsongViewStyle)viewStyle;
 
 // Update track info from dictionary provided by iTunes distributed notification
 - (void)updateTrackInfo:(NSDictionary *)trackInfo;
